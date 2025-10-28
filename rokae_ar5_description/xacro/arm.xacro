@@ -1,0 +1,225 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+	<xacro:property name="PI" value="3.1415926535897931"/>
+
+	<xacro:macro name="Arm" params="name direction:=1 collider:=convex">
+		<xacro:property name="prefix" value="${name + '_' if name else ''}"/>
+
+		<!-- Arm Base Link -->
+		<link name="${prefix}base_link">
+			<inertial>
+				<mass value="2.4"/>
+				<inertia ixx="0.00397965" ixy="0.00000303" ixz="0.00000035" iyy="0.00315361" iyz="0.00002442" izz="0.00357979"/>
+				<origin xyz="2.6805e-05 0.0011749210000000002 0.171179958"/>
+			</inertial>
+			<visual>
+				<geometry>
+					<mesh filename="file://$(find rokae_ar5_description)/meshes/base.obj" scale="1 ${direction} 1"/>
+				</geometry>
+			</visual>
+			<collision>
+				<geometry>
+					<mesh filename="file://$(find rokae_ar5_description)/meshes/base.obj" scale="1 ${direction} 1"/>
+				</geometry>
+			</collision>
+		</link>
+
+		<!-- Joint 1 -->
+		<joint name="${prefix}joint1" type="revolute">
+			<parent link="${prefix}base_link"/>
+			<child link="${prefix}link1"/>
+			<limit effort="108" lower="-3.1414" upper="3.1414" velocity="3.9269908169872414"/>
+			<axis xyz="0 0 1"/>
+			<origin xyz="0.0 0.0 0.1745" rpy="0 0 ${direction*1.5708}"/>
+		</joint>
+
+		<!-- Arm Link 1 -->
+		<link name="${prefix}link1">
+			<inertial>
+				<mass value="2.4"/>
+				<inertia ixx="0.00397965" ixy="0.00000303" ixz="0.00000035" iyy="0.00315361" iyz="0.00002442" izz="0.00357979"/>
+				<origin xyz="2.6805e-05 0.0011749210000000002 0.171179958"/>
+			</inertial>
+			<visual>
+				<geometry>
+					<mesh filename="file://$(find rokae_ar5_description)/meshes/link1.obj" scale="1 ${direction} 1"/>
+				</geometry>
+			</visual>
+			<collision>
+				<geometry>
+					<mesh filename="file://$(find rokae_ar5_description)/meshes/link1.obj" scale="1 ${direction} 1"/>
+				</geometry>
+			</collision>
+		</link>
+
+		<!-- Joint 2 -->
+		<joint name="${prefix}joint2" type="revolute">
+			<parent link="${prefix}link1"/>
+			<child link="${prefix}link2"/>
+			<limit effort="108" lower="-2.1293" upper="2.1293" velocity="3.9269908169872414"/>
+			<axis xyz="0 -1 0"/>
+		</joint>
+
+		<!-- Arm Link 2 -->
+		<link name="${prefix}link2">
+			<inertial>
+				<mass value="2.26"/>
+				<inertia ixx="0.00998456" ixy="0.00000011" ixz="-0.00000049" iyy="0.00864243" iyz="0.00070944"
+								 izz="0.00397909"/>
+				<origin xyz="1.0382e-05 -0.003330598 0.100666568"/>
+			</inertial>
+			<visual>
+				<geometry>
+					<mesh filename="file://$(find rokae_ar5_description)/meshes/link2.obj" scale="1 ${direction} 1"/>
+				</geometry>
+			</visual>
+			<collision>
+				<geometry>
+					<mesh filename="file://$(find rokae_ar5_description)/meshes/link2.obj" scale="1 ${direction} 1"/>
+				</geometry>
+			</collision>
+		</link>
+
+		<!-- Joint 3 -->
+		<joint name="${prefix}joint3" type="revolute">
+			<parent link="${prefix}link2"/>
+			<child link="${prefix}link3"/>
+			<limit effort="66" lower="-3.1416" upper="3.1416" velocity="5.235987755982989"/>
+			<axis xyz="0 0 1"/>
+			<origin xyz="0.0 0.0 0.305" rpy="0 0 3.1415926535"/>
+		</joint>
+
+		<!-- Arm Link 3 -->
+		<link name="${prefix}link3">
+			<inertial>
+				<mass value="1.85"/>
+				<inertia ixx="0.00514901" ixy="0.00000705" ixz="0.00033523" iyy="0.00455840" iyz="0.00005313" izz="0.00249866"/>
+				<origin xyz="${direction*-0.007574792} 0.001848523 -0.017501298"/>
+			</inertial>
+			<visual>
+				<geometry>
+					<mesh filename="file://$(find rokae_ar5_description)/meshes/link3.obj" scale="1 ${direction} 1"/>
+				</geometry>
+			</visual>
+			<collision>
+				<geometry>
+					<mesh filename="file://$(find rokae_ar5_description)/meshes/link3.obj" scale="1 ${direction} 1"/>
+				</geometry>
+			</collision>
+		</link>
+
+		<!-- Joint 4 -->
+		<joint name="${prefix}joint4" type="revolute">
+			<parent link="${prefix}link3"/>
+			<child link="${prefix}link4"/>
+			<limit effort="66" lower="-1.3963" upper="2.5307" velocity="5.235987755982989"/>
+			<axis xyz="0 1 0"/>
+			<origin xyz="0.01 0.0 0.0"/>
+		</joint>
+
+		<!-- Arm Link 4 -->
+		<link name="${prefix}link4">
+			<inertial>
+				<mass value="1.19"/>
+				<inertia ixx="0.00358515" ixy="-0.00005009" ixz="-0.00016645" iyy="0.00288820" iyz="0.00041392"
+								 izz="0.00173347"/>
+				<origin xyz="${direction*0.007943048} -0.005043471 0.070013368"/>
+			</inertial>
+			<visual>
+				<geometry>
+					<mesh filename="file://$(find rokae_ar5_description)/meshes/link4.obj" scale="1 ${direction} 1"/>
+				</geometry>
+			</visual>
+			<collision>
+				<geometry>
+					<mesh filename="file://$(find rokae_ar5_description)/meshes/link4.obj" scale="1 ${direction} 1"/>
+				</geometry>
+			</collision>
+		</link>
+
+		<!-- Joint 5 -->
+		<joint name="${prefix}joint5" type="revolute">
+			<parent link="${prefix}link4"/>
+			<child link="${prefix}link5"/>
+			<limit effort="19" lower="-3.1416" upper="3.1416" velocity="4.1887902047863905"/>
+			<axis xyz="0 0 1"/>
+			<origin xyz="-0.01 0.0 0.179"/>
+		</joint>
+
+		<!-- Arm Link 5 -->
+		<link name="${prefix}link5">
+			<inertial>
+				<mass value="0.95"/>
+				<inertia ixx="0.00094370" ixy="0.00000057" ixz="0.00000060" iyy="0.00071483" iyz="0.00000919" izz="0.00086730"/>
+				<origin xyz="1.2128e-05 0.001731178 -0.0026525620000000002"/>
+			</inertial>
+			<visual>
+				<geometry>
+					<mesh filename="file://$(find rokae_ar5_description)/meshes/link5.obj" scale="1 ${direction} 1"/>
+				</geometry>
+			</visual>
+			<collision>
+				<geometry>
+					<mesh filename="file://$(find rokae_ar5_description)/meshes/link5.obj" scale="1 ${direction} 1"/>
+				</geometry>
+			</collision>
+		</link>
+
+		<!-- Joint 6 -->
+		<joint name="${prefix}joint6" type="revolute">
+			<parent link="${prefix}link5"/>
+			<child link="${prefix}link6"/>
+			<limit effort="19" lower="-1.9722" upper="1.9722" velocity="4.1887902047863905"/>
+			<axis xyz="0 1 0"/>
+		</joint>
+
+		<!-- Arm Link 6 -->
+		<link name="${prefix}link6">
+			<inertial>
+				<mass value="1.06"/>
+				<inertia ixx="0.00230759" ixy="-0.00000067" ixz="0.00000072" iyy="0.00195677" iyz="0.00018711"
+								 izz="0.00103394"/>
+				<origin xyz="-5.3371e-05 -0.0023381310000000002 0.07615395800000001"/>
+			</inertial>
+			<visual>
+				<geometry>
+					<mesh filename="file://$(find rokae_ar5_description)/meshes/link6.obj" scale="1 ${direction} 1"/>
+				</geometry>
+			</visual>
+			<collision>
+				<geometry>
+					<mesh filename="file://$(find rokae_ar5_description)/meshes/link6.obj" scale="1 ${direction} 1"/>
+				</geometry>
+			</collision>
+		</link>
+
+		<!-- Joint 7 -->
+		<joint name="${prefix}joint7" type="revolute">
+			<parent link="${prefix}link6"/>
+			<child link="${prefix}link7"/>
+			<limit effort="19" lower="-3.1416" upper="3.1416" velocity="4.1887902047863905"/>
+			<axis xyz="0 0 1"/>
+			<origin xyz="0.0 0.0 0.166"/>
+		</joint>
+
+		<!-- Arm Link 7 -->
+		<link name="${prefix}link7">
+			<inertial>
+				<mass value="0.18"/>
+				<inertia ixx="0.00009976" ixy="0.00000139" ixz="0.00000025" iyy="0.00009671" iyz="0.00000036" izz="0.00014828"/>
+				<origin xyz="-0.000158025 3.6244e-05 -0.017928215"/>
+			</inertial>
+			<visual>
+				<geometry>
+					<mesh filename="file://$(find rokae_ar5_description)/meshes/link7.obj" scale="1 ${direction} 1"/>
+				</geometry>
+			</visual>
+			<collision>
+				<geometry>
+					<mesh filename="file://$(find rokae_ar5_description)/meshes/link7.obj" scale="1 ${direction} 1"/>
+				</geometry>
+			</collision>
+		</link>
+
+	</xacro:macro>
+</robot>
