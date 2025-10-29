@@ -28,7 +28,7 @@
     <child link="link1"/>
     <limit effort="108" lower="-3.1414" upper="3.1414" velocity="3.9269908169872414"/>
     <axis xyz="0 0 1"/>
-    <origin rpy="0 0 -1.5708" xyz="0.0 0.0 0.1745"/>
+    <origin rpy="0 0 -3.14159" xyz="0.0 0.0 0.1745"/>
   </joint>
   <!-- Arm Link 1 -->
   <link name="link1">

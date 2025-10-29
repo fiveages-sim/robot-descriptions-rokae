@@ -282,13 +282,13 @@ jointVelocityLimits
     ; velocity limits for the arm DOFs
     arm
     {
-      (0,0)  -1.57     ; arm_1 [rad/s]
-      (1,0)  -1.57	   ; arm_2 [rad/s]
-      (2,0)  -1.57	   ; arm_3 [rad/s]
-      (3,0)  -1.57	   ; arm_4 [rad/s]
-      (4,0)  -1.57	   ; arm_5 [rad/s]
-      (5,0)  -1.57	   ; arm_6 [rad/s]
-      (6,0)  -1.57	   ; arm_7 [rad/s]
+      (0,0)  -0.37     ; arm_1 [rad/s]
+      (1,0)  -0.37	   ; arm_2 [rad/s]
+      (2,0)  -0.37	   ; arm_3 [rad/s]
+      (3,0)  -0.37	   ; arm_4 [rad/s]
+      (4,0)  -0.37	   ; arm_5 [rad/s]
+      (5,0)  -0.37	   ; arm_6 [rad/s]
+      (6,0)  -0.37	   ; arm_7 [rad/s]
     }
   }
 
@@ -325,13 +325,13 @@ jointVelocityLimits
     ; velocity limits for the arm DOFs
     arm
     {
-      (0,0)  1.57      ; arm_1 [rad/s]
-      (1,0)  1.57	   ; arm_2 [rad/s]
-      (2,0)  1.57	   ; arm_3 [rad/s]
-      (3,0)  1.57	   ; arm_4 [rad/s]
-      (4,0)  1.57	   ; arm_5 [rad/s]
-      (5,0)  1.57	   ; arm_6 [rad/s]
-      (6,0)  1.57	   ; arm_7 [rad/s]
+      (0,0)  0.37      ; arm_1 [rad/s]
+      (1,0)  0.37	   ; arm_2 [rad/s]
+      (2,0)  0.37	   ; arm_3 [rad/s]
+      (3,0)  0.37	   ; arm_4 [rad/s]
+      (4,0)  0.37	   ; arm_5 [rad/s]
+      (5,0)  0.37	   ; arm_6 [rad/s]
+      (6,0)  0.37	   ; arm_7 [rad/s]
     }
   }
 }

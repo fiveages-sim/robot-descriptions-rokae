@@ -1,0 +1,144 @@
+[I|2025-10-29 17:48:42.476 78713] uid: a229b7c6-5c42 | Connect to 192.168.2.160 from 192.168.2.233
+[I|2025-10-29 17:48:42.518 78713] uid: a229b7c6-5c42 | setOperationMode end, switch to auto (0)
+[I|2025-10-29 17:48:42.860 78713] uid: a229b7c6-5c42 | setMotionControlMode end, mode: RtCommand (0)
+[I|2025-10-29 17:48:42.864 78713] uid: a229b7c6-5c42 | set rt local port to 1337
+[I|2025-10-29 17:48:42.865 78713] uid: a229b7c6-5c42 | set state data port to 1338
+[I|2025-10-29 17:48:43.107 78713] uid: a229b7c6-5c42 | startReceiveRobotState end, 1 ["dq_m", "q_m", "tau_m"] (0)
+[I|2025-10-29 17:48:43.310 78713] uid: a229b7c6-5c42 | setPowerState end, switch motor true (0)
+[I|2025-10-29 17:48:43.354 78777] uid: a229b7c6-5c42 | RtControlT startMove jointPosition
+[I|2025-10-29 17:48:43.354 78777] uid: a229b7c6-5c42 | exec startLoop true
+[I|2025-10-29 17:49:38.910 79022] uid: a229b7c6-5c42 | Connect to 192.168.2.160 from 192.168.2.233
+[I|2025-10-29 17:49:38.953 79022] uid: a229b7c6-5c42 | setOperationMode end, switch to auto (0)
+[I|2025-10-29 17:49:39.294 79022] uid: a229b7c6-5c42 | setMotionControlMode end, mode: RtCommand (0)
+[I|2025-10-29 17:49:39.298 79022] uid: a229b7c6-5c42 | set rt local port to 1337
+[I|2025-10-29 17:49:39.307 79022] uid: a229b7c6-5c42 | set state data port to 1338
+[I|2025-10-29 17:49:39.549 79022] uid: a229b7c6-5c42 | startReceiveRobotState end, 1 ["dq_m", "q_m", "tau_m"] (0)
+[I|2025-10-29 17:49:39.751 79022] uid: a229b7c6-5c42 | setPowerState end, switch motor true (0)
+[I|2025-10-29 17:49:39.796 79069] uid: a229b7c6-5c42 | RtControlT startMove jointPosition
+[I|2025-10-29 17:49:39.796 79069] uid: a229b7c6-5c42 | exec startLoop true
+[I|2025-10-29 17:50:03.871 79270] uid: a229b7c6-5c42 | Connect to 192.168.2.160 from 192.168.2.233
+[I|2025-10-29 17:50:03.913 79270] uid: a229b7c6-5c42 | setOperationMode end, switch to auto (0)
+[I|2025-10-29 17:50:04.254 79270] uid: a229b7c6-5c42 | setMotionControlMode end, mode: RtCommand (0)
+[I|2025-10-29 17:50:04.257 79270] uid: a229b7c6-5c42 | set rt local port to 1337
+[I|2025-10-29 17:50:04.259 79270] uid: a229b7c6-5c42 | set state data port to 1338
+[I|2025-10-29 17:50:04.502 79270] uid: a229b7c6-5c42 | startReceiveRobotState end, 1 ["dq_m", "q_m", "tau_m"] (0)
+[I|2025-10-29 17:50:04.704 79270] uid: a229b7c6-5c42 | setPowerState end, switch motor true (0)
+[I|2025-10-29 17:50:04.748 79333] uid: a229b7c6-5c42 | RtControlT startMove jointPosition
+[I|2025-10-29 17:50:04.748 79333] uid: a229b7c6-5c42 | exec startLoop true
+[I|2025-10-29 17:51:18.423 80001] uid: a229b7c6-5c42 | Connect to 192.168.2.160 from 192.168.2.233
+[I|2025-10-29 17:51:18.465 80001] uid: a229b7c6-5c42 | setOperationMode end, switch to auto (0)
+[I|2025-10-29 17:51:18.806 80001] uid: a229b7c6-5c42 | setMotionControlMode end, mode: RtCommand (0)
+[I|2025-10-29 17:51:18.807 80001] uid: a229b7c6-5c42 | set rt local port to 1337
+[I|2025-10-29 17:51:18.810 80001] uid: a229b7c6-5c42 | set state data port to 1338
+[I|2025-10-29 17:51:19.052 80001] uid: a229b7c6-5c42 | startReceiveRobotState end, 1 ["dq_m", "q_m", "tau_m"] (0)
+[I|2025-10-29 17:51:19.254 80001] uid: a229b7c6-5c42 | setPowerState end, switch motor true (0)
+[I|2025-10-29 17:51:19.299 80056] uid: a229b7c6-5c42 | RtControlT startMove jointPosition
+[I|2025-10-29 17:51:19.299 80056] uid: a229b7c6-5c42 | exec startLoop true
+[I|2025-10-29 17:52:26.643 80318] uid: a229b7c6-5c42 | Connect to 192.168.2.161 from 192.168.2.233
+[I|2025-10-29 17:52:26.686 80318] uid: a229b7c6-5c42 | setOperationMode end, switch to auto (0)
+[I|2025-10-29 17:52:27.027 80318] uid: a229b7c6-5c42 | setMotionControlMode end, mode: RtCommand (0)
+[I|2025-10-29 17:52:27.029 80318] uid: a229b7c6-5c42 | set rt local port to 1337
+[I|2025-10-29 17:52:27.031 80318] uid: a229b7c6-5c42 | set state data port to 1338
+[I|2025-10-29 17:52:27.273 80318] uid: a229b7c6-5c42 | startReceiveRobotState end, 1 ["dq_m", "q_m", "tau_m"] (0)
+[I|2025-10-29 17:52:27.475 80318] uid: a229b7c6-5c42 | setPowerState end, switch motor true (0)
+[I|2025-10-29 17:52:27.532 80384] uid: a229b7c6-5c42 | RtControlT startMove jointPosition
+[I|2025-10-29 17:52:27.532 80384] uid: a229b7c6-5c42 | exec startLoop true
+[I|2025-10-29 17:54:22.998 81195] uid: a229b7c6-5c42 | Connect to 192.168.2.161 from 192.168.2.233
+[I|2025-10-29 17:54:23.040 81195] uid: a229b7c6-5c42 | setOperationMode end, switch to auto (0)
+[I|2025-10-29 17:54:23.382 81195] uid: a229b7c6-5c42 | setMotionControlMode end, mode: RtCommand (0)
+[I|2025-10-29 17:54:23.385 81195] uid: a229b7c6-5c42 | set rt local port to 1337
+[I|2025-10-29 17:54:23.387 81195] uid: a229b7c6-5c42 | set state data port to 1338
+[I|2025-10-29 17:54:23.628 81195] uid: a229b7c6-5c42 | startReceiveRobotState end, 1 ["dq_m", "q_m", "tau_m"] (0)
+[I|2025-10-29 17:54:23.830 81195] uid: a229b7c6-5c42 | setPowerState end, switch motor true (0)
+[I|2025-10-29 17:54:23.875 81243] uid: a229b7c6-5c42 | RtControlT startMove jointPosition
+[I|2025-10-29 17:54:23.875 81243] uid: a229b7c6-5c42 | exec startLoop true
+[I|2025-10-29 17:55:32.740 81498] uid: a229b7c6-5c42 | Connect to 192.168.2.161 from 192.168.2.233
+[I|2025-10-29 17:55:32.783 81498] uid: a229b7c6-5c42 | setOperationMode end, switch to auto (0)
+[I|2025-10-29 17:55:33.124 81498] uid: a229b7c6-5c42 | setMotionControlMode end, mode: RtCommand (0)
+[I|2025-10-29 17:55:33.125 81498] uid: a229b7c6-5c42 | set rt local port to 1337
+[I|2025-10-29 17:55:33.128 81498] uid: a229b7c6-5c42 | set state data port to 1338
+[I|2025-10-29 17:55:33.371 81498] uid: a229b7c6-5c42 | startReceiveRobotState end, 1 ["dq_m", "q_m", "tau_m"] (0)
+[I|2025-10-29 17:55:33.573 81498] uid: a229b7c6-5c42 | setPowerState end, switch motor true (0)
+[I|2025-10-29 17:55:33.618 81560] uid: a229b7c6-5c42 | RtControlT startMove jointPosition
+[I|2025-10-29 17:55:33.618 81560] uid: a229b7c6-5c42 | exec startLoop true
+[I|2025-10-29 17:56:08.376 81701] uid: a229b7c6-5c42 | Connect to 192.168.2.160 from 192.168.2.233
+[I|2025-10-29 17:56:08.419 81701] uid: a229b7c6-5c42 | setOperationMode end, switch to auto (0)
+[I|2025-10-29 17:56:08.761 81701] uid: a229b7c6-5c42 | setMotionControlMode end, mode: RtCommand (0)
+[I|2025-10-29 17:56:08.763 81701] uid: a229b7c6-5c42 | set rt local port to 1337
+[I|2025-10-29 17:56:08.774 81701] uid: a229b7c6-5c42 | set state data port to 1338
+[I|2025-10-29 17:56:09.016 81701] uid: a229b7c6-5c42 | startReceiveRobotState end, 1 ["dq_m", "q_m", "tau_m"] (0)
+[I|2025-10-29 17:56:09.218 81701] uid: a229b7c6-5c42 | setPowerState end, switch motor true (0)
+[I|2025-10-29 17:56:09.263 81835] uid: a229b7c6-5c42 | RtControlT startMove jointPosition
+[I|2025-10-29 17:56:09.263 81835] uid: a229b7c6-5c42 | exec startLoop true
+[I|2025-10-29 17:57:26.271 82080] uid: a229b7c6-5c42 | Connect to 192.168.2.160 from 192.168.2.233
+[I|2025-10-29 17:57:26.314 82080] uid: a229b7c6-5c42 | setOperationMode end, switch to auto (0)
+[I|2025-10-29 17:57:26.656 82080] uid: a229b7c6-5c42 | setMotionControlMode end, mode: RtCommand (0)
+[I|2025-10-29 17:57:26.659 82080] uid: a229b7c6-5c42 | set rt local port to 1337
+[I|2025-10-29 17:57:26.660 82080] uid: a229b7c6-5c42 | set state data port to 1338
+[I|2025-10-29 17:57:26.902 82080] uid: a229b7c6-5c42 | startReceiveRobotState end, 1 ["dq_m", "q_m", "tau_m"] (0)
+[I|2025-10-29 17:57:27.104 82080] uid: a229b7c6-5c42 | setPowerState end, switch motor true (0)
+[I|2025-10-29 17:57:27.149 82129] uid: a229b7c6-5c42 | RtControlT startMove jointPosition
+[I|2025-10-29 17:57:27.149 82129] uid: a229b7c6-5c42 | exec startLoop true
+[I|2025-10-29 17:59:16.561 82434] uid: a229b7c6-5c42 | Connect to 192.168.2.161 from 192.168.2.233
+[I|2025-10-29 17:59:16.603 82434] uid: a229b7c6-5c42 | setOperationMode end, switch to auto (0)
+[I|2025-10-29 17:59:16.944 82434] uid: a229b7c6-5c42 | setMotionControlMode end, mode: RtCommand (0)
+[I|2025-10-29 17:59:16.945 82434] uid: a229b7c6-5c42 | set rt local port to 1337
+[I|2025-10-29 17:59:16.948 82434] uid: a229b7c6-5c42 | set state data port to 1338
+[I|2025-10-29 17:59:17.190 82434] uid: a229b7c6-5c42 | startReceiveRobotState end, 1 ["dq_m", "q_m", "tau_m"] (0)
+[I|2025-10-29 17:59:17.392 82434] uid: a229b7c6-5c42 | setPowerState end, switch motor true (0)
+[I|2025-10-29 17:59:17.440 82490] uid: a229b7c6-5c42 | RtControlT startMove jointPosition
+[I|2025-10-29 17:59:17.440 82490] uid: a229b7c6-5c42 | exec startLoop true
+[I|2025-10-29 18:00:08.313 82693] uid: a229b7c6-5c42 | Connect to 192.168.2.161 from 192.168.2.233
+[I|2025-10-29 18:00:08.355 82693] uid: a229b7c6-5c42 | setOperationMode end, switch to auto (0)
+[I|2025-10-29 18:00:08.696 82693] uid: a229b7c6-5c42 | setMotionControlMode end, mode: RtCommand (0)
+[I|2025-10-29 18:00:08.699 82693] uid: a229b7c6-5c42 | set rt local port to 1337
+[I|2025-10-29 18:00:08.701 82693] uid: a229b7c6-5c42 | set state data port to 1338
+[I|2025-10-29 18:00:08.944 82693] uid: a229b7c6-5c42 | startReceiveRobotState end, 1 ["dq_m", "q_m", "tau_m"] (0)
+[I|2025-10-29 18:00:09.146 82693] uid: a229b7c6-5c42 | setPowerState end, switch motor true (0)
+[I|2025-10-29 18:00:09.202 82759] uid: a229b7c6-5c42 | RtControlT startMove jointPosition
+[I|2025-10-29 18:00:09.202 82759] uid: a229b7c6-5c42 | exec startLoop true
+[I|2025-10-29 18:01:19.765 83165] uid: a229b7c6-5c42 | Connect to 192.168.2.161 from 192.168.2.233
+[I|2025-10-29 18:01:19.808 83165] uid: a229b7c6-5c42 | setOperationMode end, switch to auto (0)
+[I|2025-10-29 18:01:20.151 83165] uid: a229b7c6-5c42 | setMotionControlMode end, mode: RtCommand (0)
+[I|2025-10-29 18:01:20.154 83165] uid: a229b7c6-5c42 | set rt local port to 1337
+[I|2025-10-29 18:01:20.155 83165] uid: a229b7c6-5c42 | set state data port to 1338
+[I|2025-10-29 18:01:20.397 83165] uid: a229b7c6-5c42 | startReceiveRobotState end, 1 ["dq_m", "q_m", "tau_m"] (0)
+[I|2025-10-29 18:01:20.599 83165] uid: a229b7c6-5c42 | setPowerState end, switch motor true (0)
+[I|2025-10-29 18:01:20.653 83210] uid: a229b7c6-5c42 | RtControlT startMove jointPosition
+[I|2025-10-29 18:01:20.653 83210] uid: a229b7c6-5c42 | exec startLoop true
+[I|2025-10-29 18:02:04.708 83443] uid: a229b7c6-5c42 | Connect to 192.168.2.161 from 192.168.2.233
+[I|2025-10-29 18:02:04.750 83443] uid: a229b7c6-5c42 | setOperationMode end, switch to auto (0)
+[I|2025-10-29 18:02:05.092 83443] uid: a229b7c6-5c42 | setMotionControlMode end, mode: RtCommand (0)
+[I|2025-10-29 18:02:05.094 83443] uid: a229b7c6-5c42 | set rt local port to 1337
+[I|2025-10-29 18:02:05.096 83443] uid: a229b7c6-5c42 | set state data port to 1338
+[I|2025-10-29 18:02:05.338 83443] uid: a229b7c6-5c42 | startReceiveRobotState end, 1 ["dq_m", "q_m", "tau_m"] (0)
+[I|2025-10-29 18:02:05.541 83443] uid: a229b7c6-5c42 | setPowerState end, switch motor true (0)
+[I|2025-10-29 18:02:05.586 83498] uid: a229b7c6-5c42 | RtControlT startMove jointPosition
+[I|2025-10-29 18:02:05.586 83498] uid: a229b7c6-5c42 | exec startLoop true
+[I|2025-10-29 18:04:00.556 83746] uid: a229b7c6-5c42 | Connect to 192.168.2.160 from 192.168.2.233
+[I|2025-10-29 18:04:00.599 83746] uid: a229b7c6-5c42 | setOperationMode end, switch to auto (0)
+[I|2025-10-29 18:04:00.941 83746] uid: a229b7c6-5c42 | setMotionControlMode end, mode: RtCommand (0)
+[I|2025-10-29 18:04:00.942 83746] uid: a229b7c6-5c42 | set rt local port to 1337
+[I|2025-10-29 18:04:00.945 83746] uid: a229b7c6-5c42 | set state data port to 1338
+[I|2025-10-29 18:04:01.189 83746] uid: a229b7c6-5c42 | startReceiveRobotState end, 1 ["dq_m", "q_m", "tau_m"] (0)
+[I|2025-10-29 18:04:01.391 83746] uid: a229b7c6-5c42 | setPowerState end, switch motor true (0)
+[I|2025-10-29 18:04:01.437 83795] uid: a229b7c6-5c42 | RtControlT startMove jointPosition
+[I|2025-10-29 18:04:01.437 83795] uid: a229b7c6-5c42 | exec startLoop true
+[I|2025-10-29 18:04:16.042 83994] uid: a229b7c6-5c42 | Connect to 192.168.2.160 from 192.168.2.233
+[I|2025-10-29 18:04:16.086 83994] uid: a229b7c6-5c42 | setOperationMode end, switch to auto (0)
+[I|2025-10-29 18:04:16.428 83994] uid: a229b7c6-5c42 | setMotionControlMode end, mode: RtCommand (0)
+[I|2025-10-29 18:04:16.431 83994] uid: a229b7c6-5c42 | set rt local port to 1337
+[I|2025-10-29 18:04:16.433 83994] uid: a229b7c6-5c42 | set state data port to 1338
+[I|2025-10-29 18:04:16.674 83994] uid: a229b7c6-5c42 | startReceiveRobotState end, 1 ["dq_m", "q_m", "tau_m"] (0)
+[I|2025-10-29 18:04:16.877 83994] uid: a229b7c6-5c42 | setPowerState end, switch motor true (0)
+[I|2025-10-29 18:04:16.923 84056] uid: a229b7c6-5c42 | RtControlT startMove jointPosition
+[I|2025-10-29 18:04:16.923 84056] uid: a229b7c6-5c42 | exec startLoop true
+[I|2025-10-29 18:04:52.636 84253] uid: a229b7c6-5c42 | Connect to 192.168.2.160 from 192.168.2.233
+[I|2025-10-29 18:04:52.680 84253] uid: a229b7c6-5c42 | setOperationMode end, switch to auto (0)
+[I|2025-10-29 18:04:53.023 84253] uid: a229b7c6-5c42 | setMotionControlMode end, mode: RtCommand (0)
+[I|2025-10-29 18:04:53.024 84253] uid: a229b7c6-5c42 | set rt local port to 1337
+[I|2025-10-29 18:04:53.027 84253] uid: a229b7c6-5c42 | set state data port to 1338
+[I|2025-10-29 18:04:53.270 84253] uid: a229b7c6-5c42 | startReceiveRobotState end, 1 ["dq_m", "q_m", "tau_m"] (0)
+[I|2025-10-29 18:04:53.472 84253] uid: a229b7c6-5c42 | setPowerState end, switch motor true (0)
+[I|2025-10-29 18:04:53.516 84317] uid: a229b7c6-5c42 | RtControlT startMove jointPosition
+[I|2025-10-29 18:04:53.516 84317] uid: a229b7c6-5c42 | exec startLoop true

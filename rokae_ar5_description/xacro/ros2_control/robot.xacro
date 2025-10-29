@@ -30,7 +30,12 @@
       </xacro:if>
       <xacro:if value="${'$(arg ros2_control_hardware_type)' == 'real'}">
         <plugin>rokae_ros2_control/RokaeHardware</plugin>
-        <param name="arm_ip">192.168.2.160</param>
+        <xacro:if value="${'$(arg type)' == 'left'}">
+          <param name="arm_ip">192.168.2.160</param>
+        </xacro:if>
+        <xacro:if value="${'$(arg type)' == 'right'}">
+          <param name="arm_ip">192.168.2.161</param>
+        </xacro:if>
       </xacro:if>
     </hardware>
 
