@@ -36,6 +36,8 @@
         <xacro:if value="${'$(arg type)' == 'right'}">
           <param name="arm_ip">192.168.2.161</param>
         </xacro:if>
+        <param name="joint_impedance">200,200,200,200,100,100,100</param>
+        <param name="rt_network_tolerance">20</param>
       </xacro:if>
     </hardware>
 
