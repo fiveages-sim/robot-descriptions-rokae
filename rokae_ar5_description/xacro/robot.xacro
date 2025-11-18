@@ -15,14 +15,21 @@
 
   <xacro:if value="${'$(arg type)' == 'dual'}">
     <link name="base_link"/>
-    <joint name="left_arm_mount" type="fixed">
+    <link name="arm_base"/>
+
+    <joint name="arm_base_joint" type="fixed">
       <parent link="base_link"/>
+      <child link="arm_base"/>
+    </joint>
+
+    <joint name="left_arm_mount" type="fixed">
+      <parent link="arm_base"/>
       <child link="left_base_link"/>
       <origin xyz="0.0 0.12 0" rpy="-1.57 1.57 0"/>
     </joint>
 
     <joint name="right_arm_mount" type="fixed">
-      <parent link="base_link"/>
+      <parent link="arm_base"/>
       <child link="right_base_link"/>
       <origin xyz="0.0 -0.12 0" rpy="1.57 1.57 0"/>
     </joint>

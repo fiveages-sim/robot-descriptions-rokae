@@ -9,7 +9,7 @@ model_information {
   }
 
   ; base frame of the robot (from URDF)
-  baseFrame                       "base_link"
+  baseFrame                       "arm_base"
   ; end-effector frame of the robot (from URDF)
   eeFrame                         "left_link7"
   eeFrame1                        "right_link7"
