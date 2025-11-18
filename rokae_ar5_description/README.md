@@ -23,6 +23,11 @@ colcon build --packages-up-to rokae_ar5_description --symlink-install
     ros2 launch robot_common_launch manipulator.launch.py robot:=rokae_ar5 type:=right
     ```
   ![rokae_ar5](../.images/rokae_ar5_right.png)
+* Dual Arms
+    ```bash
+    source ~/ros2_ws/install/setup.bash
+    ros2 launch robot_common_launch manipulator.launch.py robot:=rokae_ar5 type:=dual
+    ```
 
 ## 3. OCS2 Demo
 
@@ -41,31 +46,38 @@ colcon build --packages-up-to rokae_ar5_description --symlink-install
 
 ### 3.2 OCS2 Arm Controller Demo
 
-* Mock Components
+#### 3.2.1 Mock Component
+
+* Left Arm
   ```bash
-  # Left Arm
   source ~/ros2_ws/install/setup.bash
   ros2 launch ocs2_arm_controller demo.launch.py robot:=rokae_ar5 
   ```
-    ```bash
-  # Right Arm
+* Right Arm
+  ```bash
   source ~/ros2_ws/install/setup.bash
   ros2 launch ocs2_arm_controller demo.launch.py robot:=rokae_ar5 type:=right
   ```
-
-* Gazebo
+* Dual Arm
   ```bash
-  # Left Arm
+  source ~/ros2_ws/install/setup.bash
+  ros2 launch ocs2_arm_controller demo.launch.py robot:=rokae_ar5 type:=dual
+  ```
+
+#### 3.2.2 Gazebo Simulation
+
+* Left Arm
+  ```bash
   source ~/ros2_ws/install/setup.bash
   ros2 launch ocs2_arm_controller demo.launch.py robot:=rokae_ar5 hardware:=gz
   ```
-    ```bash
-  # Right Arm
+* Right Arm
+  ```bash
   source ~/ros2_ws/install/setup.bash
   ros2 launch ocs2_arm_controller demo.launch.py robot:=rokae_ar5 hardware:=gz type:=right
   ```
 
-## 4. Real Robot Deploy
+#### 3.2.3 Real Robot Deploy
 
 * Single Left Arm
   ```bash
@@ -76,4 +88,9 @@ colcon build --packages-up-to rokae_ar5_description --symlink-install
   ```bash
   source ~/ros2_ws/install/setup.bash
   ros2 launch ocs2_arm_controller demo.launch.py robot:=rokae_ar5 hardware:=real type:=right
+  ```
+* Dual Arms
+  ```bash
+  source ~/ros2_ws/install/setup.bash
+  ros2 launch ocs2_arm_controller demo.launch.py robot:=rokae_ar5 hardware:=real type:=dual
   ```
