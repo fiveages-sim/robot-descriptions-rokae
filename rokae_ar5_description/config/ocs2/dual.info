@@ -163,16 +163,16 @@ inputCost
          (1,0)   0.51      ; left_joint2
          (2,0)   0.51      ; left_joint3
          (3,0)   0.51      ; left_joint4
-         (4,0)   0.51      ; left_joint5
-         (5,0)   0.51      ; left_joint6
-         (6,0)   0.51      ; left_joint7
+         (4,0)   0.31      ; left_joint5
+         (5,0)   0.31      ; left_joint6
+         (6,0)   0.31      ; left_joint7
          (7,0)   0.51      ; right_joint1
          (8,0)   0.51      ; right_joint2
          (9,0)   0.51      ; right_joint3
          (10,0)  0.51      ; right_joint4
-         (11,0)  0.51      ; right_joint5
-         (12,0)  0.51      ; right_joint6
-         (13,0)  0.51      ; right_joint7
+         (11,0)  0.31      ; right_joint5
+         (12,0)  0.31      ; right_joint6
+         (13,0)  0.31      ; right_joint7
     }
   }
 }
@@ -274,17 +274,17 @@ jointVelocityLimits
     ; velocity limits for the arm DOFs
     arm
     {
-        (0,0)  -0.5         ; left_joint1 [rad/s]
-        (1,0)  -0.5         ; left_joint2 [rad/s]
-        (2,0)  -0.5         ; left_joint3 [rad/s]
-        (3,0)  -0.5         ; left_joint4 [rad/s]
+        (0,0)  -0.3         ; left_joint1 [rad/s]
+        (1,0)  -0.3         ; left_joint2 [rad/s]
+        (2,0)  -0.3         ; left_joint3 [rad/s]
+        (3,0)  -0.3         ; left_joint4 [rad/s]
         (4,0)  -0.5         ; left_joint5 [rad/s]
         (5,0)  -0.5         ; left_joint6 [rad/s]
         (6,0)  -0.5         ; left_joint7 [rad/s]
-        (7,0)  -0.5         ; right_joint1 [rad/s]
-        (8,0)  -0.5         ; right_joint2 [rad/s]
-        (9,0)  -0.5         ; right_joint3 [rad/s]
-        (10,0) -0.5         ; right_joint4 [rad/s]
+        (7,0)  -0.3         ; right_joint1 [rad/s]
+        (8,0)  -0.3         ; right_joint2 [rad/s]
+        (9,0)  -0.3         ; right_joint3 [rad/s]
+        (10,0) -0.3         ; right_joint4 [rad/s]
         (11,0) -0.5         ; right_joint5 [rad/s]
         (12,0) -0.5         ; right_joint6 [rad/s]
         (13,0) -0.5         ; right_joint7 [rad/s]
@@ -324,17 +324,17 @@ jointVelocityLimits
     ; velocity limits for the arm DOFs
     arm
     {
-        (0,0)  0.5          ; left_joint1 [rad/s]
-        (1,0)  0.5          ; left_joint2 [rad/s]
-        (2,0)  0.5          ; left_joint3 [rad/s]
-        (3,0)  0.5          ; left_joint4 [rad/s]
+        (0,0)  0.3          ; left_joint1 [rad/s]
+        (1,0)  0.3          ; left_joint2 [rad/s]
+        (2,0)  0.3          ; left_joint3 [rad/s]
+        (3,0)  0.3          ; left_joint4 [rad/s]
         (4,0)  0.5          ; left_joint5 [rad/s]
         (5,0)  0.5          ; left_joint6 [rad/s]
         (6,0)  0.5          ; left_joint7 [rad/s]
-        (7,0)  0.5          ; right_joint1 [rad/s]
-        (8,0)  0.5          ; right_joint2 [rad/s]
-        (9,0)  0.5          ; right_joint3 [rad/s]
-        (10,0) 0.5          ; right_joint4 [rad/s]
+        (7,0)  0.3          ; right_joint1 [rad/s]
+        (8,0)  0.3          ; right_joint2 [rad/s]
+        (9,0)  0.3          ; right_joint3 [rad/s]
+        (10,0) 0.3          ; right_joint4 [rad/s]
         (11,0) 0.5          ; right_joint5 [rad/s]
         (12,0) 0.5          ; right_joint6 [rad/s]
         (13,0) 0.5          ; right_joint7 [rad/s]
