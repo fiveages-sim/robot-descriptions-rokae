@@ -9,8 +9,35 @@
   <xacro:if value="${'$(arg type)' == 'left'}">
     <xacro:Arm name="" collider="$(arg collider)"/>
   </xacro:if>
+
+  <xacro:if value="${'$(arg type)' == 'left_rg75'}">
+    <xacro:Arm name="" collider="$(arg collider)"/>
+
+    <xacro:include filename="$(find jodell_description)/xacro/RG75-300.xacro"/>
+    <xacro:RG75-300 name="" use_flange="true"/>
+
+    <joint name="gripper_base_joint" type="fixed">
+      <origin xyz="0 0 -0.0045" rpy="0 0 -1.5708"/>
+      <parent link="link7"/>
+      <child link="flange"/>
+    </joint>
+  </xacro:if>
+
   <xacro:if value="${'$(arg type)' == 'right'}">
     <xacro:Arm name="" collider="$(arg collider)" direction="-1"/>
+  </xacro:if>
+
+  <xacro:if value="${'$(arg type)' == 'right_rg75'}">
+    <xacro:Arm name="" collider="$(arg collider)" direction="-1"/>
+
+    <xacro:include filename="$(find jodell_description)/xacro/RG75-300.xacro"/>
+    <xacro:RG75-300 name="" use_flange="true"/>
+
+    <joint name="gripper_base_joint" type="fixed">
+      <origin xyz="0 0 -0.0045" rpy="0 0 1.5708"/>
+      <parent link="link7"/>
+      <child link="flange"/>
+    </joint>
   </xacro:if>
 
   <xacro:if value="${'$(arg type)' == 'dual'}">

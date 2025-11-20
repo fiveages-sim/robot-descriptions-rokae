@@ -172,15 +172,15 @@ inputCost
     ; input costs for the arm DOFs
     arm
     {
-      scaling 1e-3
+      scaling 1e-2
 
-      (0,0)  2.0  ; arm_1 velocity
-      (1,1)  2.0  ; arm_2 velocity
-      (2,2)  2.0  ; arm_3 velocity
-      (3,3)  2.0  ; arm_4 velocity
-      (4,4)  2.0  ; arm_5 velocity
-      (5,5)  2.0  ; arm_6 velocity
-      (6,6)  2.0  ; arm_7 velocity
+      (0,0)  1.0  ; arm_1 velocity
+      (1,1)  1.0  ; arm_2 velocity
+      (2,2)  1.0  ; arm_3 velocity
+      (3,3)  1.0  ; arm_4 velocity
+      (4,4)  1.0  ; arm_5 velocity
+      (5,5)  1.0  ; arm_6 velocity
+      (6,6)  1.0  ; arm_7 velocity
     }
   }
 }
@@ -282,13 +282,13 @@ jointVelocityLimits
     ; velocity limits for the arm DOFs
     arm
     {
-      (0,0)  -0.37     ; arm_1 [rad/s]
-      (1,0)  -0.37	   ; arm_2 [rad/s]
-      (2,0)  -0.37	   ; arm_3 [rad/s]
-      (3,0)  -0.37	   ; arm_4 [rad/s]
-      (4,0)  -0.37	   ; arm_5 [rad/s]
-      (5,0)  -0.37	   ; arm_6 [rad/s]
-      (6,0)  -0.37	   ; arm_7 [rad/s]
+      (0,0)  -0.17     ; arm_1 [rad/s]
+      (1,0)  -0.17	   ; arm_2 [rad/s]
+      (2,0)  -0.17	   ; arm_3 [rad/s]
+      (3,0)  -0.17	   ; arm_4 [rad/s]
+      (4,0)  -0.27	   ; arm_5 [rad/s]
+      (5,0)  -0.27	   ; arm_6 [rad/s]
+      (6,0)  -0.27	   ; arm_7 [rad/s]
     }
   }
 
@@ -325,13 +325,13 @@ jointVelocityLimits
     ; velocity limits for the arm DOFs
     arm
     {
-      (0,0)  0.37      ; arm_1 [rad/s]
-      (1,0)  0.37	   ; arm_2 [rad/s]
-      (2,0)  0.37	   ; arm_3 [rad/s]
-      (3,0)  0.37	   ; arm_4 [rad/s]
-      (4,0)  0.37	   ; arm_5 [rad/s]
-      (5,0)  0.37	   ; arm_6 [rad/s]
-      (6,0)  0.37	   ; arm_7 [rad/s]
+      (0,0)  0.17      ; arm_1 [rad/s]
+      (1,0)  0.17	   ; arm_2 [rad/s]
+      (2,0)  0.17	   ; arm_3 [rad/s]
+      (3,0)  0.17	   ; arm_4 [rad/s]
+      (4,0)  0.27	   ; arm_5 [rad/s]
+      (5,0)  0.27	   ; arm_6 [rad/s]
+      (6,0)  0.27	   ; arm_7 [rad/s]
     }
   }
 }
