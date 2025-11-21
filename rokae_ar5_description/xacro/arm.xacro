@@ -17,11 +17,21 @@
 					<mesh filename="file://$(find rokae_ar5_description)/meshes/base.obj" scale="1 ${direction} 1"/>
 				</geometry>
 			</visual>
-			<collision>
-				<geometry>
-					<mesh filename="file://$(find rokae_ar5_description)/meshes/base.obj" scale="1 ${direction} 1"/>
-				</geometry>
-			</collision>
+			<xacro:if value="${collider == 'convex'}">
+				<collision>
+					<geometry>
+						<mesh filename="file://$(find rokae_ar5_description)/meshes/base.obj" scale="1 ${direction} 1"/>
+					</geometry>
+				</collision>
+			</xacro:if>
+			<xacro:if value="${collider == 'simple'}">
+				<collision>
+					<origin xyz="0 0 0.05025"/>
+					<geometry>
+						<cylinder length="0.105" radius="0.045"/>
+					</geometry>
+				</collision>
+			</xacro:if>
 		</link>
 
 		<!-- Joint 1 -->
@@ -45,11 +55,21 @@
 					<mesh filename="file://$(find rokae_ar5_description)/meshes/link1.obj" scale="1 ${direction} 1"/>
 				</geometry>
 			</visual>
-			<collision>
-				<geometry>
-					<mesh filename="file://$(find rokae_ar5_description)/meshes/link1.obj" scale="1 ${direction} 1"/>
-				</geometry>
-			</collision>
+			<xacro:if value="${collider == 'convex'}">
+				<collision>
+					<geometry>
+						<mesh filename="file://$(find rokae_ar5_description)/meshes/link1.obj" scale="1 ${direction} 1"/>
+					</geometry>
+				</collision>
+			</xacro:if>
+			<xacro:if value="${collider == 'simple'}">
+				<collision>
+					<origin rpy="1.5708 0 0"/>
+					<geometry>
+						<cylinder length="0.1354" radius="0.0560"/>
+					</geometry>
+				</collision>
+			</xacro:if>
 		</link>
 
 		<!-- Joint 2 -->
@@ -73,11 +93,21 @@
 					<mesh filename="file://$(find rokae_ar5_description)/meshes/link2.obj" scale="1 ${direction} 1"/>
 				</geometry>
 			</visual>
-			<collision>
-				<geometry>
-					<mesh filename="file://$(find rokae_ar5_description)/meshes/link2.obj" scale="1 ${direction} 1"/>
-				</geometry>
-			</collision>
+			<xacro:if value="${collider == 'convex'}">
+				<collision>
+					<geometry>
+						<mesh filename="file://$(find rokae_ar5_description)/meshes/link2.obj" scale="1 ${direction} 1"/>
+					</geometry>
+				</collision>
+			</xacro:if>
+			<xacro:if value="${collider == 'simple'}">
+				<collision>
+					<origin xyz="0 0 0.10600"/>
+					<geometry>
+						<cylinder length="0.11413" radius="0.053"/>
+					</geometry>
+				</collision>
+			</xacro:if>
 		</link>
 
 		<!-- Joint 3 -->
@@ -101,11 +131,27 @@
 					<mesh filename="file://$(find rokae_ar5_description)/meshes/link3.obj" scale="1 ${direction} 1"/>
 				</geometry>
 			</visual>
-			<collision>
-				<geometry>
-					<mesh filename="file://$(find rokae_ar5_description)/meshes/link3.obj" scale="1 ${direction} 1"/>
-				</geometry>
-			</collision>
+			<xacro:if value="${collider == 'convex'}">
+				<collision>
+					<geometry>
+						<mesh filename="file://$(find rokae_ar5_description)/meshes/link3.obj" scale="1 ${direction} 1"/>
+					</geometry>
+				</collision>
+			</xacro:if>
+			<xacro:if value="${collider == 'simple'}">
+				<collision>
+					<origin xyz="0 0 -0.0863"/>
+					<geometry>
+						<cylinder length="0.096" radius="0.053"/>
+					</geometry>
+				</collision>
+				<collision>
+					<origin xyz="0.00946 0 0" rpy="1.5708 0 0"/>
+					<geometry>
+						<cylinder length="0.1284" radius="0.0484"/>
+					</geometry>
+				</collision>
+			</xacro:if>
 		</link>
 
 		<!-- Joint 4 -->
@@ -130,11 +176,21 @@
 					<mesh filename="file://$(find rokae_ar5_description)/meshes/link4.obj" scale="1 ${direction} 1"/>
 				</geometry>
 			</visual>
-			<collision>
-				<geometry>
-					<mesh filename="file://$(find rokae_ar5_description)/meshes/link4.obj" scale="1 ${direction} 1"/>
-				</geometry>
-			</collision>
+			<xacro:if value="${collider == 'convex'}">
+				<collision>
+					<geometry>
+						<mesh filename="file://$(find rokae_ar5_description)/meshes/link4.obj" scale="1 ${direction} 1"/>
+					</geometry>
+				</collision>
+			</xacro:if>
+			<xacro:if value="${collider == 'simple'}">
+				<collision>
+					<origin xyz="-0.01 0 0.10085"/>
+					<geometry>
+						<cylinder length="0.10" radius="0.03789"/>
+					</geometry>
+				</collision>
+			</xacro:if>
 		</link>
 
 		<!-- Joint 5 -->
@@ -158,11 +214,21 @@
 					<mesh filename="file://$(find rokae_ar5_description)/meshes/link5.obj" scale="1 ${direction} 1"/>
 				</geometry>
 			</visual>
-			<collision>
-				<geometry>
-					<mesh filename="file://$(find rokae_ar5_description)/meshes/link5.obj" scale="1 ${direction} 1"/>
-				</geometry>
-			</collision>
+			<xacro:if value="${collider == 'convex'}">
+				<collision>
+					<geometry>
+						<mesh filename="file://$(find rokae_ar5_description)/meshes/link5.obj" scale="1 ${direction} 1"/>
+					</geometry>
+				</collision>
+			</xacro:if>
+			<xacro:if value="${collider == 'simple'}">
+				<collision>
+					<origin rpy="1.5708 0 0"/>
+					<geometry>
+						<cylinder length="0.107" radius="0.0383"/>
+					</geometry>
+				</collision>
+			</xacro:if>
 		</link>
 
 		<!-- Joint 6 -->
@@ -186,11 +252,21 @@
 					<mesh filename="file://$(find rokae_ar5_description)/meshes/link6.obj" scale="1 ${direction} 1"/>
 				</geometry>
 			</visual>
-			<collision>
-				<geometry>
-					<mesh filename="file://$(find rokae_ar5_description)/meshes/link6.obj" scale="1 ${direction} 1"/>
-				</geometry>
-			</collision>
+			<xacro:if value="${collider == 'convex'}">
+				<collision>
+					<geometry>
+						<mesh filename="file://$(find rokae_ar5_description)/meshes/link6.obj" scale="1 ${direction} 1"/>
+					</geometry>
+				</collision>
+			</xacro:if>
+			<xacro:if value="${collider == 'simple'}">
+				<collision>
+					<origin xyz="0 0 0.10401"/>
+					<geometry>
+						<cylinder length="0.1238" radius="0.04"/>
+					</geometry>
+				</collision>
+			</xacro:if>
 		</link>
 
 		<!-- Joint 7 -->

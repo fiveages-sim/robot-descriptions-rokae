@@ -213,11 +213,38 @@ finalEndEffector
 }
 
 selfCollision
-{
+{ 
   ; activate self-collision constraint
-  activate  false
+  activate  true
 
-  ; TODO: Replace the collision meshes of the arm with primitive shapes.
+  collisionObjectPairs
+  {
+  }
+
+  collisionLinkPairs
+  {
+    [0] "arm_base, left_link3",
+    [1] "arm_base, left_link4",
+    [2] "arm_base, left_link5",
+    [3] "arm_base, right_link3",
+    [4] "arm_base, right_link4",
+    [5] "arm_base, right_link5",
+  }
+
+  ; minimum distance allowed between the pairs
+  ; 最小允许距离，单位：米
+  ; 参考 unitree G1: 0.01m，可以根据实际需求调整
+  minimumDistance  0.01
+
+  ; relaxed log barrier mu
+  ; 松弛对数障碍参数 mu
+  ; 参考 unitree G1: 1e-3
+  mu      1e-2
+
+  ; relaxed log barrier delta
+  ; 松弛对数障碍参数 delta
+  ; 参考 unitree G1: 1e-4
+  delta   1e-3
 }
 
 ; Only applied for arm joints: limits parsed from URDF

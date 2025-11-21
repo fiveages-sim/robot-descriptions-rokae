@@ -14,19 +14,19 @@ colcon build --packages-up-to rokae_ar5_description --symlink-install
 * Left Arm
     ```bash
     source ~/ros2_ws/install/setup.bash
-    ros2 launch robot_common_launch manipulator.launch.py robot:=rokae_ar5
+    ros2 launch robot_common_launch manipulator.launch.py robot:=rokae_ar5 collider:=simple
     ```
   ![rokae_ar5](../.images/rokae_ar5.png)
 * Right Arm
     ```bash
     source ~/ros2_ws/install/setup.bash
-    ros2 launch robot_common_launch manipulator.launch.py robot:=rokae_ar5 type:=right
+    ros2 launch robot_common_launch manipulator.launch.py robot:=rokae_ar5 type:=right  collider:=simple
     ```
   ![rokae_ar5](../.images/rokae_ar5_right.png)
 * Dual Arms
     ```bash
     source ~/ros2_ws/install/setup.bash
-    ros2 launch robot_common_launch manipulator.launch.py robot:=rokae_ar5 type:=dual
+    ros2 launch robot_common_launch manipulator.launch.py robot:=rokae_ar5 type:=dual collider:=simple
     ```
 
 ## 3. OCS2 Demo
