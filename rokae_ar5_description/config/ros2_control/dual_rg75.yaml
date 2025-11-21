@@ -1,0 +1,85 @@
+# This config file is used by ros2_control
+controller_manager:
+  ros__parameters:
+    update_rate: 100  # Hz
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    ocs2_arm_controller:
+      type: ocs2_arm_controller/Ocs2ArmController
+
+    # 左手夹爪控制器
+    left_hand_controller:
+      type: adaptive_gripper_controller/AdaptiveGripperController
+
+    # 右手夹爪控制器
+    right_hand_controller:
+      type: adaptive_gripper_controller/AdaptiveGripperController
+
+
+arm_controller:
+  ros__parameters:
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity
+    joints:
+      - joint1
+      - joint2
+      - joint3
+      - joint4
+      - joint5
+      - joint6
+
+ocs2_arm_controller:
+  ros__parameters:
+    # Joint configuration
+    update_rate: 100  # Hz
+    info_file_name: dual
+    joints:
+      - left_joint1
+      - left_joint2
+      - left_joint3
+      - left_joint4
+      - left_joint5
+      - left_joint6
+      - left_joint7
+      - right_joint1
+      - right_joint2
+      - right_joint3
+      - right_joint4
+      - right_joint5
+      - right_joint6
+      - right_joint7
+
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+
+    robot_name: rokae_ar5
+    robot_type: dual
+
+    # Future time offset for trajectory prediction (in seconds)
+    future_time_offset: 1.0
+    home_duration: 5.0
+
+    # Control parameters
+    home_pos: [ 0.15622096296502086, 1.3238529836625905, -1.4301957224137667, 1.0916780405656537, -0.28819400399453565, 0.4850972160345252, -0.019370582083524043,
+                -0.2524111457453749, 1.26093480422406, 1.4309639112302, 1.275244008708472, 0.27915478251742143, 0.41046785228139826, 0.003618996236919578 ]
+    rest_pos: [ 0.0, 1.5708, -1.5708, 0.4, -0.4, 0.4, 0.0,
+                0.0, 1.5708, 1.5708, 0.4, 0.4, 0.4, 0.0 ]
+
+# 左手夹爪控制器配置
+left_hand_controller:
+  ros__parameters:
+    joint: left_gripper_joint
+    use_effort_interface: false
+
+# 右手夹爪控制器配置
+right_hand_controller:
+  ros__parameters:
+    joint: right_gripper_joint
+    use_effort_interface: false

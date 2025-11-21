@@ -290,11 +290,6 @@
 					<mesh filename="file://$(find rokae_ar5_description)/meshes/link7.obj" scale="1 ${direction} 1"/>
 				</geometry>
 			</visual>
-			<collision>
-				<geometry>
-					<mesh filename="file://$(find rokae_ar5_description)/meshes/link7.obj" scale="1 ${direction} 1"/>
-				</geometry>
-			</collision>
 		</link>
 
 	</xacro:macro>

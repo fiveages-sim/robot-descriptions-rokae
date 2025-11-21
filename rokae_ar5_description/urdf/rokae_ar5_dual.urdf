@@ -443,10 +443,15 @@
         <mesh filename="package://rokae_ar5_description/meshes/link7.obj" scale="1 -1 1"/>
       </geometry>
     </visual>
-    <collision>
-      <geometry>
-        <mesh filename="package://rokae_ar5_description/meshes/link7.obj" scale="1 -1 1"/>
-      </geometry>
-    </collision>
   </link>
+  <link name="left_eef"/>
+  <joint name="left_eef_joint" type="fixed">
+    <parent link="left_link7"/>
+    <child link="left_eef"/>
+  </joint>
+  <link name="right_eef"/>
+  <joint name="right_eef_joint" type="fixed">
+    <parent link="right_link7"/>
+    <child link="right_eef"/>
+  </joint>
 </robot>
