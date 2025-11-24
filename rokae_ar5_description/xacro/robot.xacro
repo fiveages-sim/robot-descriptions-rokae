@@ -4,13 +4,14 @@
   <xacro:arg name="collider" default="convex"/>
   <xacro:arg name="type" default="left"/>
 
-  <xacro:include filename="$(find rokae_ar5_description)/xacro/arm.xacro"/>
-
+  <!-- SRS ARM Configurations -->
   <xacro:if value="${'$(arg type)' == 'left'}">
+    <xacro:include filename="$(find rokae_ar5_description)/xacro/arm_srs.xacro"/>
     <xacro:Arm name="" collider="$(arg collider)"/>
   </xacro:if>
 
   <xacro:if value="${'$(arg type)' == 'left_rg75'}">
+    <xacro:include filename="$(find rokae_ar5_description)/xacro/arm_srs.xacro"/>
     <xacro:Arm name="" collider="$(arg collider)"/>
 
     <xacro:include filename="$(find jodell_description)/xacro/RG75-300.xacro"/>
@@ -24,10 +25,12 @@
   </xacro:if>
 
   <xacro:if value="${'$(arg type)' == 'right'}">
+    <xacro:include filename="$(find rokae_ar5_description)/xacro/arm_srs.xacro"/>
     <xacro:Arm name="" collider="$(arg collider)" direction="-1"/>
   </xacro:if>
 
   <xacro:if value="${'$(arg type)' == 'right_rg75'}">
+    <xacro:include filename="$(find rokae_ar5_description)/xacro/arm_srs.xacro"/>
     <xacro:Arm name="" collider="$(arg collider)" direction="-1"/>
 
     <xacro:include filename="$(find jodell_description)/xacro/RG75-300.xacro"/>
@@ -41,6 +44,7 @@
   </xacro:if>
 
   <xacro:if value="${'$(arg type)' == 'dual' or '$(arg type)' == 'dual_rg75'}">
+    <xacro:include filename="$(find rokae_ar5_description)/xacro/arm_srs.xacro"/>
     <link name="base_link"/>
     <link name="arm_base">
       <collision>
@@ -85,6 +89,97 @@
       <joint name="right_gripper_base_joint" type="fixed">
         <origin xyz="0 0 -0.0045"/>
         <parent link="right_link7"/>
+        <child link="right_flange"/>
+      </joint>
+    </xacro:if>
+  </xacro:if>
+
+
+  <!-- CCS ARM Configurations -->
+  <xacro:if value="${'$(arg type)' == 'ccs_left'}">
+    <xacro:include filename="$(find rokae_ar5_description)/xacro/arm_ccs.xacro"/>
+    <xacro:Arm name="" collider="$(arg collider)" direction="1"/>
+  </xacro:if>
+
+  <xacro:if value="${'$(arg type)' == 'ccs_left_rg75'}">
+    <xacro:include filename="$(find rokae_ar5_description)/xacro/arm_ccs.xacro"/>
+    <xacro:Arm name="" collider="$(arg collider)"/>
+
+    <xacro:include filename="$(find jodell_description)/xacro/RG75-300.xacro"/>
+    <xacro:RG75-300 name="" use_flange="true"/>
+
+    <joint name="gripper_base_joint" type="fixed">
+      <origin xyz="0 0 -0.0045" rpy="0 0 -1.5708"/>
+      <parent link="tcp"/>
+      <child link="flange"/>
+    </joint>
+  </xacro:if>
+
+  <xacro:if value="${'$(arg type)' == 'ccs_right'}">
+    <xacro:include filename="$(find rokae_ar5_description)/xacro/arm_ccs.xacro"/>
+    <xacro:Arm name="" collider="$(arg collider)" direction="-1"/>
+  </xacro:if>
+
+  <xacro:if value="${'$(arg type)' == 'ccs_right_rg75'}">
+    <xacro:include filename="$(find rokae_ar5_description)/xacro/arm_ccs.xacro"/>
+    <xacro:Arm name="" collider="$(arg collider)" direction="-1"/>
+
+    <xacro:include filename="$(find jodell_description)/xacro/RG75-300.xacro"/>
+    <xacro:RG75-300 name="" use_flange="true"/>
+
+    <joint name="gripper_base_joint" type="fixed">
+      <origin xyz="0 0 -0.0045" rpy="0 0 1.5708"/>
+      <parent link="tcp"/>
+      <child link="flange"/>
+    </joint>
+  </xacro:if>
+
+  <xacro:if value="${'$(arg type)' == 'ccs_dual' or '$(arg type)' == 'ccs_dual_rg75'}">
+    <xacro:include filename="$(find rokae_ar5_description)/xacro/arm_ccs.xacro"/>
+    <link name="base_link"/>
+    <link name="arm_base">
+      <collision>
+        <origin xyz="0.0091 0 -0.086"/>
+        <geometry>
+          <box size="0.2509 0.35 0.5029"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="arm_base_joint" type="fixed">
+      <parent link="base_link"/>
+      <child link="arm_base"/>
+    </joint>
+
+    <joint name="left_arm_mount" type="fixed">
+      <parent link="arm_base"/>
+      <child link="left_base_link"/>
+      <origin xyz="0.0 0.12 0" rpy="-1.57 1.57 0"/>
+    </joint>
+
+    <joint name="right_arm_mount" type="fixed">
+      <parent link="arm_base"/>
+      <child link="right_base_link"/>
+      <origin xyz="0.0 -0.12 0" rpy="1.57 1.57 0"/>
+    </joint>
+
+    <xacro:Arm name="left" collider="$(arg collider)" direction="1"/>
+    <xacro:Arm name="right" collider="$(arg collider)" direction="-1"/>
+
+    <xacro:if value="${'$(arg type)' == 'ccs_dual_rg75'}">
+      <xacro:include filename="$(find jodell_description)/xacro/RG75-300.xacro"/>
+      <xacro:RG75-300 name="left" use_flange="true"/>
+      <xacro:RG75-300 name="right" use_flange="true"/>
+
+      <joint name="left_gripper_base_joint" type="fixed">
+        <origin xyz="0 0 -0.0045"/>
+        <parent link="left_tcp"/>
+        <child link="left_flange"/>
+      </joint>
+
+      <joint name="right_gripper_base_joint" type="fixed">
+        <origin xyz="0 0 -0.0045"/>
+        <parent link="right_tcp"/>
         <child link="right_flange"/>
       </joint>
     </xacro:if>
