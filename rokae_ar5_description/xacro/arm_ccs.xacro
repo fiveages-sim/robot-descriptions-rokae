@@ -130,11 +130,13 @@
 					<mesh filename="file://$(find rokae_ar5_description)/meshes/ccs/link3.obj" scale="1 ${direction} 1"/>
 				</geometry>
 			</visual>
-			<collision>
-				<geometry>
-					<mesh filename="file://$(find rokae_ar5_description)/meshes/ccs/link3.obj" scale="1 ${direction} 1"/>
-				</geometry>
-			</collision>
+			<xacro:if value="${collider == 'convex'}">
+				<collision>
+					<geometry>
+						<mesh filename="file://$(find rokae_ar5_description)/meshes/ccs/link3.obj" scale="1 ${direction} 1"/>
+					</geometry>
+				</collision>
+			</xacro:if>
 			<xacro:if value="${collider == 'simple'}">
 				<collision>
 					<origin xyz="0 0 -0.0863"/>

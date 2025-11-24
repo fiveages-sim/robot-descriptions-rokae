@@ -294,5 +294,13 @@
 			</visual>
 		</link>
 
+		<!-- TCP (Tool Center Point) - 统一夹爪连接点 -->
+		<link name="${prefix}tcp"/>
+
+		<joint name="${prefix}tcp_joint" type="fixed">
+			<parent link="${prefix}link7"/>
+			<child link="${prefix}tcp"/>
+		</joint>
+
 	</xacro:macro>
 </robot>

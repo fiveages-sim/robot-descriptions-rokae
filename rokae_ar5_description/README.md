@@ -12,6 +12,7 @@ colcon build --packages-up-to rokae_ar5_description --symlink-install
 ## 2. Visualize the robot
 
 ### 2.1 SRS Arm without end effector
+
 * Left Arm
     ```bash
     source ~/ros2_ws/install/setup.bash
@@ -29,8 +30,9 @@ colcon build --packages-up-to rokae_ar5_description --symlink-install
     source ~/ros2_ws/install/setup.bash
     ros2 launch robot_common_launch manipulator.launch.py robot:=rokae_ar5 type:=dual collider:=simple
     ```
-  
+
 ### 2.2 SRS Arm with end effector
+
 * Left Arm with Jodell RG75
     ```bash
     source ~/ros2_ws/install/setup.bash
@@ -43,6 +45,7 @@ colcon build --packages-up-to rokae_ar5_description --symlink-install
     ```
 
 ### 2.3 CCS Arm without end effector
+
 * Left Arm
     ```bash
     source ~/ros2_ws/install/setup.bash
@@ -57,10 +60,11 @@ colcon build --packages-up-to rokae_ar5_description --symlink-install
 * Dual Arms
     ```bash
     source ~/ros2_ws/install/setup.bash
-    ros2 launch robot_common_launch manipulator.launch.py robot:=rokae_ar5 type:=ccs_dual collider:=simple
+    ros2 launch robot_common_launch manipulator.launch.py robot:=rokae_ar5 type:=dual_ccs collider:=simple
     ```
 
 ### 2.4 CCS Arm with end effector
+
 * Left Arm
     ```bash
     source ~/ros2_ws/install/setup.bash
@@ -74,15 +78,15 @@ colcon build --packages-up-to rokae_ar5_description --symlink-install
 * Dual Arm with Jodell RG75
   ```bash
   source ~/ros2_ws/install/setup.bash
-  ros2 launch robot_common_launch manipulator.launch.py robot:=rokae_ar5 type:=ccs_dual_rg75 collider:=simple
+  ros2 launch robot_common_launch manipulator.launch.py robot:=rokae_ar5 type:=dual_ccs_rg75 collider:=simple
   ```
-
 
 ## 3. OCS2 Demo
 
 ### 3.1 Official OCS2 Mobile Manipulator Demo
 
 #### SRS Type
+
 * Left Arm
   ```bash
   source ~/ros2_ws/install/setup.bash
@@ -95,6 +99,7 @@ colcon build --packages-up-to rokae_ar5_description --symlink-install
   ```
 
 #### CCS Type
+
 * Left Arm
   ```bash
   source ~/ros2_ws/install/setup.bash
@@ -125,8 +130,14 @@ colcon build --packages-up-to rokae_ar5_description --symlink-install
   source ~/ros2_ws/install/setup.bash
   ros2 launch ocs2_arm_controller demo.launch.py robot:=rokae_ar5 type:=dual
   ```
+* Dual Arm with RG 75
+  ```bash
+  source ~/ros2_ws/install/setup.bash
+  ros2 launch ocs2_arm_controller demo.launch.py robot:=rokae_ar5 type:=dual_rg75
+  ```
 
 #### CCS Type
+
 * Left Arm
   ```bash
   source ~/ros2_ws/install/setup.bash
@@ -140,10 +151,15 @@ colcon build --packages-up-to rokae_ar5_description --symlink-install
 * Dual Arm
   ```bash
   source ~/ros2_ws/install/setup.bash
-  ros2 launch ocs2_arm_controller demo.launch.py robot:=rokae_ar5 type:=ccs_dual
+  ros2 launch ocs2_arm_controller demo.launch.py robot:=rokae_ar5 type:=dual_ccs
   ```
-  
-#### 3.2.2 Gazebo Simulation
+* Dual Arm with RG 75
+  ```bash
+  source ~/ros2_ws/install/setup.bash
+  ros2 launch ocs2_arm_controller demo.launch.py robot:=rokae_ar5 type:=dual_ccs_rg75
+  ```
+
+### 3.3 Gazebo Simulation
 
 * Left Arm
   ```bash
@@ -156,14 +172,17 @@ colcon build --packages-up-to rokae_ar5_description --symlink-install
   ros2 launch ocs2_arm_controller demo.launch.py robot:=rokae_ar5 hardware:=gz type:=right
   ```
 
-### 3.3 Real Robot Deploy
+### 3.4 Real Robot Deploy
+
 * Build Command
+
 ```bash
 cd ~/ros2_ws
 colcon build --packages-up-to rokae_ros2_control --symlink-install
 ```
 
-#### 3.3.1 Arm without end effector
+#### 3.4.1 Arm without end effector
+
 * Single Left Arm
   ```bash
   source ~/ros2_ws/install/setup.bash
@@ -179,8 +198,9 @@ colcon build --packages-up-to rokae_ros2_control --symlink-install
   source ~/ros2_ws/install/setup.bash
   ros2 launch ocs2_arm_controller demo.launch.py robot:=rokae_ar5 hardware:=real type:=dual
   ```
-  
-#### 3.3.2 Arm with end effector
+
+#### 3.4.2 Arm with end effector
+
 * Left Arm with Jodell RG75
   ```bash
   source ~/ros2_ws/install/setup.bash
