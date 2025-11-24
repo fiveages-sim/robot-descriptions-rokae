@@ -48,6 +48,7 @@ colcon build --packages-up-to rokae_ar5_description --symlink-install
     source ~/ros2_ws/install/setup.bash
     ros2 launch robot_common_launch manipulator.launch.py robot:=rokae_ar5 type:=ccs_left collider:=simple
     ```
+  ![ar5_ccs](../.images/ar5_ccs.png)
 * Right Arm
     ```bash
     source ~/ros2_ws/install/setup.bash
@@ -105,9 +106,9 @@ colcon build --packages-up-to rokae_ar5_description --symlink-install
   ros2 launch robot_common_launch manipulator_ocs2.launch.py robot_name:=rokae_ar5 type:=ccs_right
   ```
 
-### 3.2 OCS2 Arm Controller Demo
+### 3.2 Mock Component
 
-#### 3.2.1 Mock Component
+#### SRS Type
 
 * Left Arm
   ```bash
@@ -125,6 +126,23 @@ colcon build --packages-up-to rokae_ar5_description --symlink-install
   ros2 launch ocs2_arm_controller demo.launch.py robot:=rokae_ar5 type:=dual
   ```
 
+#### CCS Type
+* Left Arm
+  ```bash
+  source ~/ros2_ws/install/setup.bash
+  ros2 launch ocs2_arm_controller demo.launch.py robot:=rokae_ar5 type:=ccs_left
+  ```
+* Right Arm
+  ```bash
+  source ~/ros2_ws/install/setup.bash
+  ros2 launch ocs2_arm_controller demo.launch.py robot:=rokae_ar5 type:=ccs_right
+  ```
+* Dual Arm
+  ```bash
+  source ~/ros2_ws/install/setup.bash
+  ros2 launch ocs2_arm_controller demo.launch.py robot:=rokae_ar5 type:=ccs_dual
+  ```
+  
 #### 3.2.2 Gazebo Simulation
 
 * Left Arm
