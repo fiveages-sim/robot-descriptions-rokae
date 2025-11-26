@@ -126,13 +126,11 @@
 				<inertia ixx="0.00514901" ixy="0.00000705" ixz="0.00033523" iyy="0.00455840" iyz="0.00005313" izz="0.00249866"/>
 				<origin xyz="${direction*-0.007574792} 0.001848523 -0.017501298"/>
 			</inertial>
-			<xacro:if value="${collider == 'convex'}">
-				<visual>
-					<geometry>
-						<mesh filename="file://$(find rokae_ar5_description)/meshes/srs/link3.obj" scale="1 ${direction} 1"/>
-					</geometry>
-				</visual>
-			</xacro:if>
+			<visual>
+				<geometry>
+					<mesh filename="file://$(find rokae_ar5_description)/meshes/srs/link3.obj" scale="1 ${direction} 1"/>
+				</geometry>
+			</visual>
 			<xacro:if value="${collider == 'convex'}">
 				<collision>
 					<geometry>
