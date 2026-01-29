@@ -13,13 +13,13 @@
 			</inertial>
 			<visual>
 				<geometry>
-					<mesh filename="file://$(find rokae_ar5_description)/meshes/ccs/base.obj"/>
+					<mesh filename="file://$(find rokae_ar5_description)/meshes/ccs/base.glb"/>
 				</geometry>
 			</visual>
 			<xacro:if value="${collider == 'convex'}">
 				<collision>
 					<geometry>
-						<mesh filename="file://$(find rokae_ar5_description)/meshes/ccs/base.obj"/>
+						<mesh filename="file://$(find rokae_ar5_description)/meshes/ccs/base.glb"/>
 					</geometry>
 				</collision>
 			</xacro:if>
@@ -51,13 +51,13 @@
 			</inertial>
 			<visual>
 				<geometry>
-					<mesh filename="file://$(find rokae_ar5_description)/meshes/ccs/link1.obj" scale="1 ${direction} 1"/>
+					<mesh filename="file://$(find rokae_ar5_description)/meshes/ccs/link1.glb" scale="1 ${direction} 1"/>
 				</geometry>
 			</visual>
 			<xacro:if value="${collider == 'convex'}">
 				<collision>
 					<geometry>
-						<mesh filename="file://$(find rokae_ar5_description)/meshes/ccs/link1.obj" scale="1 ${direction} 1"/>
+						<mesh filename="file://$(find rokae_ar5_description)/meshes/ccs/link1.glb" scale="1 ${direction} 1"/>
 					</geometry>
 				</collision>
 			</xacro:if>
@@ -82,13 +82,13 @@
 			</inertial>
 			<visual>
 				<geometry>
-					<mesh filename="file://$(find rokae_ar5_description)/meshes/ccs/link2.obj" scale="1 ${direction} 1"/>
+					<mesh filename="file://$(find rokae_ar5_description)/meshes/ccs/link2.glb" scale="1 ${direction} 1"/>
 				</geometry>
 			</visual>
 			<xacro:if value="${collider == 'convex'}">
 				<collision>
 					<geometry>
-						<mesh filename="file://$(find rokae_ar5_description)/meshes/ccs/link2.obj" scale="1 ${direction} 1"/>
+						<mesh filename="file://$(find rokae_ar5_description)/meshes/ccs/link2.glb" scale="1 ${direction} 1"/>
 					</geometry>
 				</collision>
 			</xacro:if>
@@ -127,13 +127,13 @@
 			</inertial>
 			<visual>
 				<geometry>
-					<mesh filename="file://$(find rokae_ar5_description)/meshes/ccs/link3.obj" scale="1 ${direction} 1"/>
+					<mesh filename="file://$(find rokae_ar5_description)/meshes/ccs/link3.glb" scale="1 ${direction} 1"/>
 				</geometry>
 			</visual>
 			<xacro:if value="${collider == 'convex'}">
 				<collision>
 					<geometry>
-						<mesh filename="file://$(find rokae_ar5_description)/meshes/ccs/link3.obj" scale="1 ${direction} 1"/>
+						<mesh filename="file://$(find rokae_ar5_description)/meshes/ccs/link3.glb" scale="1 ${direction} 1"/>
 					</geometry>
 				</collision>
 			</xacro:if>
@@ -172,13 +172,13 @@
 			</inertial>
 			<visual>
 				<geometry>
-					<mesh filename="file://$(find rokae_ar5_description)/meshes/ccs/link4.obj" scale="1 ${direction} 1"/>
+					<mesh filename="file://$(find rokae_ar5_description)/meshes/ccs/link4.glb" scale="1 ${direction} 1"/>
 				</geometry>
 			</visual>
 			<xacro:if value="${collider == 'convex'}">
 				<collision>
 					<geometry>
-						<mesh filename="file://$(find rokae_ar5_description)/meshes/ccs/link4.obj" scale="1 ${direction} 1"/>
+						<mesh filename="file://$(find rokae_ar5_description)/meshes/ccs/link4.glb" scale="1 ${direction} 1"/>
 					</geometry>
 				</collision>
 			</xacro:if>
@@ -211,13 +211,13 @@
 			</inertial>
 			<visual>
 				<geometry>
-					<mesh filename="file://$(find rokae_ar5_description)/meshes/ccs/link5.obj" scale="1 ${direction} 1"/>
+					<mesh filename="file://$(find rokae_ar5_description)/meshes/ccs/link5.glb" scale="1 ${direction} 1"/>
 				</geometry>
 			</visual>
 			<xacro:if value="${collider == 'convex'}">
 				<collision>
 					<geometry>
-						<mesh filename="file://$(find rokae_ar5_description)/meshes/ccs/link5.obj" scale="1 ${direction} 1"/>
+						<mesh filename="file://$(find rokae_ar5_description)/meshes/ccs/link5.glb" scale="1 ${direction} 1"/>
 					</geometry>
 				</collision>
 			</xacro:if>
@@ -249,13 +249,13 @@
 			</inertial>
 			<visual>
 				<geometry>
-					<mesh filename="file://$(find rokae_ar5_description)/meshes/ccs/link6.obj" scale="1 ${direction} 1"/>
+					<mesh filename="file://$(find rokae_ar5_description)/meshes/ccs/link6.glb" scale="1 ${direction} 1"/>
 				</geometry>
 			</visual>
 			<xacro:if value="${collider == 'convex'}">
 				<collision>
 					<geometry>
-						<mesh filename="file://$(find rokae_ar5_description)/meshes/ccs/link6.obj" scale="1 ${direction} 1"/>
+						<mesh filename="file://$(find rokae_ar5_description)/meshes/ccs/link6.glb" scale="1 ${direction} 1"/>
 					</geometry>
 				</collision>
 			</xacro:if>
@@ -287,13 +287,13 @@
 			</inertial>
 			<visual>
 				<geometry>
-					<mesh filename="file://$(find rokae_ar5_description)/meshes/ccs/link7.obj" scale="${direction} 1 1"/>
+					<mesh filename="file://$(find rokae_ar5_description)/meshes/ccs/link7.glb" scale="${direction} 1 1"/>
 				</geometry>
 			</visual>
 			<xacro:if value="${collider == 'convex'}">
 				<collision>
 					<geometry>
-						<mesh filename="file://$(find rokae_ar5_description)/meshes/ccs/link7.obj" scale=" ${direction} 1 1"/>
+						<mesh filename="file://$(find rokae_ar5_description)/meshes/ccs/link7.glb" scale=" ${direction} 1 1"/>
 					</geometry>
 				</collision>
 			</xacro:if>

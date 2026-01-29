@@ -37,7 +37,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://rokae_ar5_description/meshes/ccs/base.obj"/>
+        <mesh filename="package://rokae_ar5_description/meshes/ccs/base.glb"/>
       </geometry>
     </visual>
     <collision>
@@ -63,7 +63,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://rokae_ar5_description/meshes/ccs/link1.obj" scale="1 1 1"/>
+        <mesh filename="package://rokae_ar5_description/meshes/ccs/link1.glb" scale="1 1 1"/>
       </geometry>
     </visual>
   </link>
@@ -84,7 +84,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://rokae_ar5_description/meshes/ccs/link2.obj" scale="1 1 1"/>
+        <mesh filename="package://rokae_ar5_description/meshes/ccs/link2.glb" scale="1 1 1"/>
       </geometry>
     </visual>
     <collision>
@@ -117,7 +117,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://rokae_ar5_description/meshes/ccs/link3.obj" scale="1 1 1"/>
+        <mesh filename="package://rokae_ar5_description/meshes/ccs/link3.glb" scale="1 1 1"/>
       </geometry>
     </visual>
     <collision>
@@ -150,7 +150,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://rokae_ar5_description/meshes/ccs/link4.obj" scale="1 1 1"/>
+        <mesh filename="package://rokae_ar5_description/meshes/ccs/link4.glb" scale="1 1 1"/>
       </geometry>
     </visual>
     <collision>
@@ -177,7 +177,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://rokae_ar5_description/meshes/ccs/link5.obj" scale="1 1 1"/>
+        <mesh filename="package://rokae_ar5_description/meshes/ccs/link5.glb" scale="1 1 1"/>
       </geometry>
     </visual>
     <collision>
@@ -203,7 +203,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://rokae_ar5_description/meshes/ccs/link6.obj" scale="1 1 1"/>
+        <mesh filename="package://rokae_ar5_description/meshes/ccs/link6.glb" scale="1 1 1"/>
       </geometry>
     </visual>
     <collision>
@@ -229,7 +229,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://rokae_ar5_description/meshes/ccs/link7.obj" scale="1 1 1"/>
+        <mesh filename="package://rokae_ar5_description/meshes/ccs/link7.glb" scale="1 1 1"/>
       </geometry>
     </visual>
     <collision>
@@ -260,7 +260,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://rokae_ar5_description/meshes/ccs/base.obj"/>
+        <mesh filename="package://rokae_ar5_description/meshes/ccs/base.glb"/>
       </geometry>
     </visual>
     <collision>
@@ -286,7 +286,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://rokae_ar5_description/meshes/ccs/link1.obj" scale="1 -1 1"/>
+        <mesh filename="package://rokae_ar5_description/meshes/ccs/link1.glb" scale="1 -1 1"/>
       </geometry>
     </visual>
   </link>
@@ -307,7 +307,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://rokae_ar5_description/meshes/ccs/link2.obj" scale="1 -1 1"/>
+        <mesh filename="package://rokae_ar5_description/meshes/ccs/link2.glb" scale="1 -1 1"/>
       </geometry>
     </visual>
     <collision>
@@ -340,7 +340,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://rokae_ar5_description/meshes/ccs/link3.obj" scale="1 -1 1"/>
+        <mesh filename="package://rokae_ar5_description/meshes/ccs/link3.glb" scale="1 -1 1"/>
       </geometry>
     </visual>
     <collision>
@@ -373,7 +373,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://rokae_ar5_description/meshes/ccs/link4.obj" scale="1 -1 1"/>
+        <mesh filename="package://rokae_ar5_description/meshes/ccs/link4.glb" scale="1 -1 1"/>
       </geometry>
     </visual>
     <collision>
@@ -400,7 +400,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://rokae_ar5_description/meshes/ccs/link5.obj" scale="1 -1 1"/>
+        <mesh filename="package://rokae_ar5_description/meshes/ccs/link5.glb" scale="1 -1 1"/>
       </geometry>
     </visual>
     <collision>
@@ -426,7 +426,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://rokae_ar5_description/meshes/ccs/link6.obj" scale="1 -1 1"/>
+        <mesh filename="package://rokae_ar5_description/meshes/ccs/link6.glb" scale="1 -1 1"/>
       </geometry>
     </visual>
     <collision>
@@ -452,7 +452,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="package://rokae_ar5_description/meshes/ccs/link7.obj" scale="-1 1 1"/>
+        <mesh filename="package://rokae_ar5_description/meshes/ccs/link7.glb" scale="-1 1 1"/>
       </geometry>
     </visual>
     <collision>
