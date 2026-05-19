@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<robot name="AR5_CCS" xmlns:xacro="http://www.ros.org/wiki/xacro">
+	<xacro:arg name="collider" default="convex"/>
+	<xacro:arg name="type" default="left"/>
+
+	<!-- 拆解 type 参数为三个独立属性 -->
+	<xacro:property name="type_arg" value="$(arg type)"/>
+
+	<!-- 默认值 -->
+	<xacro:property name="selected_arm_config" value="left"/>    <!-- left, right, dual -->
+	<xacro:property name="selected_gripper_type" value=""/>     <!-- 空字符串或 rg75 -->
+
+	<!-- 解析 type 参数 - 使用显式匹配 -->
+	<!-- 处理 CCS 类型 -->
+	<xacro:if value="${type_arg == 'left'}">
+		<xacro:property name="selected_arm_config" value="left"/>
+		<xacro:property name="selected_gripper_type" value=""/>
+	</xacro:if>
+	<xacro:if value="${type_arg == 'right'}">
+		<xacro:property name="selected_arm_config" value="right"/>
+		<xacro:property name="selected_gripper_type" value=""/>
+	</xacro:if>
+	<xacro:if value="${type_arg == 'dual'}">
+		<xacro:property name="selected_arm_config" value="dual"/>
+		<xacro:property name="selected_gripper_type" value=""/>
+	</xacro:if>
+	<xacro:if value="${type_arg == 'left_rg75'}">
+		<xacro:property name="selected_arm_config" value="left"/>
+		<xacro:property name="selected_gripper_type" value="rg75"/>
+	</xacro:if>
+	<xacro:if value="${type_arg == 'right_rg75'}">
+		<xacro:property name="selected_arm_config" value="right"/>
+		<xacro:property name="selected_gripper_type" value="rg75"/>
+	</xacro:if>
+	<xacro:if value="${type_arg == 'dual_rg75'}">
+		<xacro:property name="selected_arm_config" value="dual"/>
+		<xacro:property name="selected_gripper_type" value="rg75"/>
+	</xacro:if>
+
+
+	<!-- Include Component Macros -->
+	<xacro:include filename="$(find ar5_ccs_description)/xacro/arm_ccs.xacro"/>
+
+	<xacro:include filename="$(find ar5_ccs_description)/xacro/grippers.xacro"/>
+
+	<!-- 根据 arm_config 创建机械臂 -->
+	<xacro:if value="${selected_arm_config == 'left'}">
+		<xacro:Arm name="" collider="$(arg collider)" direction="1"/>
+	</xacro:if>
+	<xacro:if value="${selected_arm_config == 'right'}">
+		<xacro:Arm name="" collider="$(arg collider)" direction="-1"/>
+	</xacro:if>
+	<xacro:if value="${selected_arm_config == 'dual'}">
+		<link name="base_link"/>
+		<link name="arm_base">
+			<collision>
+				<origin xyz="0.0091 0 -0.086"/>
+				<geometry>
+					<box size="0.2509 0.35 0.5029"/>
+				</geometry>
+			</collision>
+		</link>
+
+		<joint name="arm_base_joint" type="fixed">
+			<parent link="base_link"/>
+			<child link="arm_base"/>
+		</joint>
+
+		<joint name="left_arm_mount" type="fixed">
+			<parent link="arm_base"/>
+			<child link="left_base_link"/>
+			<origin xyz="0.0 0.12 0" rpy="-1.57 1.57 0"/>
+		</joint>
+
+		<joint name="right_arm_mount" type="fixed">
+			<parent link="arm_base"/>
+			<child link="right_base_link"/>
+			<origin xyz="0.0 -0.12 0" rpy="1.57 1.57 0"/>
+		</joint>
+
+		<xacro:Arm name="left" collider="$(arg collider)" direction="1"/>
+		<xacro:Arm name="right" collider="$(arg collider)" direction="-1"/>
+	</xacro:if>
+
+	<!-- 根据 gripper_type 添加夹爪 -->
+	<xacro:if value="${selected_gripper_type != ''}">
+		<xacro:Grippers type="${selected_gripper_type}" arm_config="${selected_arm_config}"/>
+	</xacro:if>
+</robot>

@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 3.8)
-project(rokae_ar5_description)
+project(ar5_ccs_description)
 
 find_package(ament_cmake REQUIRED)
 
 install(
-		DIRECTORY meshes urdf xacro config
+		DIRECTORY meshes xacro urdf config
 		DESTINATION share/${PROJECT_NAME}/
 )
 
