@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot name="RokaeAR5" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot name="AR5_SRS" xmlns:xacro="http://www.ros.org/wiki/xacro">
 	<xacro:arg name="collider" default="convex"/>
 	<xacro:arg name="type" default="left"/>
 
@@ -7,44 +7,10 @@
 	<xacro:property name="type_arg" value="$(arg type)"/>
 
 	<!-- 默认值 -->
-	<xacro:property name="selected_arm_type" value="srs"/>      <!-- srs 或 ccs -->
 	<xacro:property name="selected_arm_config" value="left"/>    <!-- left, right, dual -->
 	<xacro:property name="selected_gripper_type" value=""/>     <!-- 空字符串或 rg75 -->
 
 	<!-- 解析 type 参数 - 使用显式匹配 -->
-	<!-- 处理 CCS 类型 -->
-	<xacro:if value="${type_arg == 'ccs_left'}">
-		<xacro:property name="selected_arm_type" value="ccs"/>
-		<xacro:property name="selected_arm_config" value="left"/>
-		<xacro:property name="selected_gripper_type" value=""/>
-	</xacro:if>
-	<xacro:if value="${type_arg == 'ccs_right'}">
-		<xacro:property name="selected_arm_type" value="ccs"/>
-		<xacro:property name="selected_arm_config" value="right"/>
-		<xacro:property name="selected_gripper_type" value=""/>
-	</xacro:if>
-	<xacro:if value="${type_arg == 'dual_ccs'}">
-		<xacro:property name="selected_arm_type" value="ccs"/>
-		<xacro:property name="selected_arm_config" value="dual"/>
-		<xacro:property name="selected_gripper_type" value=""/>
-	</xacro:if>
-	<xacro:if value="${type_arg == 'ccs_left_rg75'}">
-		<xacro:property name="selected_arm_type" value="ccs"/>
-		<xacro:property name="selected_arm_config" value="left"/>
-		<xacro:property name="selected_gripper_type" value="rg75"/>
-	</xacro:if>
-	<xacro:if value="${type_arg == 'ccs_right_rg75'}">
-		<xacro:property name="selected_arm_type" value="ccs"/>
-		<xacro:property name="selected_arm_config" value="right"/>
-		<xacro:property name="selected_gripper_type" value="rg75"/>
-	</xacro:if>
-	<xacro:if value="${type_arg == 'dual_ccs_rg75'}">
-		<xacro:property name="selected_arm_type" value="ccs"/>
-		<xacro:property name="selected_arm_config" value="dual"/>
-		<xacro:property name="selected_gripper_type" value="rg75"/>
-	</xacro:if>
-
-	<!-- 处理 SRS 类型（默认） -->
 	<xacro:if value="${type_arg == 'left'}">
 		<xacro:property name="selected_arm_config" value="left"/>
 		<xacro:property name="selected_gripper_type" value=""/>
@@ -71,13 +37,8 @@
 	</xacro:if>
 
 	<!-- Include Component Macros -->
-	<xacro:if value="${selected_arm_type == 'srs'}">
-		<xacro:include filename="$(find rokae_ar5_description)/xacro/arm_srs.xacro"/>
-	</xacro:if>
-	<xacro:if value="${selected_arm_type == 'ccs'}">
-		<xacro:include filename="$(find rokae_ar5_description)/xacro/arm_ccs.xacro"/>
-	</xacro:if>
-	<xacro:include filename="$(find rokae_ar5_description)/xacro/grippers.xacro"/>
+	<xacro:include filename="$(find ar5_srs_description)/xacro/arm_srs.xacro"/>
+	<xacro:include filename="$(find ar5_srs_description)/xacro/grippers.xacro"/>
 
 	<!-- 根据 arm_config 创建机械臂 -->
 	<xacro:if value="${selected_arm_config == 'left'}">

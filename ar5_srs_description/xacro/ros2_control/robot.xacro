@@ -10,8 +10,8 @@
 		<origin/>
 	</joint>
 
-	<xacro:include filename="$(find rokae_ar5_description)/xacro/robot.xacro"/>
-	<xacro:include filename="$(find rokae_ar5_description)/xacro/ros2_control/interfaces.xacro"/>
+	<xacro:include filename="$(find ar5_srs_description)/xacro/robot.xacro"/>
+	<xacro:include filename="$(find ar5_srs_description)/xacro/ros2_control/interfaces.xacro"/>
 
 	<!-- 使用 robot.xacro 中已定义的 property 来判断 -->
 	<!-- selected_arm_config: left, right, dual -->
@@ -151,13 +151,13 @@
 		<gazebo>
 			<plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
 				<xacro:if value="${selected_arm_config == 'left'}">
-					<parameters>$(find rokae_ar5_description)/config/ros2_control/ros2_controllers.yaml</parameters>
+					<parameters>$(find ar5_srs_description)/config/ros2_control/ros2_controllers.yaml</parameters>
 				</xacro:if>
 				<xacro:if value="${selected_arm_config == 'right'}">
-					<parameters>$(find rokae_ar5_description)/config/ros2_control/right.yaml</parameters>
+					<parameters>$(find ar5_srs_description)/config/ros2_control/right.yaml</parameters>
 				</xacro:if>
 				<xacro:if value="${selected_arm_config == 'dual'}">
-					<parameters>$(find rokae_ar5_description)/config/ros2_control/dual.yaml</parameters>
+					<parameters>$(find ar5_srs_description)/config/ros2_control/dual.yaml</parameters>
 				</xacro:if>
 			</plugin>
 		</gazebo>

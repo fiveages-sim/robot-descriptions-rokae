@@ -10,13 +10,13 @@
         type: 夹爪类型 ('rg75', 'leapmotor', '' 等)
         arm_config: 配置方式 ('left', 'right', 'dual')
         
-        注意：现在 SRS 和 CCS 都使用 tcp 作为连接点，所以不需要 arm_type 参数了
+        注意：使用 tcp 作为夹爪连接点
         -->
 
         <xacro:if value="${type == 'rg75'}">
             <xacro:include filename="$(find jodell_description)/xacro/RG75-300.xacro"/>
             
-            <!-- 统一使用 tcp 作为连接点（SRS 和 CCS 都已支持） -->
+            <!-- 统一使用 tcp 作为连接点 -->
             <xacro:if value="${arm_config == 'left'}">
                 <xacro:RG75-300 name="" use_flange="true"/>
                 <joint name="gripper_base_joint" type="fixed">
