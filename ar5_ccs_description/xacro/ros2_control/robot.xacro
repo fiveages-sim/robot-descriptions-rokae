@@ -24,6 +24,7 @@
 				<hardware>
 					<plugin>rokae_ros2_control/RokaeHardware</plugin>
 					<param name="arm_ip">192.168.1.160</param>
+					<param name="ctrl_mode">POSITION</param>
 					<param name="joint_impedance">200,200,200,200,20,20,20</param>
 					<param name="local_ip">192.168.1.233</param>
 				</hardware>
@@ -41,6 +42,7 @@
 				<hardware>
 					<plugin>rokae_ros2_control/RokaeHardware</plugin>
 					<param name="arm_ip">192.168.1.161</param>
+					<param name="ctrl_mode">POSITION</param>
 					<param name="joint_impedance">200,200,200,200,20,20,20</param>
 					<param name="local_ip">192.168.1.233</param>
 				</hardware>
@@ -67,6 +69,8 @@
 					<xacro:if value="${selected_arm_config == 'right'}">
 						<param name="arm_ip">192.168.1.161</param>
 					</xacro:if>
+					<param name="ctrl_mode">POSITION</param>
+					<param name="joint_impedance">200,200,200,200,20,20,20</param>
 					<param name="local_ip">192.168.1.233</param>
 				</hardware>
 				<xacro:ar5_interfaces name=""/>
