@@ -24,10 +24,7 @@
 				<hardware>
 					<plugin>rokae_ros2_control/RokaeHardware</plugin>
 					<param name="arm_ip">192.168.1.160</param>
-<!--					<param name="servoj_period">0.01</param>-->
-<!--					<param name="servoj_lookahead">0.03</param>-->
-<!--					<param name="servoj_kp">1.0</param>-->
-<!--					<param name="joint_impedance">500,500,500,500,50,50,50</param>-->
+					<param name="joint_impedance">200,200,200,200,20,20,20</param>
 					<param name="local_ip">192.168.1.233</param>
 				</hardware>
 				<xacro:ar5_interfaces name="left"/>
@@ -44,10 +41,7 @@
 				<hardware>
 					<plugin>rokae_ros2_control/RokaeHardware</plugin>
 					<param name="arm_ip">192.168.1.161</param>
-<!--					<param name="servoj_period">0.01</param>-->
-<!--					<param name="servoj_lookahead">0.03</param>-->
-<!--					<param name="servoj_kp">1.0</param>-->
-<!--					<param name="joint_impedance">500,500,500,500,50,50,50</param>-->
+					<param name="joint_impedance">200,200,200,200,20,20,20</param>
 					<param name="local_ip">192.168.1.233</param>
 				</hardware>
 				<xacro:ar5_interfaces name="right"/>
@@ -69,15 +63,9 @@
 					<!-- 根据 arm_config 设置 arm_ip -->
 					<xacro:if value="${selected_arm_config == 'left'}">
 						<param name="arm_ip">192.168.1.160</param>
-<!--						<param name="servoj_period">0.01</param>-->
-<!--						<param name="servoj_lookahead">0.03</param>-->
-<!--						<param name="servoj_kp">1.0</param>-->
 					</xacro:if>
 					<xacro:if value="${selected_arm_config == 'right'}">
 						<param name="arm_ip">192.168.1.161</param>
-<!--						<param name="servoj_period">0.01</param>-->
-<!--						<param name="servoj_lookahead">0.03</param>-->
-<!--						<param name="servoj_kp">1.0</param>-->
 					</xacro:if>
 					<param name="local_ip">192.168.1.233</param>
 				</hardware>
