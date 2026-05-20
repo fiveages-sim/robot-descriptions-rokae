@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <robot name="AR5_SRS" xmlns:xacro="http://www.ros.org/wiki/xacro">
 	<xacro:arg name="collider" default="convex"/>
-	<xacro:arg name="type" default="left"/>
+	<xacro:arg name="type" default="dual"/>
 
 	<!-- 拆解 type 参数为三个独立属性 -->
 	<xacro:property name="type_arg" value="$(arg type)"/>
 
 	<!-- 默认值 -->
-	<xacro:property name="selected_arm_config" value="left"/>    <!-- left, right, dual -->
+	<xacro:property name="selected_arm_config" value="dual"/>    <!-- left, right, dual -->
 	<xacro:property name="selected_gripper_type" value=""/>     <!-- 空字符串或 rg75 -->
 
 	<!-- 解析 type 参数 - 使用显式匹配 -->
@@ -19,10 +19,6 @@
 		<xacro:property name="selected_arm_config" value="right"/>
 		<xacro:property name="selected_gripper_type" value=""/>
 	</xacro:if>
-	<xacro:if value="${type_arg == 'dual'}">
-		<xacro:property name="selected_arm_config" value="dual"/>
-		<xacro:property name="selected_gripper_type" value=""/>
-	</xacro:if>
 	<xacro:if value="${type_arg == 'left_rg75'}">
 		<xacro:property name="selected_arm_config" value="left"/>
 		<xacro:property name="selected_gripper_type" value="rg75"/>
@@ -31,8 +27,7 @@
 		<xacro:property name="selected_arm_config" value="right"/>
 		<xacro:property name="selected_gripper_type" value="rg75"/>
 	</xacro:if>
-	<xacro:if value="${type_arg == 'dual_rg75'}">
-		<xacro:property name="selected_arm_config" value="dual"/>
+	<xacro:if value="${type_arg == 'rg75'}">
 		<xacro:property name="selected_gripper_type" value="rg75"/>
 	</xacro:if>
 

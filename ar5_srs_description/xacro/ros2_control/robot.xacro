@@ -151,13 +151,13 @@
 		<gazebo>
 			<plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
 				<xacro:if value="${selected_arm_config == 'left'}">
-					<parameters>$(find ar5_srs_description)/config/ros2_control/ros2_controllers.yaml</parameters>
+					<parameters>$(find ar5_srs_description)/config/ros2_control/left.yaml</parameters>
 				</xacro:if>
 				<xacro:if value="${selected_arm_config == 'right'}">
 					<parameters>$(find ar5_srs_description)/config/ros2_control/right.yaml</parameters>
 				</xacro:if>
 				<xacro:if value="${selected_arm_config == 'dual'}">
-					<parameters>$(find ar5_srs_description)/config/ros2_control/dual.yaml</parameters>
+					<parameters>$(find ar5_srs_description)/config/ros2_control/ros2_controllers.yaml</parameters>
 				</xacro:if>
 			</plugin>
 		</gazebo>
