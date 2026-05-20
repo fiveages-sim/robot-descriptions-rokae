@@ -28,8 +28,9 @@ ros2 launch robot_common_launch manipulator.launch.py robot:=<robot> type:=<type
 Useful arguments:
 
 - `robot:=<robot>` selects the model: `ar5_srs` or `ar5_ccs`.
-- `type:=left`, `type:=right`, or `type:=dual` for single or dual-arm layouts without an end effector.
-- `type:=left_rg75`, `type:=right_rg75`, or `type:=dual_rg75` adds a Jodell RG75 gripper on the corresponding arm(s).
+- Omit `type` for dual arms without an end effector on `ar5_ccs` and `ar5_srs`.
+- `type:=left` or `type:=right` for single-arm layouts without an end effector.
+- `type:=rg75` for dual arms with RG75 grippers; `type:=left_rg75` or `type:=right_rg75` for single-arm RG75 setups.
 - `collider:=simple` uses simple primitive collision geometry. The xacro default is `convex`; use `collider:=convex` to match it.
 
 ### Run OCS2 Demos

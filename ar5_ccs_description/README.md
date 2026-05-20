@@ -2,7 +2,7 @@
 
 This package contains the description files for the Rokae AR5 manipulator in CCS configuration.
 
-Supported `type` values (see `xacro/robot.xacro`): `left`, `right`, `dual`, `left_rg75`, `right_rg75`, `dual_rg75`.
+Supported `type` values (see `xacro/robot.xacro`): `left`, `right`, `left_rg75`, `right_rg75`, `rg75`. Omit `type` for dual arms without end effector; use `rg75` for dual arms with RG75 grippers.
 
 ## 1. Build
 
@@ -29,7 +29,7 @@ colcon build --packages-up-to ar5_ccs_description --symlink-install
 * Dual arms
     ```bash
     source ~/ros2_ws/install/setup.bash
-    ros2 launch robot_common_launch manipulator.launch.py robot:=ar5_ccs type:=dual collider:=simple
+    ros2 launch robot_common_launch manipulator.launch.py robot:=ar5_ccs collider:=simple
     ```
 
 ### 2.2 CCS arm with Jodell RG75
@@ -47,7 +47,7 @@ colcon build --packages-up-to ar5_ccs_description --symlink-install
 * Dual arms
     ```bash
     source ~/ros2_ws/install/setup.bash
-    ros2 launch robot_common_launch manipulator.launch.py robot:=ar5_ccs type:=dual_rg75 collider:=simple
+    ros2 launch robot_common_launch manipulator.launch.py robot:=ar5_ccs type:=rg75 collider:=simple
     ```
 
 ## 3. OCS2 Demo
@@ -80,7 +80,7 @@ colcon build --packages-up-to ar5_ccs_description --symlink-install
 * Dual arms
   ```bash
   source ~/ros2_ws/install/setup.bash
-  ros2 launch ocs2_arm_controller demo.launch.py robot:=ar5_ccs type:=dual
+  ros2 launch ocs2_arm_controller demo.launch.py robot:=ar5_ccs
   ```
 * Left arm with RG75
   ```bash
@@ -95,7 +95,7 @@ colcon build --packages-up-to ar5_ccs_description --symlink-install
 * Dual arms with RG75
   ```bash
   source ~/ros2_ws/install/setup.bash
-  ros2 launch ocs2_arm_controller demo.launch.py robot:=ar5_ccs type:=dual_rg75
+  ros2 launch ocs2_arm_controller demo.launch.py robot:=ar5_ccs type:=rg75
   ```
 
 ### 3.3 Gazebo simulation
@@ -135,7 +135,7 @@ colcon build --packages-up-to rokae_ros2_control --symlink-install
 * Dual arms
   ```bash
   source ~/ros2_ws/install/setup.bash
-  ros2 launch ocs2_arm_controller demo.launch.py robot:=ar5_ccs hardware:=real type:=dual
+  ros2 launch ocs2_arm_controller demo.launch.py robot:=ar5_ccs hardware:=real
   ```
 
 #### 3.4.2 Arm with Jodell RG75
@@ -153,5 +153,5 @@ colcon build --packages-up-to rokae_ros2_control --symlink-install
 * Dual arms
   ```bash
   source ~/ros2_ws/install/setup.bash
-  ros2 launch ocs2_arm_controller demo.launch.py robot:=ar5_ccs hardware:=real type:=dual_rg75
+  ros2 launch ocs2_arm_controller demo.launch.py robot:=ar5_ccs hardware:=real type:=rg75
   ```

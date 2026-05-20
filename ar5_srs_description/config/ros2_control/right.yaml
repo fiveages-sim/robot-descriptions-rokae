@@ -30,6 +30,7 @@ arm_controller:
 ocs2_arm_controller:
   ros__parameters:
     # Joint configuration
+    info_file_name: single
     update_rate: 100  # Hz
     joints:
       - joint1
