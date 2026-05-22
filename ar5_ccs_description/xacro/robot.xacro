@@ -8,7 +8,7 @@
 
 	<!-- 默认值 -->
 	<xacro:property name="selected_arm_config" value="dual"/>    <!-- left, right, dual -->
-	<xacro:property name="selected_gripper_type" value=""/>     <!-- 空字符串或 rg75 -->
+	<xacro:property name="selected_gripper_type" value=""/>     <!-- 空字符串, rg75, ag2f90 -->
 
 	<!-- 解析 type 参数 - 使用显式匹配 -->
 	<!-- 处理 CCS 类型 -->
@@ -30,6 +30,17 @@
 	</xacro:if>
 	<xacro:if value="${type_arg == 'rg75'}">
 		<xacro:property name="selected_gripper_type" value="rg75"/>
+	</xacro:if>
+	<xacro:if value="${type_arg == 'left_ag2f90'}">
+		<xacro:property name="selected_arm_config" value="left"/>
+		<xacro:property name="selected_gripper_type" value="ag2f90"/>
+	</xacro:if>
+	<xacro:if value="${type_arg == 'right_ag2f90'}">
+		<xacro:property name="selected_arm_config" value="right"/>
+		<xacro:property name="selected_gripper_type" value="ag2f90"/>
+	</xacro:if>
+	<xacro:if value="${type_arg == 'ag2f90'}">
+		<xacro:property name="selected_gripper_type" value="ag2f90"/>
 	</xacro:if>
 
 
