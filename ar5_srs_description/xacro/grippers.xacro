@@ -53,7 +53,7 @@
             </xacro:if>
         </xacro:if>
 
-        <xacro:if value="${type == 'ag2f90'}">
+        <xacro:if value="${type == 'ag2f90_d'}">
             <xacro:include filename="$(find changingtek_description)/xacro/AG2F90-C.xacro"/>
 
             <xacro:if value="${arm_config == 'left'}">
