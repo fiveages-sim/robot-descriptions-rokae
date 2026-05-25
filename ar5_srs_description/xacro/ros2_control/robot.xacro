@@ -31,6 +31,8 @@
 					<param name="local_ip">192.168.1.233</param>
 					<xacro:if value="${selected_gripper_type == 'rg75'}">
 						<param name="gripper_type">jodell</param>
+						<param name="gripper_torque_scale">1.0</param>
+						<param name="gripper_velocity">100</param>
 					</xacro:if>
 					<xacro:if value="${selected_gripper_type == 'ag2f90_d'}">
 						<param name="gripper_type">ag2f90_d</param>
@@ -61,6 +63,8 @@
 					<param name="local_ip">192.168.1.233</param>
 					<xacro:if value="${selected_gripper_type == 'rg75'}">
 						<param name="gripper_type">jodell</param>
+						<param name="gripper_torque_scale">1.0</param>
+						<param name="gripper_velocity">100</param>
 					</xacro:if>
 					<xacro:if value="${selected_gripper_type == 'ag2f90_d'}">
 						<param name="gripper_type">ag2f90_d</param>
@@ -102,6 +106,8 @@
 					<param name="local_ip">192.168.1.233</param>
 					<xacro:if value="${selected_gripper_type == 'rg75'}">
 						<param name="gripper_type">jodell</param>
+						<param name="gripper_torque_scale">1.0</param>
+						<param name="gripper_velocity">100</param>
 					</xacro:if>
 					<xacro:if value="${selected_gripper_type == 'ag2f90_d'}">
 						<param name="gripper_type">ag2f90_d</param>
