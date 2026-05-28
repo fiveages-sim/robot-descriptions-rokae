@@ -1,0 +1,62 @@
+# This config file is used by ros2_control
+controller_manager:
+  ros__parameters:
+    update_rate: 100  # Hz
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    ocs2_arm_controller:
+      type: ocs2_arm_controller/Ocs2ArmController
+
+    hand_controller:
+      type: adaptive_gripper_controller/AdaptiveGripperController
+
+arm_controller:
+  ros__parameters:
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity
+    joints:
+      - joint1
+      - joint2
+      - joint3
+      - joint4
+      - joint5
+      - joint6
+
+ocs2_arm_controller:
+  ros__parameters:
+    # Joint configuration
+    info_file_name: single
+    update_rate: 100  # Hz
+    joints:
+      - joint1
+      - joint2
+      - joint3
+      - joint4
+      - joint5
+      - joint6
+      - joint7
+
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+
+    robot_name: ar5_ccs
+    robot_type: right
+
+    # Future time offset for trajectory prediction (in seconds)
+    future_time_offset: 1.0
+
+    # Control parameters
+    home_pos: [-0.2524111457453749, 1.26093480422406, 1.4309639112302, 1.275244008708472, 0.27915478251742143, 0.41046785228139826, 0.003618996236919578]
+    rest_pos: [0.0, 1.5708, 1.5708, 0.4, 0.4, 0.4, 0.0]
+
+hand_controller:
+  ros__parameters:
+    joint: gripper_joint
+    use_effort_interface: false

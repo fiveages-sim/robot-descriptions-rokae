@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<!-- 
+夹爪宏定义 - 参考 fiveages_w1 的设计
+将夹爪逻辑从 robot.xacro 中分离出来，便于维护和扩展
+-->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:macro name="Grippers" params="type arm_config">
+        <!-- 
+        type: 夹爪类型 ('rg75', 'ag2f90', 'leapmotor', '' 等)
+        arm_config: 配置方式 ('left', 'right', 'dual')
+        
+        注意：使用 tcp 作为夹爪连接点
+        -->
+
+        <xacro:if value="${type == 'rg75'}">
+            <xacro:include filename="$(find jodell_description)/xacro/RG75-300.xacro"/>
+            
+            <!-- 统一使用 tcp 作为连接点 -->
+            <xacro:if value="${arm_config == 'left'}">
+                <xacro:RG75-300 name="" use_flange="true"/>
+                <joint name="gripper_base_joint" type="fixed">
+                    <origin xyz="0 0 -0.0045" rpy="0 0 -1.5708"/>
+                    <parent link="tcp"/>
+                    <child link="flange"/>
+                </joint>
+            </xacro:if>
+            
+            <xacro:if value="${arm_config == 'right'}">
+                <xacro:RG75-300 name="" use_flange="true"/>
+                <joint name="gripper_base_joint" type="fixed">
+                    <origin xyz="0 0 -0.0045" rpy="0 0 1.5708"/>
+                    <parent link="tcp"/>
+                    <child link="flange"/>
+                </joint>
+            </xacro:if>
+            
+            <xacro:if value="${arm_config == 'dual'}">
+                <xacro:RG75-300 name="left" use_flange="true"/>
+                <xacro:RG75-300 name="right" use_flange="true"/>
+                
+                <joint name="left_gripper_base_joint" type="fixed">
+                    <origin xyz="0 0 -0.0045"/>
+                    <parent link="left_tcp"/>
+                    <child link="left_flange"/>
+                </joint>
+                
+                <joint name="right_gripper_base_joint" type="fixed">
+                    <origin xyz="0 0 -0.0045"/>
+                    <parent link="right_tcp"/>
+                    <child link="right_flange"/>
+                </joint>
+            </xacro:if>
+        </xacro:if>
+
+        <xacro:if value="${type == 'ag2f90_d'}">
+            <xacro:include filename="$(find changingtek_description)/xacro/AG2F90-C.xacro"/>
+
+            <xacro:if value="${arm_config == 'left'}">
+                <xacro:AG2F90-C name="" use_flange="true" pad="none"/>
+                <joint name="gripper_base_joint" type="fixed">
+                    <origin xyz="0 0 0" rpy="0 0 -1.5708"/>
+                    <parent link="tcp"/>
+                    <child link="flange"/>
+                </joint>
+            </xacro:if>
+
+            <xacro:if value="${arm_config == 'right'}">
+                <xacro:AG2F90-C name="" use_flange="true" pad="none"/>
+                <joint name="gripper_base_joint" type="fixed">
+                    <origin xyz="0 0 0" rpy="0 0 1.5708"/>
+                    <parent link="tcp"/>
+                    <child link="flange"/>
+                </joint>
+            </xacro:if>
+
+            <xacro:if value="${arm_config == 'dual'}">
+                <xacro:AG2F90-C name="left" use_flange="true" pad="none"/>
+                <xacro:AG2F90-C name="right" use_flange="true" pad="none"/>
+
+                <joint name="left_gripper_base_joint" type="fixed">
+                    <origin xyz="0 0 0"/>
+                    <parent link="left_tcp"/>
+                    <child link="left_flange"/>
+                </joint>
+
+                <joint name="right_gripper_base_joint" type="fixed">
+                    <origin xyz="0 0 0"/>
+                    <parent link="right_tcp"/>
+                    <child link="right_flange"/>
+                </joint>
+            </xacro:if>
+        </xacro:if>
+
+        <!-- 可以在这里添加其他夹爪类型，如 leapmotor -->
+        <xacro:if value="${type == 'leapmotor'}">
+            <xacro:include filename="$(find jodell_description)/xacro/RG75-300.xacro"/>
+            <!-- 类似 rg75 的配置，但使用 leapmotor pad -->
+            <!-- ... -->
+        </xacro:if>
+
+    </xacro:macro>
+</robot>
