@@ -488,7 +488,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="file:///home/fiveages/fa_w2r_ws/install/changingtek_description/share/changingtek_description/meshes/AG2F90-C/visual/flange.glb"/>
+        <mesh filename="package://changingtek_description/meshes/AG2F90-C/visual/flange.glb"/>
       </geometry>
     </visual>
   </link>
@@ -505,7 +505,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="file:///home/fiveages/fa_w2r_ws/install/changingtek_description/share/changingtek_description/meshes/AG2F90-C/visual/gripper_base.glb"/>
+        <mesh filename="package://changingtek_description/meshes/AG2F90-C/visual/gripper_base.glb"/>
       </geometry>
     </visual>
   </link>
@@ -517,7 +517,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="file:///home/fiveages/fa_w2r_ws/install/changingtek_description/share/changingtek_description/meshes/AG2F90-C/visual/link_1.glb"/>
+        <mesh filename="package://changingtek_description/meshes/AG2F90-C/visual/link_1.glb"/>
       </geometry>
     </visual>
   </link>
@@ -536,7 +536,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="file:///home/fiveages/fa_w2r_ws/install/changingtek_description/share/changingtek_description/meshes/AG2F90-C/visual/in_link.glb"/>
+        <mesh filename="package://changingtek_description/meshes/AG2F90-C/visual/in_link.glb"/>
       </geometry>
     </visual>
   </link>
@@ -556,7 +556,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="file:///home/fiveages/fa_w2r_ws/install/changingtek_description/share/changingtek_description/meshes/AG2F90-C/visual/up_link.glb"/>
+        <mesh filename="package://changingtek_description/meshes/AG2F90-C/visual/up_link.glb"/>
       </geometry>
     </visual>
   </link>
@@ -581,7 +581,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="file:///home/fiveages/fa_w2r_ws/install/changingtek_description/share/changingtek_description/meshes/AG2F90-C/visual/link_2.glb"/>
+        <mesh filename="package://changingtek_description/meshes/AG2F90-C/visual/link_2.glb"/>
       </geometry>
     </visual>
   </link>
@@ -601,7 +601,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="file:///home/fiveages/fa_w2r_ws/install/changingtek_description/share/changingtek_description/meshes/AG2F90-C/visual/link_2.glb"/>
+        <mesh filename="package://changingtek_description/meshes/AG2F90-C/visual/link_2.glb"/>
       </geometry>
     </visual>
   </link>
@@ -621,7 +621,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="file:///home/fiveages/fa_w2r_ws/install/changingtek_description/share/changingtek_description/meshes/AG2F90-C/visual/link_1.glb"/>
+        <mesh filename="package://changingtek_description/meshes/AG2F90-C/visual/link_1.glb"/>
       </geometry>
     </visual>
   </link>
@@ -641,7 +641,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="file:///home/fiveages/fa_w2r_ws/install/changingtek_description/share/changingtek_description/meshes/AG2F90-C/visual/in_link.glb"/>
+        <mesh filename="package://changingtek_description/meshes/AG2F90-C/visual/in_link.glb"/>
       </geometry>
     </visual>
   </link>
@@ -661,7 +661,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="file:///home/fiveages/fa_w2r_ws/install/changingtek_description/share/changingtek_description/meshes/AG2F90-C/visual/up_link.glb"/>
+        <mesh filename="package://changingtek_description/meshes/AG2F90-C/visual/up_link.glb"/>
       </geometry>
     </visual>
   </link>
@@ -693,7 +693,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="file:///home/fiveages/fa_w2r_ws/install/changingtek_description/share/changingtek_description/meshes/AG2F90-C/visual/flange.glb"/>
+        <mesh filename="package://changingtek_description/meshes/AG2F90-C/visual/flange.glb"/>
       </geometry>
     </visual>
   </link>
@@ -710,7 +710,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="file:///home/fiveages/fa_w2r_ws/install/changingtek_description/share/changingtek_description/meshes/AG2F90-C/visual/gripper_base.glb"/>
+        <mesh filename="package://changingtek_description/meshes/AG2F90-C/visual/gripper_base.glb"/>
       </geometry>
     </visual>
   </link>
@@ -722,7 +722,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="file:///home/fiveages/fa_w2r_ws/install/changingtek_description/share/changingtek_description/meshes/AG2F90-C/visual/link_1.glb"/>
+        <mesh filename="package://changingtek_description/meshes/AG2F90-C/visual/link_1.glb"/>
       </geometry>
     </visual>
   </link>
@@ -741,7 +741,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="file:///home/fiveages/fa_w2r_ws/install/changingtek_description/share/changingtek_description/meshes/AG2F90-C/visual/in_link.glb"/>
+        <mesh filename="package://changingtek_description/meshes/AG2F90-C/visual/in_link.glb"/>
       </geometry>
     </visual>
   </link>
@@ -761,7 +761,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="file:///home/fiveages/fa_w2r_ws/install/changingtek_description/share/changingtek_description/meshes/AG2F90-C/visual/up_link.glb"/>
+        <mesh filename="package://changingtek_description/meshes/AG2F90-C/visual/up_link.glb"/>
       </geometry>
     </visual>
   </link>
@@ -786,7 +786,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="file:///home/fiveages/fa_w2r_ws/install/changingtek_description/share/changingtek_description/meshes/AG2F90-C/visual/link_2.glb"/>
+        <mesh filename="package://changingtek_description/meshes/AG2F90-C/visual/link_2.glb"/>
       </geometry>
     </visual>
   </link>
@@ -806,7 +806,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="file:///home/fiveages/fa_w2r_ws/install/changingtek_description/share/changingtek_description/meshes/AG2F90-C/visual/link_2.glb"/>
+        <mesh filename="package://changingtek_description/meshes/AG2F90-C/visual/link_2.glb"/>
       </geometry>
     </visual>
   </link>
@@ -826,7 +826,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="file:///home/fiveages/fa_w2r_ws/install/changingtek_description/share/changingtek_description/meshes/AG2F90-C/visual/link_1.glb"/>
+        <mesh filename="package://changingtek_description/meshes/AG2F90-C/visual/link_1.glb"/>
       </geometry>
     </visual>
   </link>
@@ -846,7 +846,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="file:///home/fiveages/fa_w2r_ws/install/changingtek_description/share/changingtek_description/meshes/AG2F90-C/visual/in_link.glb"/>
+        <mesh filename="package://changingtek_description/meshes/AG2F90-C/visual/in_link.glb"/>
       </geometry>
     </visual>
   </link>
@@ -866,7 +866,7 @@
     </inertial>
     <visual>
       <geometry>
-        <mesh filename="file:///home/fiveages/fa_w2r_ws/install/changingtek_description/share/changingtek_description/meshes/AG2F90-C/visual/up_link.glb"/>
+        <mesh filename="package://changingtek_description/meshes/AG2F90-C/visual/up_link.glb"/>
       </geometry>
     </visual>
   </link>
