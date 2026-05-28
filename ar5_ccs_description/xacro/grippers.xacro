@@ -57,7 +57,7 @@
             <xacro:include filename="$(find changingtek_description)/xacro/AG2F90-C.xacro"/>
 
             <xacro:if value="${arm_config == 'left'}">
-                <xacro:AG2F90-C name="" use_flange="true" pad="none"/>
+                <xacro:AG2F90-C name="" use_flange="true"/>
                 <joint name="gripper_base_joint" type="fixed">
                     <origin xyz="0 0 0" rpy="0 0 -1.5708"/>
                     <parent link="tcp"/>
@@ -66,7 +66,7 @@
             </xacro:if>
 
             <xacro:if value="${arm_config == 'right'}">
-                <xacro:AG2F90-C name="" use_flange="true" pad="none"/>
+                <xacro:AG2F90-C name="" use_flange="true"/>
                 <joint name="gripper_base_joint" type="fixed">
                     <origin xyz="0 0 0" rpy="0 0 1.5708"/>
                     <parent link="tcp"/>
@@ -75,8 +75,8 @@
             </xacro:if>
 
             <xacro:if value="${arm_config == 'dual'}">
-                <xacro:AG2F90-C name="left" use_flange="true" pad="none"/>
-                <xacro:AG2F90-C name="right" use_flange="true" pad="none"/>
+                <xacro:AG2F90-C name="left" use_flange="true"/>
+                <xacro:AG2F90-C name="right" use_flange="true"/>
 
                 <joint name="left_gripper_base_joint" type="fixed">
                     <origin xyz="0 0 0"/>

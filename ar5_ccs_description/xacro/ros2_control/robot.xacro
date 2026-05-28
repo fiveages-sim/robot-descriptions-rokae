@@ -38,6 +38,9 @@
 						<param name="gripper_close_pos">9000</param>
 						<param name="gripper_max_opening_distance">1.0</param>
 						<param name="gripper_configure_xpanel">false</param>
+						<param name="load_mass">0.0</param>
+					        <param name="load_cog">[0.0, 0.0, 0.0]</param>
+					        <param name="load_inertia">[0.0, 0.0, 0.0]</param>
 					</xacro:if>
 				</hardware>
 				<xacro:ar5_interfaces name="left"/>
@@ -68,6 +71,9 @@
 						<param name="gripper_close_pos">9000</param>
 						<param name="gripper_max_opening_distance">1.0</param>
 						<param name="gripper_configure_xpanel">false</param>
+						<param name="load_mass">0.75</param>
+						<param name="load_cog">[-0.01, -0.03, 0.09]</param>
+						<param name="load_inertia">[0.0, 0.0, 0.0]</param>
 					</xacro:if>
 				</hardware>
 				<xacro:ar5_interfaces name="right"/>
