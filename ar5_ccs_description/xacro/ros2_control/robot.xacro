@@ -27,10 +27,10 @@
 					<param name="ctrl_mode">POSITION</param>
 					<param name="joint_impedance">200,200,200,200,20,20,20</param>
 					<param name="local_ip">192.168.1.233</param>
-					<xacro:if value="${selected_gripper_type == 'rg75'}">
+					<xacro:if value="${left_gripper_type == 'rg75'}">
 						<param name="gripper_type">jodell</param>
 					</xacro:if>
-					<xacro:if value="${selected_gripper_type == 'ag2f90_d'}">
+					<xacro:if value="${left_gripper_type == 'ag2f90_d'}">
 						<param name="gripper_type">ag2f90_d</param>
 						<param name="gripper_slave_id">1</param>
 						<param name="gripper_close_pos">9000</param>
@@ -39,12 +39,14 @@
 					</xacro:if>
 				</hardware>
 				<xacro:ar5_interfaces name="left"/>
-				<xacro:if value="${selected_gripper_type != ''}">
+				<xacro:if value="${left_gripper_type != ''}">
 					<joint name="left_gripper_joint">
 						<command_interface name="position"/>
 						<state_interface name="position">
 							<param name="initial_value">0</param>
 						</state_interface>
+						<state_interface name="velocity"/>
+						<state_interface name="effort"/>
 					</joint>
 				</xacro:if>
 			</ros2_control>
@@ -55,10 +57,10 @@
 					<param name="ctrl_mode">POSITION</param>
 					<param name="joint_impedance">200,200,200,200,20,20,20</param>
 					<param name="local_ip">192.168.1.233</param>
-					<xacro:if value="${selected_gripper_type == 'rg75'}">
+					<xacro:if value="${right_gripper_type == 'rg75'}">
 						<param name="gripper_type">jodell</param>
 					</xacro:if>
-					<xacro:if value="${selected_gripper_type == 'ag2f90_d'}">
+					<xacro:if value="${right_gripper_type == 'ag2f90_d'}">
 						<param name="gripper_type">ag2f90_d</param>
 						<param name="gripper_slave_id">1</param>
 						<param name="gripper_close_pos">9000</param>
@@ -67,12 +69,14 @@
 					</xacro:if>
 				</hardware>
 				<xacro:ar5_interfaces name="right"/>
-				<xacro:if value="${selected_gripper_type != ''}">
+				<xacro:if value="${right_gripper_type != ''}">
 					<joint name="right_gripper_joint">
 						<command_interface name="position"/>
 						<state_interface name="position">
 							<param name="initial_value">0</param>
 						</state_interface>
+						<state_interface name="velocity"/>
+						<state_interface name="effort"/>
 					</joint>
 				</xacro:if>
 			</ros2_control>
@@ -111,6 +115,8 @@
 						<state_interface name="position">
 							<param name="initial_value">0</param>
 						</state_interface>
+						<state_interface name="velocity"/>
+						<state_interface name="effort"/>
 					</joint>
 				</xacro:if>
 			</ros2_control>
@@ -138,18 +144,24 @@
 			<xacro:if value="${selected_arm_config == 'dual'}">
 				<xacro:ar5_interfaces name="left"/>
 				<xacro:ar5_interfaces name="right"/>
-				<xacro:if value="${selected_gripper_type != ''}">
+				<xacro:if value="${left_gripper_type != ''}">
 					<joint name="left_gripper_joint">
 						<command_interface name="position"/>
 						<state_interface name="position">
 							<param name="initial_value">0</param>
 						</state_interface>
+						<state_interface name="velocity"/>
+						<state_interface name="effort"/>
 					</joint>
+				</xacro:if>
+				<xacro:if value="${right_gripper_type != ''}">
 					<joint name="right_gripper_joint">
 						<command_interface name="position"/>
 						<state_interface name="position">
 							<param name="initial_value">0</param>
 						</state_interface>
+						<state_interface name="velocity"/>
+						<state_interface name="effort"/>
 					</joint>
 				</xacro:if>
 			</xacro:if>
@@ -161,6 +173,8 @@
 						<state_interface name="position">
 							<param name="initial_value">0</param>
 						</state_interface>
+						<state_interface name="velocity"/>
+						<state_interface name="effort"/>
 					</joint>
 				</xacro:if>
 			</xacro:unless>
