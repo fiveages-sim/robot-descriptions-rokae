@@ -53,10 +53,10 @@
 			<ros2_control name="ar5_right_system" type="system">
 				<hardware>
 					<plugin>rokae_ros2_control/RokaeHardware</plugin>
-					<param name="arm_ip">192.168.1.161</param>
+					<param name="arm_ip">192.168.2.161</param>
 					<param name="ctrl_mode">POSITION</param>
 					<param name="joint_impedance">200,200,200,200,20,20,20</param>
-					<param name="local_ip">192.168.1.233</param>
+					<param name="local_ip">192.168.2.234</param>
 					<xacro:if value="${right_gripper_type == 'rg75'}">
 						<param name="gripper_type">jodell</param>
 					</xacro:if>
@@ -91,11 +91,16 @@
 						<param name="arm_ip">192.168.1.160</param>
 					</xacro:if>
 					<xacro:if value="${selected_arm_config == 'right'}">
-						<param name="arm_ip">192.168.1.161</param>
+						<param name="arm_ip">192.168.2.161</param>
 					</xacro:if>
 					<param name="ctrl_mode">POSITION</param>
 					<param name="joint_impedance">200,200,200,200,20,20,20</param>
-					<param name="local_ip">192.168.1.233</param>
+					<xacro:if value="${selected_arm_config == 'left'}">
+						<param name="local_ip">192.168.1.233</param>
+					</xacro:if>
+					<xacro:if value="${selected_arm_config == 'right'}">
+						<param name="local_ip">192.168.2.234</param>
+					</xacro:if>
 					<xacro:if value="${selected_gripper_type == 'rg75'}">
 						<param name="gripper_type">jodell</param>
 					</xacro:if>
