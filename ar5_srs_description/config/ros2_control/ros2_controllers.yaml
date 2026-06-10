@@ -59,13 +59,13 @@ ocs2_arm_controller:
                 0.0, 1.5708, 1.5708, 0.4, 0.4, 0.4, 0.0 ]
 
 # 左手夹爪控制器配置
-left_hand_controller:
+left_gripper_controller:
   ros__parameters:
     joint: left_gripper_joint
     use_effort_interface: false
 
 # 右手夹爪控制器配置
-right_hand_controller:
+right_gripper_controller:
   ros__parameters:
     joint: right_gripper_joint
     use_effort_interface: false

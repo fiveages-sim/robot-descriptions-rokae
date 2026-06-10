@@ -50,6 +50,8 @@
 					<param name="sdk_filter_frequency_3">$(arg rokae_sdk_filter_frequency_3)</param>
 					<xacro:if value="${left_gripper_type == 'rg75'}">
 						<param name="gripper_type">jodell</param>
+						<param name="left_tool_torque">1.0</param>
+						<param name="left_tool_velocity">1.0</param>
 					</xacro:if>
 					<xacro:if value="${left_gripper_type in ('ag2f90_c', 'ag2f90_d')}">
 						<param name="gripper_type">${left_gripper_type}</param>
@@ -57,6 +59,8 @@
 						<param name="gripper_close_pos">9000</param>
 						<param name="gripper_max_opening_distance">1.0</param>
 						<param name="gripper_configure_xpanel">false</param>
+						<param name="left_tool_torque">1.0</param>
+						<param name="left_tool_velocity">1.0</param>
 					</xacro:if>
 				</hardware>
 				<xacro:ar5_interfaces name="left"/>
@@ -90,6 +94,8 @@
 					<param name="sdk_filter_frequency_3">$(arg rokae_sdk_filter_frequency_3)</param>
 					<xacro:if value="${right_gripper_type == 'rg75'}">
 						<param name="gripper_type">jodell</param>
+						<param name="right_tool_torque">1.0</param>
+						<param name="right_tool_velocity">1.0</param>
 					</xacro:if>
 					<xacro:if value="${right_gripper_type in ('ag2f90_c', 'ag2f90_d')}">
 						<param name="gripper_type">${right_gripper_type}</param>
@@ -97,6 +103,8 @@
 						<param name="gripper_close_pos">9000</param>
 						<param name="gripper_max_opening_distance">1.0</param>
 						<param name="gripper_configure_xpanel">false</param>
+						<param name="right_tool_torque">1.0</param>
+						<param name="right_tool_velocity">1.0</param>
 					</xacro:if>
 				</hardware>
 				<xacro:ar5_interfaces name="right"/>
@@ -144,6 +152,8 @@
 					<param name="sdk_filter_frequency_3">$(arg rokae_sdk_filter_frequency_3)</param>
 					<xacro:if value="${selected_gripper_type == 'rg75'}">
 						<param name="gripper_type">jodell</param>
+						<param name="${'left' if selected_arm_config == 'left' else 'right'}_tool_torque">1.0</param>
+						<param name="${'left' if selected_arm_config == 'left' else 'right'}_tool_velocity">1.0</param>
 					</xacro:if>
 					<xacro:if value="${selected_gripper_type in ('ag2f90_c', 'ag2f90_d')}">
 						<param name="gripper_type">${selected_gripper_type}</param>
@@ -151,6 +161,8 @@
 						<param name="gripper_close_pos">9000</param>
 						<param name="gripper_max_opening_distance">1.0</param>
 						<param name="gripper_configure_xpanel">false</param>
+						<param name="${'left' if selected_arm_config == 'left' else 'right'}_tool_torque">1.0</param>
+						<param name="${'left' if selected_arm_config == 'left' else 'right'}_tool_velocity">1.0</param>
 					</xacro:if>
 				</hardware>
 				<xacro:ar5_interfaces name=""/>
