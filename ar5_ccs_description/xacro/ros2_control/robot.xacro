@@ -1,6 +1,17 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="AR5_CCS">
 	<xacro:arg name="ros2_control_hardware_type" default="mock_components"/>
+	<xacro:arg name="left_arm_cpu_affinity" default="2"/>
+	<xacro:arg name="right_arm_cpu_affinity" default="3"/>
+	<xacro:arg name="rokae_command_filter_mode" default="double_s"/>
+	<xacro:arg name="rokae_command_filter_max_velocity" default="6.0"/>
+	<xacro:arg name="rokae_command_filter_max_acceleration" default="30.0"/>
+	<xacro:arg name="rokae_command_filter_max_jerk" default="300.0"/>
+	<xacro:arg name="rokae_sdk_filter_limit_enable" default="true"/>
+	<xacro:arg name="rokae_sdk_filter_limit" default="10"/>
+	<xacro:arg name="rokae_sdk_filter_frequency_1" default="10"/>
+	<xacro:arg name="rokae_sdk_filter_frequency_2" default="10"/>
+	<xacro:arg name="rokae_sdk_filter_frequency_3" default="10"/>
 
 	<link name="world"/>
 
@@ -27,6 +38,16 @@
 					<param name="ctrl_mode">POSITION</param>
 					<param name="joint_impedance">200,200,200,200,20,20,20</param>
 					<param name="local_ip">192.168.1.233</param>
+					<param name="cpu_affinity">$(arg left_arm_cpu_affinity)</param>
+					<param name="command_filter_mode">$(arg rokae_command_filter_mode)</param>
+					<param name="command_filter_max_velocity">$(arg rokae_command_filter_max_velocity)</param>
+					<param name="command_filter_max_acceleration">$(arg rokae_command_filter_max_acceleration)</param>
+					<param name="command_filter_max_jerk">$(arg rokae_command_filter_max_jerk)</param>
+					<param name="sdk_filter_limit_enable">$(arg rokae_sdk_filter_limit_enable)</param>
+					<param name="sdk_filter_limit">$(arg rokae_sdk_filter_limit)</param>
+					<param name="sdk_filter_frequency_1">$(arg rokae_sdk_filter_frequency_1)</param>
+					<param name="sdk_filter_frequency_2">$(arg rokae_sdk_filter_frequency_2)</param>
+					<param name="sdk_filter_frequency_3">$(arg rokae_sdk_filter_frequency_3)</param>
 					<xacro:if value="${left_gripper_type == 'rg75'}">
 						<param name="gripper_type">jodell</param>
 					</xacro:if>
@@ -53,10 +74,20 @@
 			<ros2_control name="ar5_right_system" type="system">
 				<hardware>
 					<plugin>rokae_ros2_control/RokaeHardware</plugin>
-					<param name="arm_ip">192.168.2.161</param>
+					<param name="arm_ip">192.168.0.160</param>
 					<param name="ctrl_mode">POSITION</param>
 					<param name="joint_impedance">200,200,200,200,20,20,20</param>
-					<param name="local_ip">192.168.2.234</param>
+					<param name="local_ip">192.168.0.233</param>
+					<param name="cpu_affinity">$(arg right_arm_cpu_affinity)</param>
+					<param name="command_filter_mode">$(arg rokae_command_filter_mode)</param>
+					<param name="command_filter_max_velocity">$(arg rokae_command_filter_max_velocity)</param>
+					<param name="command_filter_max_acceleration">$(arg rokae_command_filter_max_acceleration)</param>
+					<param name="command_filter_max_jerk">$(arg rokae_command_filter_max_jerk)</param>
+					<param name="sdk_filter_limit_enable">$(arg rokae_sdk_filter_limit_enable)</param>
+					<param name="sdk_filter_limit">$(arg rokae_sdk_filter_limit)</param>
+					<param name="sdk_filter_frequency_1">$(arg rokae_sdk_filter_frequency_1)</param>
+					<param name="sdk_filter_frequency_2">$(arg rokae_sdk_filter_frequency_2)</param>
+					<param name="sdk_filter_frequency_3">$(arg rokae_sdk_filter_frequency_3)</param>
 					<xacro:if value="${right_gripper_type == 'rg75'}">
 						<param name="gripper_type">jodell</param>
 					</xacro:if>
@@ -91,7 +122,7 @@
 						<param name="arm_ip">192.168.1.160</param>
 					</xacro:if>
 					<xacro:if value="${selected_arm_config == 'right'}">
-						<param name="arm_ip">192.168.2.161</param>
+						<param name="arm_ip">192.168.0.160</param>
 					</xacro:if>
 					<param name="ctrl_mode">POSITION</param>
 					<param name="joint_impedance">200,200,200,200,20,20,20</param>
@@ -99,8 +130,18 @@
 						<param name="local_ip">192.168.1.233</param>
 					</xacro:if>
 					<xacro:if value="${selected_arm_config == 'right'}">
-						<param name="local_ip">192.168.2.234</param>
+						<param name="local_ip">192.168.0.233</param>
 					</xacro:if>
+					<param name="cpu_affinity">${'$(arg left_arm_cpu_affinity)' if selected_arm_config == 'left' else '$(arg right_arm_cpu_affinity)'}</param>
+					<param name="command_filter_mode">$(arg rokae_command_filter_mode)</param>
+					<param name="command_filter_max_velocity">$(arg rokae_command_filter_max_velocity)</param>
+					<param name="command_filter_max_acceleration">$(arg rokae_command_filter_max_acceleration)</param>
+					<param name="command_filter_max_jerk">$(arg rokae_command_filter_max_jerk)</param>
+					<param name="sdk_filter_limit_enable">$(arg rokae_sdk_filter_limit_enable)</param>
+					<param name="sdk_filter_limit">$(arg rokae_sdk_filter_limit)</param>
+					<param name="sdk_filter_frequency_1">$(arg rokae_sdk_filter_frequency_1)</param>
+					<param name="sdk_filter_frequency_2">$(arg rokae_sdk_filter_frequency_2)</param>
+					<param name="sdk_filter_frequency_3">$(arg rokae_sdk_filter_frequency_3)</param>
 					<xacro:if value="${selected_gripper_type == 'rg75'}">
 						<param name="gripper_type">jodell</param>
 					</xacro:if>
