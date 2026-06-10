@@ -32,8 +32,8 @@
 					<xacro:if value="${selected_gripper_type == 'rg75'}">
 						<param name="gripper_type">jodell</param>
 					</xacro:if>
-					<xacro:if value="${selected_gripper_type == 'ag2f90_d'}">
-						<param name="gripper_type">ag2f90_d</param>
+					<xacro:if value="${selected_gripper_type in ('ag2f90_c', 'ag2f90_d')}">
+						<param name="gripper_type">${selected_gripper_type}</param>
 						<param name="gripper_slave_id">1</param>
 						<param name="gripper_close_pos">9000</param>
 						<param name="gripper_max_opening_distance">1.0</param>
@@ -62,8 +62,8 @@
 					<xacro:if value="${selected_gripper_type == 'rg75'}">
 						<param name="gripper_type">jodell</param>
 					</xacro:if>
-					<xacro:if value="${selected_gripper_type == 'ag2f90_d'}">
-						<param name="gripper_type">ag2f90_d</param>
+					<xacro:if value="${selected_gripper_type in ('ag2f90_c', 'ag2f90_d')}">
+						<param name="gripper_type">${selected_gripper_type}</param>
 						<param name="gripper_slave_id">1</param>
 						<param name="gripper_close_pos">9000</param>
 						<param name="gripper_max_opening_distance">1.0</param>
@@ -103,8 +103,8 @@
 					<xacro:if value="${selected_gripper_type == 'rg75'}">
 						<param name="gripper_type">jodell</param>
 					</xacro:if>
-					<xacro:if value="${selected_gripper_type == 'ag2f90_d'}">
-						<param name="gripper_type">ag2f90_d</param>
+					<xacro:if value="${selected_gripper_type in ('ag2f90_c', 'ag2f90_d')}">
+						<param name="gripper_type">${selected_gripper_type}</param>
 						<param name="gripper_slave_id">1</param>
 						<param name="gripper_close_pos">9000</param>
 						<param name="gripper_max_opening_distance">1.0</param>
