@@ -14,6 +14,7 @@
 	<!-- 默认值 -->
 	<xacro:property name="selected_arm_config" value="dual"/>    <!-- left, right, dual -->
 	<xacro:property name="selected_gripper_type" value=""/>     <!-- 空字符串, rg75, ag2f90_d -->
+	<xacro:property name="selected_gripper_pad" value="default"/>
 
 	<!-- 解析 type 参数 - 使用显式匹配 -->
 	<!-- 处理 CCS 类型 -->
@@ -56,6 +57,7 @@
 	<xacro:set_side_eef_types side="right" type_key="${effective_right_type}"/>
 	<xacro:if value="${selected_arm_config == 'dual'}">
 		<xacro:property name="selected_gripper_type" value="${left_gripper_type if left_gripper_type == right_gripper_type else ''}"/>
+		<xacro:property name="selected_gripper_pad" value="${left_gripper_pad if left_gripper_pad == right_gripper_pad else 'default'}"/>
 	</xacro:if>
 
 	<!-- Include Component Macros -->
