@@ -84,7 +84,7 @@
 			<param name="load_cog">[0.0, 0.0, 0.0]</param>
 			<param name="load_inertia">[0.0, 0.0, 0.0]</param>
 		</xacro:if>
-		<!-- Right AG2F90-D, pad is ignored by the model: TODO fill measured load. -->
+		<!-- Right AG2F90-D, pad is ignored by the model. -->
 		<xacro:if value="${side == 'right' and gripper_type == 'ag2f90_d'}">
 			<param name="load_mass">0.859</param>
 			<param name="load_cog">[0.007246, 0.01, 0.081]</param>
