@@ -1,7 +1,22 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="AR5_CCS">
 	<xacro:arg name="ros2_control_hardware_type" default="mock_components"/>
-
+	<xacro:arg name="left_arm_ip" default="192.168.1.160"/>
+	<xacro:arg name="left_local_ip" default="192.168.1.233"/>
+	<xacro:arg name="right_arm_ip" default="192.168.0.160"/>
+	<xacro:arg name="right_local_ip" default="192.168.0.233"/>
+	<xacro:arg name="left_arm_cpu_affinity" default="2"/>
+	<xacro:arg name="right_arm_cpu_affinity" default="3"/>
+	<xacro:arg name="left_load_mass" default=""/>
+	<xacro:arg name="left_load_cog" default=""/>
+	<xacro:arg name="left_load_inertia" default=""/>
+	<xacro:arg name="right_load_mass" default=""/>
+	<xacro:arg name="right_load_cog" default=""/>
+	<xacro:arg name="right_load_inertia" default=""/>
+	<xacro:arg name="rokae_command_filter_mode" default="double_s"/>
+	<xacro:arg name="rokae_command_filter_max_velocity" default="6.0"/>
+	<xacro:arg name="rokae_command_filter_max_acceleration" default="30.0"/>
+	<xacro:arg name="rokae_command_filter_max_jerk" default="300.0"/>
 	<link name="world"/>
 
 	<joint name="world_fixed" type="fixed">
@@ -13,6 +28,86 @@
 	<xacro:include filename="$(find ar5_ccs_description)/xacro/robot.xacro"/>
 	<xacro:include filename="$(find ar5_ccs_description)/xacro/ros2_control/interfaces.xacro"/>
 
+	<!--
+		Default Rokae tool load table by gripper/pad.
+		All values are intentionally zero placeholders. Fill the real values here
+		when the measured mass/CoG/inertia for each end effector is available.
+	-->
+	<xacro:macro name="rokae_tool_load_params" params="side gripper_type gripper_pad">
+		<!-- Left RG75, default pad: TODO fill measured load. -->
+		<xacro:if value="${side == 'left' and gripper_type == 'rg75' and gripper_pad != 'heavy_carry'}">
+			<param name="load_mass">1.62</param>
+			<param name="load_cog">[-0.0014285, 0.000579, 0.10439]</param>
+			<param name="load_inertia">[0.04874, 0.001, 0.001936]</param>
+		</xacro:if>
+		<!-- Left RG75, heavy_carry pad: TODO fill measured load. -->
+		<xacro:if value="${side == 'left' and gripper_type == 'rg75' and gripper_pad == 'heavy_carry'}">
+			<param name="load_mass">0.0</param>
+			<param name="load_cog">[0.0, 0.0, 0.0]</param>
+			<param name="load_inertia">[0.0, 0.0, 0.0]</param>
+		</xacro:if>
+		<!-- Left AG2F90-C, default pad: TODO fill measured load. -->
+		<xacro:if value="${side == 'left' and gripper_type == 'ag2f90_c' and gripper_pad != 'soft'}">
+			<param name="load_mass">0.0</param>
+			<param name="load_cog">[0.0, 0.0, 0.0]</param>
+			<param name="load_inertia">[0.0, 0.0, 0.0]</param>
+		</xacro:if>
+		<!-- Left AG2F90-C, soft pad: TODO fill measured load. -->
+		<xacro:if value="${side == 'left' and gripper_type == 'ag2f90_c' and gripper_pad == 'soft'}">
+			<param name="load_mass">0.0</param>
+			<param name="load_cog">[0.0, 0.0, 0.0]</param>
+			<param name="load_inertia">[0.0, 0.0, 0.0]</param>
+		</xacro:if>
+		<!-- Left AG2F90-D, pad is ignored by the model: TODO fill measured load. -->
+		<xacro:if value="${side == 'left' and gripper_type == 'ag2f90_d'}">
+			<param name="load_mass">0.0</param>
+			<param name="load_cog">[0.0, 0.0, 0.0]</param>
+			<param name="load_inertia">[0.0, 0.0, 0.0]</param>
+		</xacro:if>
+		<!-- Right RG75, default pad. -->
+		<xacro:if value="${side == 'right' and gripper_type == 'rg75' and gripper_pad != 'heavy_carry'}">
+			<param name="load_mass">1.62</param>
+			<param name="load_cog">[-0.0014285, 0.000579, 0.10439]</param>
+			<param name="load_inertia">[0.04874, 0.001, 0.001936]</param>
+		</xacro:if>
+		<!-- Right RG75, heavy_carry pad: TODO fill measured load. -->
+		<xacro:if value="${side == 'right' and gripper_type == 'rg75' and gripper_pad == 'heavy_carry'}">
+			<param name="load_mass">0.0</param>
+			<param name="load_cog">[0.0, 0.0, 0.0]</param>
+			<param name="load_inertia">[0.0, 0.0, 0.0]</param>
+		</xacro:if>
+		<!-- Right AG2F90-C, default pad: TODO fill measured load. -->
+		<xacro:if value="${side == 'right' and gripper_type == 'ag2f90_c' and gripper_pad != 'soft'}">
+			<param name="load_mass">0.0</param>
+			<param name="load_cog">[0.0, 0.0, 0.0]</param>
+			<param name="load_inertia">[0.0, 0.0, 0.0]</param>
+		</xacro:if>
+		<!-- Right AG2F90-C, soft pad: TODO fill measured load. -->
+		<xacro:if value="${side == 'right' and gripper_type == 'ag2f90_c' and gripper_pad == 'soft'}">
+			<param name="load_mass">0.0</param>
+			<param name="load_cog">[0.0, 0.0, 0.0]</param>
+			<param name="load_inertia">[0.0, 0.0, 0.0]</param>
+		</xacro:if>
+		<!-- Right AG2F90-D, pad is ignored by the model. -->
+		<xacro:if value="${side == 'right' and gripper_type == 'ag2f90_d'}">
+			<param name="load_mass">0.859</param>
+			<param name="load_cog">[0.007246, 0.01, 0.081]</param>
+			<param name="load_inertia">[0.0242, 0.01596, 0.00745]</param>
+		</xacro:if>
+	</xacro:macro>
+
+	<xacro:macro name="rokae_tool_load_params_with_override" params="side gripper_type gripper_pad load_mass load_cog load_inertia">
+		<xacro:property name="has_tool_load_override" value="${load_mass != '' and load_cog != '' and load_inertia != ''}"/>
+		<xacro:if value="${has_tool_load_override}">
+			<param name="load_mass">${load_mass}</param>
+			<param name="load_cog">${load_cog}</param>
+			<param name="load_inertia">${load_inertia}</param>
+		</xacro:if>
+		<xacro:unless value="${has_tool_load_override}">
+			<xacro:rokae_tool_load_params side="${side}" gripper_type="${gripper_type}" gripper_pad="${gripper_pad}"/>
+		</xacro:unless>
+	</xacro:macro>
+
 	<!-- 使用 robot.xacro 中已定义的 property 来判断 -->
 	<!-- selected_arm_config: left, right, dual -->
 	<!-- selected_gripper_type: '' 或 rg75 -->
@@ -23,66 +118,86 @@
 			<ros2_control name="ar5_left_system" type="system">
 				<hardware>
 					<plugin>rokae_ros2_control/RokaeHardware</plugin>
-					<param name="arm_ip">192.168.1.160</param>
+					<param name="arm_ip">$(arg left_arm_ip)</param>
 					<param name="ctrl_mode">POSITION</param>
 					<param name="joint_impedance">200,200,200,200,20,20,20</param>
-					<param name="local_ip">192.168.1.233</param>
-					<xacro:if value="${selected_gripper_type == 'rg75'}">
+					<param name="local_ip">$(arg left_local_ip)</param>
+					<param name="cpu_affinity">$(arg left_arm_cpu_affinity)</param>
+					<param name="command_filter_mode">$(arg rokae_command_filter_mode)</param>
+					<param name="command_filter_max_velocity">$(arg rokae_command_filter_max_velocity)</param>
+					<param name="command_filter_max_acceleration">$(arg rokae_command_filter_max_acceleration)</param>
+					<param name="command_filter_max_jerk">$(arg rokae_command_filter_max_jerk)</param>
+					<xacro:if value="${left_gripper_type == 'rg75'}">
 						<param name="gripper_type">jodell</param>
-						<param name="gripper_torque_scale">1.0</param>
-						<param name="gripper_velocity">100</param>
+						<param name="left_tool_torque">1.0</param>
+						<param name="left_tool_velocity">1.0</param>
 					</xacro:if>
-					<xacro:if value="${selected_gripper_type == 'ag2f90_d'}">
-						<param name="gripper_type">ag2f90_d</param>
+					<xacro:if value="${left_gripper_type in ('ag2f90_c', 'ag2f90_d')}">
+						<param name="gripper_type">${left_gripper_type}</param>
 						<param name="gripper_slave_id">1</param>
 						<param name="gripper_close_pos">9000</param>
 						<param name="gripper_max_opening_distance">1.0</param>
 						<param name="gripper_configure_xpanel">false</param>
-						<param name="load_mass">0.0</param>
-					        <param name="load_cog">[0.0, 0.0, 0.0]</param>
-					        <param name="load_inertia">[0.0, 0.0, 0.0]</param>
+						<param name="left_tool_torque">1.0</param>
+						<param name="left_tool_velocity">1.0</param>
+					</xacro:if>
+					<xacro:if value="${left_gripper_type != ''}">
+						<xacro:rokae_tool_load_params_with_override side="left" gripper_type="${left_gripper_type}" gripper_pad="${left_gripper_pad}"
+																   load_mass="$(arg left_load_mass)" load_cog="$(arg left_load_cog)" load_inertia="$(arg left_load_inertia)"/>
 					</xacro:if>
 				</hardware>
 				<xacro:ar5_interfaces name="left"/>
-				<xacro:if value="${selected_gripper_type != ''}">
+				<xacro:if value="${left_gripper_type != ''}">
 					<joint name="left_gripper_joint">
 						<command_interface name="position"/>
 						<state_interface name="position">
 							<param name="initial_value">0</param>
 						</state_interface>
+						<state_interface name="velocity"/>
+						<state_interface name="effort"/>
 					</joint>
 				</xacro:if>
 			</ros2_control>
 			<ros2_control name="ar5_right_system" type="system">
 				<hardware>
 					<plugin>rokae_ros2_control/RokaeHardware</plugin>
-					<param name="arm_ip">192.168.1.161</param>
+					<param name="arm_ip">$(arg right_arm_ip)</param>
 					<param name="ctrl_mode">POSITION</param>
 					<param name="joint_impedance">200,200,200,200,20,20,20</param>
-					<param name="local_ip">192.168.1.233</param>
-					<xacro:if value="${selected_gripper_type == 'rg75'}">
+					<param name="local_ip">$(arg right_local_ip)</param>
+					<param name="cpu_affinity">$(arg right_arm_cpu_affinity)</param>
+					<param name="command_filter_mode">$(arg rokae_command_filter_mode)</param>
+					<param name="command_filter_max_velocity">$(arg rokae_command_filter_max_velocity)</param>
+					<param name="command_filter_max_acceleration">$(arg rokae_command_filter_max_acceleration)</param>
+					<param name="command_filter_max_jerk">$(arg rokae_command_filter_max_jerk)</param>
+					<xacro:if value="${right_gripper_type == 'rg75'}">
 						<param name="gripper_type">jodell</param>
-						<param name="gripper_torque_scale">1.0</param>
-						<param name="gripper_velocity">100</param>
+						<param name="right_tool_torque">1.0</param>
+						<param name="right_tool_velocity">1.0</param>
 					</xacro:if>
-					<xacro:if value="${selected_gripper_type == 'ag2f90_d'}">
-						<param name="gripper_type">ag2f90_d</param>
+					<xacro:if value="${right_gripper_type in ('ag2f90_c', 'ag2f90_d')}">
+						<param name="gripper_type">${right_gripper_type}</param>
 						<param name="gripper_slave_id">1</param>
 						<param name="gripper_close_pos">9000</param>
 						<param name="gripper_max_opening_distance">1.0</param>
 						<param name="gripper_configure_xpanel">false</param>
-						<param name="load_mass">0.75</param>
-						<param name="load_cog">[-0.01, -0.03, 0.09]</param>
-						<param name="load_inertia">[0.0, 0.0, 0.0]</param>
+						<param name="right_tool_torque">1.0</param>
+						<param name="right_tool_velocity">1.0</param>
+					</xacro:if>
+					<xacro:if value="${right_gripper_type != ''}">
+						<xacro:rokae_tool_load_params_with_override side="right" gripper_type="${right_gripper_type}" gripper_pad="${right_gripper_pad}"
+																   load_mass="$(arg right_load_mass)" load_cog="$(arg right_load_cog)" load_inertia="$(arg right_load_inertia)"/>
 					</xacro:if>
 				</hardware>
 				<xacro:ar5_interfaces name="right"/>
-				<xacro:if value="${selected_gripper_type != ''}">
+				<xacro:if value="${right_gripper_type != ''}">
 					<joint name="right_gripper_joint">
 						<command_interface name="position"/>
 						<state_interface name="position">
 							<param name="initial_value">0</param>
 						</state_interface>
+						<state_interface name="velocity"/>
+						<state_interface name="effort"/>
 					</joint>
 				</xacro:if>
 			</ros2_control>
@@ -94,25 +209,43 @@
 					<plugin>rokae_ros2_control/RokaeHardware</plugin>
 					<!-- 根据 arm_config 设置 arm_ip -->
 					<xacro:if value="${selected_arm_config == 'left'}">
-						<param name="arm_ip">192.168.1.160</param>
+						<param name="arm_ip">$(arg left_arm_ip)</param>
 					</xacro:if>
 					<xacro:if value="${selected_arm_config == 'right'}">
-						<param name="arm_ip">192.168.1.161</param>
+						<param name="arm_ip">$(arg right_arm_ip)</param>
 					</xacro:if>
 					<param name="ctrl_mode">POSITION</param>
 					<param name="joint_impedance">200,200,200,200,20,20,20</param>
-					<param name="local_ip">192.168.1.233</param>
+					<xacro:if value="${selected_arm_config == 'left'}">
+						<param name="local_ip">$(arg left_local_ip)</param>
+					</xacro:if>
+					<xacro:if value="${selected_arm_config == 'right'}">
+						<param name="local_ip">$(arg right_local_ip)</param>
+					</xacro:if>
+					<param name="cpu_affinity">${'$(arg left_arm_cpu_affinity)' if selected_arm_config == 'left' else '$(arg right_arm_cpu_affinity)'}</param>
+					<param name="command_filter_mode">$(arg rokae_command_filter_mode)</param>
+					<param name="command_filter_max_velocity">$(arg rokae_command_filter_max_velocity)</param>
+					<param name="command_filter_max_acceleration">$(arg rokae_command_filter_max_acceleration)</param>
+					<param name="command_filter_max_jerk">$(arg rokae_command_filter_max_jerk)</param>
 					<xacro:if value="${selected_gripper_type == 'rg75'}">
 						<param name="gripper_type">jodell</param>
-						<param name="gripper_torque_scale">1.0</param>
-						<param name="gripper_velocity">100</param>
+						<param name="${'left' if selected_arm_config == 'left' else 'right'}_tool_torque">1.0</param>
+						<param name="${'left' if selected_arm_config == 'left' else 'right'}_tool_velocity">1.0</param>
 					</xacro:if>
-					<xacro:if value="${selected_gripper_type == 'ag2f90_d'}">
-						<param name="gripper_type">ag2f90_d</param>
+					<xacro:if value="${selected_gripper_type in ('ag2f90_c', 'ag2f90_d')}">
+						<param name="gripper_type">${selected_gripper_type}</param>
 						<param name="gripper_slave_id">1</param>
 						<param name="gripper_close_pos">9000</param>
 						<param name="gripper_max_opening_distance">1.0</param>
 						<param name="gripper_configure_xpanel">false</param>
+						<param name="${'left' if selected_arm_config == 'left' else 'right'}_tool_torque">1.0</param>
+						<param name="${'left' if selected_arm_config == 'left' else 'right'}_tool_velocity">1.0</param>
+					</xacro:if>
+					<xacro:if value="${selected_gripper_type != ''}">
+						<xacro:rokae_tool_load_params_with_override side="${'left' if selected_arm_config == 'left' else 'right'}" gripper_type="${selected_gripper_type}" gripper_pad="${selected_gripper_pad}"
+																   load_mass="${'$(arg left_load_mass)' if selected_arm_config == 'left' else '$(arg right_load_mass)'}"
+																   load_cog="${'$(arg left_load_cog)' if selected_arm_config == 'left' else '$(arg right_load_cog)'}"
+																   load_inertia="${'$(arg left_load_inertia)' if selected_arm_config == 'left' else '$(arg right_load_inertia)'}"/>
 					</xacro:if>
 				</hardware>
 				<xacro:ar5_interfaces name=""/>
@@ -123,6 +256,8 @@
 						<state_interface name="position">
 							<param name="initial_value">0</param>
 						</state_interface>
+						<state_interface name="velocity"/>
+						<state_interface name="effort"/>
 					</joint>
 				</xacro:if>
 			</ros2_control>
@@ -150,18 +285,24 @@
 			<xacro:if value="${selected_arm_config == 'dual'}">
 				<xacro:ar5_interfaces name="left"/>
 				<xacro:ar5_interfaces name="right"/>
-				<xacro:if value="${selected_gripper_type != ''}">
+				<xacro:if value="${left_gripper_type != ''}">
 					<joint name="left_gripper_joint">
 						<command_interface name="position"/>
 						<state_interface name="position">
 							<param name="initial_value">0</param>
 						</state_interface>
+						<state_interface name="velocity"/>
+						<state_interface name="effort"/>
 					</joint>
+				</xacro:if>
+				<xacro:if value="${right_gripper_type != ''}">
 					<joint name="right_gripper_joint">
 						<command_interface name="position"/>
 						<state_interface name="position">
 							<param name="initial_value">0</param>
 						</state_interface>
+						<state_interface name="velocity"/>
+						<state_interface name="effort"/>
 					</joint>
 				</xacro:if>
 			</xacro:if>
@@ -173,6 +314,8 @@
 						<state_interface name="position">
 							<param name="initial_value">0</param>
 						</state_interface>
+						<state_interface name="velocity"/>
+						<state_interface name="effort"/>
 					</joint>
 				</xacro:if>
 			</xacro:unless>

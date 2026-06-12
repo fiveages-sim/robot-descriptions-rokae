@@ -89,17 +89,6 @@ mpc
 ; initial state
 initialState
 {
-  ; initial state for the different types of arm base DOFs
-  base
-  {
-    wheelBasedMobileManipulator
-    {
-      (0,0)  -1.0  ; position x
-      (1,0)  0.0  ; position y
-      (2,0)  0.0  ; heading
-    }
-  }
-
   ; initial state for the arm DOFs
   arm
   {
@@ -125,54 +114,24 @@ inputCost
   ; control weight matrix
   R
   {
-    ; input costs for the different types of arm base DOFs
-    base
-    {
-      defaultManipulator
-      {
-      }
-
-      floatingArmManipulator
-      {
-      }
-
-      fullyActuatedFloatingArmManipulator
-      {
-        scaling 1e-2
-        (0,0)  5.0  ; position x
-        (1,1)  5.0  ; position y
-        (2,2)  5.0  ; position z
-        (3,3)  5.0  ; euler angle z
-        (4,4)  5.0  ; euler angle y
-        (5,5)  5.0  ; euler angle x
-      }
-
-      wheelBasedMobileManipulator
-      {
-        scaling 1e-2
-        (0,0)  1.5  ; forward velocity
-        (1,1)  1.5  ; turning velocity
-      }
-    }
-
     ; input costs for the arm DOFs
     arm
     {
       scaling 1e-3
-         (0,0)   0.51      ; left_joint1
-         (1,0)   0.51      ; left_joint2
-         (2,0)   0.51      ; left_joint3
-         (3,0)   0.51      ; left_joint4
-         (4,0)   0.31      ; left_joint5
-         (5,0)   0.31      ; left_joint6
-         (6,0)   0.31      ; left_joint7
-         (7,0)   0.51      ; right_joint1
-         (8,0)   0.51      ; right_joint2
-         (9,0)   0.51      ; right_joint3
-         (10,0)  0.51      ; right_joint4
-         (11,0)  0.31      ; right_joint5
-         (12,0)  0.31      ; right_joint6
-         (13,0)  0.31      ; right_joint7
+        (0,0)   3.0     ; left_joint1
+        (1,0)   3.0     ; left_joint2
+        (2,0)   3.0     ; left_joint3
+        (3,0)   3.0     ; left_joint4
+        (4,0)   1.0     ; left_joint5
+        (5,0)   1.0     ; left_joint6
+        (6,0)   5.0     ; left_joint7
+        (7,0)   3.0     ; right_joint1
+        (8,0)   3.0     ; right_joint2
+        (9,0)   3.0     ; right_joint3
+        (10,0)  3.0     ; right_joint4
+        (11,0)  1.0     ; right_joint5
+        (12,0)  1.0     ; right_joint6
+        (13,0)  5.0     ; right_joint7
     }
   }
 }
@@ -254,10 +213,10 @@ jointPositionLimits
   activate  true
 
   ; relaxed log barrier mu
-  mu      0.001
+  mu      3e-2
 
   ; relaxed log barrier delta
-  delta   1e-3
+  delta   1e-2
 }
 
 jointVelocityLimits
@@ -270,101 +229,45 @@ jointVelocityLimits
 
   lowerBound
   {
-    ; velocity limits for the different types of arm base DOFs
-    base
-    {
-      defaultManipulator
-      {
-      }
-
-      floatingArmManipulator
-      {
-      }
-
-      fullyActuatedFloatingArmManipulator
-      {
-        (0,0)  -0.5  ; linear velocity x
-        (1,0)  -0.1  ; linear velocity y
-        (2,0)  -0.1  ; linear velocity z
-        (3,0)  -0.3  ; euler angle velocity z
-        (4,0)  -0.3  ; euler angle velocity y
-        (5,0)  -0.3  ; euler angle velocity x
-      }
-
-      wheelBasedMobileManipulator
-      {
-        (0,0)  -2.0 ; forward velocity
-        (1,0)  -2.0 ; turning velocity
-      }
-    }
-
     ; velocity limits for the arm DOFs
     arm
     {
-        (0,0)  -0.3         ; left_joint1 [rad/s]
-        (1,0)  -0.3         ; left_joint2 [rad/s]
-        (2,0)  -0.3         ; left_joint3 [rad/s]
-        (3,0)  -0.3         ; left_joint4 [rad/s]
-        (4,0)  -0.5         ; left_joint5 [rad/s]
-        (5,0)  -0.5         ; left_joint6 [rad/s]
-        (6,0)  -0.5         ; left_joint7 [rad/s]
-        (7,0)  -0.3         ; right_joint1 [rad/s]
-        (8,0)  -0.3         ; right_joint2 [rad/s]
-        (9,0)  -0.3         ; right_joint3 [rad/s]
-        (10,0) -0.3         ; right_joint4 [rad/s]
-        (11,0) -0.5         ; right_joint5 [rad/s]
-        (12,0) -0.5         ; right_joint6 [rad/s]
-        (13,0) -0.5         ; right_joint7 [rad/s]
-    }
-  }
+        (0,0)  -1.07        ; left_joint1 [rad/s]
+        (1,0)  -1.07        ; left_joint2 [rad/s]
+        (2,0)  -1.07        ; left_joint3 [rad/s]
+        (3,0)  -1.07        ; left_joint4 [rad/s]
+        (4,0)  -1.07        ; left_joint5 [rad/s]
+        (5,0)  -1.07        ; left_joint6 [rad/s]
+        (6,0)  -1.07        ; left_joint7 [rad/s]
+        (7,0)  -1.07        ; right_joint1 [rad/s]
+        (8,0)  -1.07        ; right_joint2 [rad/s]
+        (9,0)  -1.07        ; right_joint3 [rad/s]
+        (10,0) -1.07        ; right_joint4 [rad/s]
+        (11,0) -1.07        ; right_joint5 [rad/s]
+        (12,0) -1.07        ; right_joint6 [rad/s]
+        (13,0) -1.07        ; right_joint7 [rad/s]
+}
+}
 
   upperBound
   {
-    ; velocity limits for the different types of arm base DOFs
-    base
-    {
-      defaultManipulator
-      {
-      }
-
-      floatingArmManipulator
-      {
-      }
-
-      fullyActuatedFloatingArmManipulator
-      {
-        (0,0)  0.1  ; linear velocity x
-        (1,0)  0.1  ; linear velocity y
-        (2,0)  0.1  ; linear velocity z
-        (3,0)  0.3  ; euler angle velocity z
-        (4,0)  0.3  ; euler angle velocity y
-        (5,0)  0.3  ; euler angle velocity x
-      }
-
-      wheelBasedMobileManipulator
-      {
-        (0,0)  2.0 ; forward velocity
-        (1,0)  2.0 ; turning velocity
-      }
-    }
-
     ; velocity limits for the arm DOFs
     arm
     {
-        (0,0)  0.3          ; left_joint1 [rad/s]
-        (1,0)  0.3          ; left_joint2 [rad/s]
-        (2,0)  0.3          ; left_joint3 [rad/s]
-        (3,0)  0.3          ; left_joint4 [rad/s]
-        (4,0)  0.5          ; left_joint5 [rad/s]
-        (5,0)  0.5          ; left_joint6 [rad/s]
-        (6,0)  0.5          ; left_joint7 [rad/s]
-        (7,0)  0.3          ; right_joint1 [rad/s]
-        (8,0)  0.3          ; right_joint2 [rad/s]
-        (9,0)  0.3          ; right_joint3 [rad/s]
-        (10,0) 0.3          ; right_joint4 [rad/s]
-        (11,0) 0.5          ; right_joint5 [rad/s]
-        (12,0) 0.5          ; right_joint6 [rad/s]
-        (13,0) 0.5          ; right_joint7 [rad/s]
+        (0,0)  1.07         ; left_joint1 [rad/s]
+        (1,0)  1.07         ; left_joint2 [rad/s]
+        (2,0)  1.07         ; left_joint3 [rad/s]
+        (3,0)  1.07         ; left_joint4 [rad/s]
+        (4,0)  1.07         ; left_joint5 [rad/s]
+        (5,0)  1.07         ; left_joint6 [rad/s]
+        (6,0)  1.07         ; left_joint7 [rad/s]
+        (7,0)  1.07         ; right_joint1 [rad/s]
+        (8,0)  1.07         ; right_joint2 [rad/s]
+        (9,0)  1.07         ; right_joint3 [rad/s]
+        (10,0) 1.07         ; right_joint4 [rad/s]
+        (11,0) 1.07         ; right_joint5 [rad/s]
+        (12,0) 1.07         ; right_joint6 [rad/s]
+        (13,0) 1.07         ; right_joint7 [rad/s]
     }
   }
 }

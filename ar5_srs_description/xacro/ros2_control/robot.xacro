@@ -31,15 +31,17 @@
 					<param name="local_ip">192.168.1.233</param>
 					<xacro:if value="${selected_gripper_type == 'rg75'}">
 						<param name="gripper_type">jodell</param>
-						<param name="gripper_torque_scale">1.0</param>
-						<param name="gripper_velocity">100</param>
+						<param name="left_tool_torque">1.0</param>
+						<param name="left_tool_velocity">1.0</param>
 					</xacro:if>
-					<xacro:if value="${selected_gripper_type == 'ag2f90_d'}">
-						<param name="gripper_type">ag2f90_d</param>
+					<xacro:if value="${selected_gripper_type in ('ag2f90_c', 'ag2f90_d')}">
+						<param name="gripper_type">${selected_gripper_type}</param>
 						<param name="gripper_slave_id">1</param>
 						<param name="gripper_close_pos">9000</param>
 						<param name="gripper_max_opening_distance">1.0</param>
 						<param name="gripper_configure_xpanel">false</param>
+						<param name="left_tool_torque">1.0</param>
+						<param name="left_tool_velocity">1.0</param>
 					</xacro:if>
 				</hardware>
 				<xacro:ar5_interfaces name="left"/>
@@ -55,23 +57,25 @@
 			<ros2_control name="ar5_right_system" type="system">
 				<hardware>
 					<plugin>rokae_ros2_control/RokaeHardware</plugin>
-					<param name="arm_ip">192.168.1.161</param>
+					<param name="arm_ip">192.168.2.161</param>
 <!--					<param name="servoj_period">0.01</param>-->
 <!--					<param name="servoj_lookahead">0.03</param>-->
 <!--					<param name="servoj_kp">1.0</param>-->
 <!--					<param name="joint_impedance">500,500,500,500,50,50,50</param>-->
-					<param name="local_ip">192.168.1.233</param>
+					<param name="local_ip">192.168.2.234</param>
 					<xacro:if value="${selected_gripper_type == 'rg75'}">
 						<param name="gripper_type">jodell</param>
-						<param name="gripper_torque_scale">1.0</param>
-						<param name="gripper_velocity">100</param>
+						<param name="right_tool_torque">1.0</param>
+						<param name="right_tool_velocity">1.0</param>
 					</xacro:if>
-					<xacro:if value="${selected_gripper_type == 'ag2f90_d'}">
-						<param name="gripper_type">ag2f90_d</param>
+					<xacro:if value="${selected_gripper_type in ('ag2f90_c', 'ag2f90_d')}">
+						<param name="gripper_type">${selected_gripper_type}</param>
 						<param name="gripper_slave_id">1</param>
 						<param name="gripper_close_pos">9000</param>
 						<param name="gripper_max_opening_distance">1.0</param>
 						<param name="gripper_configure_xpanel">false</param>
+						<param name="right_tool_torque">1.0</param>
+						<param name="right_tool_velocity">1.0</param>
 					</xacro:if>
 				</hardware>
 				<xacro:ar5_interfaces name="right"/>
@@ -98,23 +102,25 @@
 <!--						<param name="servoj_kp">1.0</param>-->
 					</xacro:if>
 					<xacro:if value="${selected_arm_config == 'right'}">
-						<param name="arm_ip">192.168.1.161</param>
+						<param name="arm_ip">192.168.2.161</param>
 <!--						<param name="servoj_period">0.01</param>-->
 <!--						<param name="servoj_lookahead">0.03</param>-->
 <!--						<param name="servoj_kp">1.0</param>-->
 					</xacro:if>
-					<param name="local_ip">192.168.1.233</param>
+					<param name="local_ip">192.168.2.234</param>
 					<xacro:if value="${selected_gripper_type == 'rg75'}">
 						<param name="gripper_type">jodell</param>
-						<param name="gripper_torque_scale">1.0</param>
-						<param name="gripper_velocity">100</param>
+						<param name="${'left' if selected_arm_config == 'left' else 'right'}_tool_torque">1.0</param>
+						<param name="${'left' if selected_arm_config == 'left' else 'right'}_tool_velocity">1.0</param>
 					</xacro:if>
-					<xacro:if value="${selected_gripper_type == 'ag2f90_d'}">
-						<param name="gripper_type">ag2f90_d</param>
+					<xacro:if value="${selected_gripper_type in ('ag2f90_c', 'ag2f90_d')}">
+						<param name="gripper_type">${selected_gripper_type}</param>
 						<param name="gripper_slave_id">1</param>
 						<param name="gripper_close_pos">9000</param>
 						<param name="gripper_max_opening_distance">1.0</param>
 						<param name="gripper_configure_xpanel">false</param>
+						<param name="${'left' if selected_arm_config == 'left' else 'right'}_tool_torque">1.0</param>
+						<param name="${'left' if selected_arm_config == 'left' else 'right'}_tool_velocity">1.0</param>
 					</xacro:if>
 				</hardware>
 				<xacro:ar5_interfaces name=""/>
