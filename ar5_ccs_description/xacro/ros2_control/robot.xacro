@@ -32,9 +32,9 @@
 	<xacro:macro name="rokae_tool_load_params" params="side gripper_type gripper_pad">
 		<!-- Left RG75, default pad: TODO fill measured load. -->
 		<xacro:if value="${side == 'left' and gripper_type == 'rg75' and gripper_pad != 'heavy_carry'}">
-			<param name="load_mass">0.0</param>
-			<param name="load_cog">[0.0, 0.0, 0.0]</param>
-			<param name="load_inertia">[0.0, 0.0, 0.0]</param>
+			<param name="load_mass">1.62</param>
+			<param name="load_cog">[-0.0014285, 0.000579, 0.10439]</param>
+			<param name="load_inertia">[0.04874, 0.001, 0.001936]</param>
 		</xacro:if>
 		<!-- Left RG75, heavy_carry pad: TODO fill measured load. -->
 		<xacro:if value="${side == 'left' and gripper_type == 'rg75' and gripper_pad == 'heavy_carry'}">
