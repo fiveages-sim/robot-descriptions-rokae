@@ -91,13 +91,13 @@
 		<joint name="left_arm_mount" type="fixed">
 			<parent link="arm_base"/>
 			<child link="left_base_link"/>
-			<origin xyz="0.0 0.12 0" rpy="-1.57 1.57 0"/>
+			<origin xyz="0.0 0.062 0" rpy="-1.57 1.57 0"/>
 		</joint>
 
 		<joint name="right_arm_mount" type="fixed">
 			<parent link="arm_base"/>
 			<child link="right_base_link"/>
-			<origin xyz="0.0 -0.12 0" rpy="1.57 1.57 0"/>
+			<origin xyz="0.0 -0.062 0" rpy="1.57 1.57 0"/>
 		</joint>
 
 		<xacro:Arm name="left" collider="$(arg collider)" direction="1"/>
