@@ -1,6 +1,10 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="AR5_CCS">
 	<xacro:arg name="ros2_control_hardware_type" default="mock_components"/>
+	<xacro:arg name="left_arm_ip" default="192.168.1.160"/>
+	<xacro:arg name="left_local_ip" default="192.168.1.233"/>
+	<xacro:arg name="right_arm_ip" default="192.168.0.160"/>
+	<xacro:arg name="right_local_ip" default="192.168.0.233"/>
 	<xacro:arg name="left_arm_cpu_affinity" default="2"/>
 	<xacro:arg name="right_arm_cpu_affinity" default="3"/>
 	<xacro:arg name="rokae_command_filter_mode" default="double_s"/>
@@ -102,10 +106,10 @@
 			<ros2_control name="ar5_left_system" type="system">
 				<hardware>
 					<plugin>rokae_ros2_control/RokaeHardware</plugin>
-					<param name="arm_ip">192.168.1.160</param>
+					<param name="arm_ip">$(arg left_arm_ip)</param>
 					<param name="ctrl_mode">POSITION</param>
 					<param name="joint_impedance">200,200,200,200,20,20,20</param>
-					<param name="local_ip">192.168.1.233</param>
+					<param name="local_ip">$(arg left_local_ip)</param>
 					<param name="cpu_affinity">$(arg left_arm_cpu_affinity)</param>
 					<param name="command_filter_mode">$(arg rokae_command_filter_mode)</param>
 					<param name="command_filter_max_velocity">$(arg rokae_command_filter_max_velocity)</param>
@@ -149,10 +153,10 @@
 			<ros2_control name="ar5_right_system" type="system">
 				<hardware>
 					<plugin>rokae_ros2_control/RokaeHardware</plugin>
-					<param name="arm_ip">192.168.0.160</param>
+					<param name="arm_ip">$(arg right_arm_ip)</param>
 					<param name="ctrl_mode">POSITION</param>
 					<param name="joint_impedance">200,200,200,200,20,20,20</param>
-					<param name="local_ip">192.168.0.233</param>
+					<param name="local_ip">$(arg right_local_ip)</param>
 					<param name="cpu_affinity">$(arg right_arm_cpu_affinity)</param>
 					<param name="command_filter_mode">$(arg rokae_command_filter_mode)</param>
 					<param name="command_filter_max_velocity">$(arg rokae_command_filter_max_velocity)</param>
@@ -201,18 +205,18 @@
 					<plugin>rokae_ros2_control/RokaeHardware</plugin>
 					<!-- 根据 arm_config 设置 arm_ip -->
 					<xacro:if value="${selected_arm_config == 'left'}">
-						<param name="arm_ip">192.168.1.160</param>
+						<param name="arm_ip">$(arg left_arm_ip)</param>
 					</xacro:if>
 					<xacro:if value="${selected_arm_config == 'right'}">
-						<param name="arm_ip">192.168.0.160</param>
+						<param name="arm_ip">$(arg right_arm_ip)</param>
 					</xacro:if>
 					<param name="ctrl_mode">POSITION</param>
 					<param name="joint_impedance">200,200,200,200,20,20,20</param>
 					<xacro:if value="${selected_arm_config == 'left'}">
-						<param name="local_ip">192.168.1.233</param>
+						<param name="local_ip">$(arg left_local_ip)</param>
 					</xacro:if>
 					<xacro:if value="${selected_arm_config == 'right'}">
-						<param name="local_ip">192.168.0.233</param>
+						<param name="local_ip">$(arg right_local_ip)</param>
 					</xacro:if>
 					<param name="cpu_affinity">${'$(arg left_arm_cpu_affinity)' if selected_arm_config == 'left' else '$(arg right_arm_cpu_affinity)'}</param>
 					<param name="command_filter_mode">$(arg rokae_command_filter_mode)</param>
