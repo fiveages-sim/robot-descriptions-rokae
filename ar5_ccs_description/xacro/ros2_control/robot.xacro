@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="AR5_CCS">
 	<xacro:arg name="ros2_control_hardware_type" default="mock_components"/>
+	<xacro:arg name="arm_ctrl_mode" default="position"/>
 	<xacro:arg name="left_arm_ip" default="192.168.1.160"/>
 	<xacro:arg name="left_local_ip" default="192.168.1.233"/>
 	<xacro:arg name="right_arm_ip" default="192.168.0.160"/>
@@ -17,6 +18,7 @@
 	<xacro:arg name="rokae_command_filter_max_velocity" default="6.0"/>
 	<xacro:arg name="rokae_command_filter_max_acceleration" default="30.0"/>
 	<xacro:arg name="rokae_command_filter_max_jerk" default="300.0"/>
+	<xacro:property name="rokae_ctrl_mode" value="${'JOINT_IMPEDANCE' if '$(arg arm_ctrl_mode)' == 'joint_impedance' else 'POSITION'}"/>
 	<link name="world"/>
 
 	<joint name="world_fixed" type="fixed">
@@ -119,7 +121,7 @@
 				<hardware>
 					<plugin>rokae_ros2_control/RokaeHardware</plugin>
 					<param name="arm_ip">$(arg left_arm_ip)</param>
-					<param name="ctrl_mode">POSITION</param>
+					<param name="ctrl_mode">${rokae_ctrl_mode}</param>
 					<param name="joint_impedance">200,200,200,200,20,20,20</param>
 					<param name="local_ip">$(arg left_local_ip)</param>
 					<param name="cpu_affinity">$(arg left_arm_cpu_affinity)</param>
@@ -162,7 +164,7 @@
 				<hardware>
 					<plugin>rokae_ros2_control/RokaeHardware</plugin>
 					<param name="arm_ip">$(arg right_arm_ip)</param>
-					<param name="ctrl_mode">POSITION</param>
+					<param name="ctrl_mode">${rokae_ctrl_mode}</param>
 					<param name="joint_impedance">200,200,200,200,20,20,20</param>
 					<param name="local_ip">$(arg right_local_ip)</param>
 					<param name="cpu_affinity">$(arg right_arm_cpu_affinity)</param>
@@ -214,7 +216,7 @@
 					<xacro:if value="${selected_arm_config == 'right'}">
 						<param name="arm_ip">$(arg right_arm_ip)</param>
 					</xacro:if>
-					<param name="ctrl_mode">POSITION</param>
+					<param name="ctrl_mode">${rokae_ctrl_mode}</param>
 					<param name="joint_impedance">200,200,200,200,20,20,20</param>
 					<xacro:if value="${selected_arm_config == 'left'}">
 						<param name="local_ip">$(arg left_local_ip)</param>
