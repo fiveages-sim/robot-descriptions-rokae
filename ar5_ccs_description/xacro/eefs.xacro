@@ -42,6 +42,7 @@
             <xacro:LinkerHandL6 name="${side}_hand" direction="${1 if side == 'left' else -1}"
                                 use_flange="true" fixed_joints="${eef_fixed_joints}"/>
             <joint name="${side}_hand_base_joint" type="fixed">
+                <origin rpy="0 0 ${3.141592653589793 if side == 'left' else 0}"/>
                 <parent link="${side}_tcp"/>
                 <child link="${side}_hand_flange"/>
             </joint>

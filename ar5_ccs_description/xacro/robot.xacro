@@ -125,6 +125,7 @@
 							direction="${1 if selected_arm_config == 'left' else -1}"
 							use_flange="true" fixed_joints="$(arg eef_fixed_joints)"/>
 			<joint name="hand_base_joint" type="fixed">
+				<origin rpy="0 0 ${3.141592653589793 if selected_arm_config == 'left' else 0}"/>
 				<parent link="tcp"/>
 				<child link="${'left_hand_flange' if selected_arm_config == 'left' else 'right_hand_flange'}"/>
 			</joint>
