@@ -4,6 +4,7 @@
 
     <xacro:include filename="$(find jodell_description)/xacro/RG75-300.xacro"/>
     <xacro:include filename="$(find changingtek_description)/xacro/AG2F90-C.xacro"/>
+    <xacro:include filename="$(find linkerhand_description)/xacro/l6.xacro"/>
 
     <xacro:macro name="Ocs2SideEefFrame" params="side parent_link">
         <link name="${side}_eef"/>
@@ -34,6 +35,15 @@
                 <origin xyz="0 0 0"/>
                 <parent link="${side}_tcp"/>
                 <child link="${side}_flange"/>
+            </joint>
+        </xacro:if>
+
+        <xacro:if value="${hand_type == 'linkerhand_l6'}">
+            <xacro:LinkerHandL6 name="${side}_hand" direction="${1 if side == 'left' else -1}"
+                                use_flange="true" fixed_joints="${eef_fixed_joints}"/>
+            <joint name="${side}_hand_base_joint" type="fixed">
+                <parent link="${side}_tcp"/>
+                <child link="${side}_hand_flange"/>
             </joint>
         </xacro:if>
     </xacro:macro>

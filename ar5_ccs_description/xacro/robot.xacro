@@ -118,4 +118,16 @@
 	<xacro:if value="${selected_arm_config != 'dual' and selected_gripper_type != ''}">
 		<xacro:Grippers type="${selected_gripper_type}" arm_config="${selected_arm_config}"/>
 	</xacro:if>
+	<xacro:if value="${selected_arm_config != 'dual'}">
+		<xacro:include filename="$(find linkerhand_description)/xacro/l6.xacro"/>
+		<xacro:if value="${(left_hand_type if selected_arm_config == 'left' else right_hand_type) == 'linkerhand_l6'}">
+			<xacro:LinkerHandL6 name="${'left_hand' if selected_arm_config == 'left' else 'right_hand'}"
+							direction="${1 if selected_arm_config == 'left' else -1}"
+							use_flange="true" fixed_joints="$(arg eef_fixed_joints)"/>
+			<joint name="hand_base_joint" type="fixed">
+				<parent link="tcp"/>
+				<child link="${'left_hand_flange' if selected_arm_config == 'left' else 'right_hand_flange'}"/>
+			</joint>
+		</xacro:if>
+	</xacro:if>
 </robot>

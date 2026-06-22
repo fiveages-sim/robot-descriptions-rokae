@@ -29,6 +29,7 @@
 
 	<xacro:include filename="$(find ar5_ccs_description)/xacro/robot.xacro"/>
 	<xacro:include filename="$(find ar5_ccs_description)/xacro/ros2_control/interfaces.xacro"/>
+	<xacro:include filename="$(find linkerhand_description)/xacro/ros2_control/o6.xacro"/>
 
 	<!--
 		Default Rokae tool load table by gripper/pad.
@@ -134,7 +135,7 @@
 						<param name="left_tool_torque">1.0</param>
 						<param name="left_tool_velocity">1.0</param>
 					</xacro:if>
-					<xacro:if value="${left_gripper_type in ('ag2f90_c', 'ag2f90_d')}">
+						<xacro:if value="${left_gripper_type in ('ag2f90_c', 'ag2f90_d')}">
 						<param name="gripper_type">${left_gripper_type}</param>
 						<param name="gripper_slave_id">1</param>
 						<param name="gripper_close_pos">9000</param>
@@ -142,13 +143,23 @@
 						<param name="gripper_configure_xpanel">false</param>
 						<param name="left_tool_torque">1.0</param>
 						<param name="left_tool_velocity">1.0</param>
-					</xacro:if>
+						</xacro:if>
+						<xacro:if value="${left_hand_type == 'linkerhand_l6'}">
+							<param name="gripper_type">linkerhand_l6</param>
+							<param name="hand_slave_id">40</param>
+							<param name="hand_configure_xpanel">false</param>
+							<param name="left_tool_torque">1.0</param>
+							<param name="left_tool_velocity">1.0</param>
+						</xacro:if>
 					<xacro:if value="${left_gripper_type != ''}">
 						<xacro:rokae_tool_load_params_with_override side="left" gripper_type="${left_gripper_type}" gripper_pad="${left_gripper_pad}"
 																   load_mass="$(arg left_load_mass)" load_cog="$(arg left_load_cog)" load_inertia="$(arg left_load_inertia)"/>
 					</xacro:if>
 				</hardware>
 				<xacro:ar5_interfaces name="left"/>
+				<xacro:if value="${left_hand_type == 'linkerhand_l6'}">
+					<xacro:linkerhand_o6_interfaces name="left_hand"/>
+				</xacro:if>
 				<xacro:if value="${left_gripper_type != ''}">
 					<joint name="left_gripper_joint">
 						<command_interface name="position"/>
@@ -177,7 +188,7 @@
 						<param name="right_tool_torque">1.0</param>
 						<param name="right_tool_velocity">1.0</param>
 					</xacro:if>
-					<xacro:if value="${right_gripper_type in ('ag2f90_c', 'ag2f90_d')}">
+						<xacro:if value="${right_gripper_type in ('ag2f90_c', 'ag2f90_d')}">
 						<param name="gripper_type">${right_gripper_type}</param>
 						<param name="gripper_slave_id">1</param>
 						<param name="gripper_close_pos">9000</param>
@@ -185,13 +196,23 @@
 						<param name="gripper_configure_xpanel">false</param>
 						<param name="right_tool_torque">1.0</param>
 						<param name="right_tool_velocity">1.0</param>
-					</xacro:if>
+						</xacro:if>
+						<xacro:if value="${right_hand_type == 'linkerhand_l6'}">
+							<param name="gripper_type">linkerhand_l6</param>
+							<param name="hand_slave_id">39</param>
+							<param name="hand_configure_xpanel">false</param>
+							<param name="right_tool_torque">1.0</param>
+							<param name="right_tool_velocity">1.0</param>
+						</xacro:if>
 					<xacro:if value="${right_gripper_type != ''}">
 						<xacro:rokae_tool_load_params_with_override side="right" gripper_type="${right_gripper_type}" gripper_pad="${right_gripper_pad}"
 																   load_mass="$(arg right_load_mass)" load_cog="$(arg right_load_cog)" load_inertia="$(arg right_load_inertia)"/>
 					</xacro:if>
 				</hardware>
 				<xacro:ar5_interfaces name="right"/>
+				<xacro:if value="${right_hand_type == 'linkerhand_l6'}">
+					<xacro:linkerhand_o6_interfaces name="right_hand"/>
+				</xacro:if>
 				<xacro:if value="${right_gripper_type != ''}">
 					<joint name="right_gripper_joint">
 						<command_interface name="position"/>
@@ -234,7 +255,7 @@
 						<param name="${'left' if selected_arm_config == 'left' else 'right'}_tool_torque">1.0</param>
 						<param name="${'left' if selected_arm_config == 'left' else 'right'}_tool_velocity">1.0</param>
 					</xacro:if>
-					<xacro:if value="${selected_gripper_type in ('ag2f90_c', 'ag2f90_d')}">
+						<xacro:if value="${selected_gripper_type in ('ag2f90_c', 'ag2f90_d')}">
 						<param name="gripper_type">${selected_gripper_type}</param>
 						<param name="gripper_slave_id">1</param>
 						<param name="gripper_close_pos">9000</param>
@@ -242,7 +263,14 @@
 						<param name="gripper_configure_xpanel">false</param>
 						<param name="${'left' if selected_arm_config == 'left' else 'right'}_tool_torque">1.0</param>
 						<param name="${'left' if selected_arm_config == 'left' else 'right'}_tool_velocity">1.0</param>
-					</xacro:if>
+						</xacro:if>
+						<xacro:if value="${(left_hand_type if selected_arm_config == 'left' else right_hand_type) == 'linkerhand_l6'}">
+							<param name="gripper_type">linkerhand_l6</param>
+							<param name="hand_slave_id">${40 if selected_arm_config == 'left' else 39}</param>
+							<param name="hand_configure_xpanel">false</param>
+							<param name="${'left' if selected_arm_config == 'left' else 'right'}_tool_torque">1.0</param>
+							<param name="${'left' if selected_arm_config == 'left' else 'right'}_tool_velocity">1.0</param>
+						</xacro:if>
 					<xacro:if value="${selected_gripper_type != ''}">
 						<xacro:rokae_tool_load_params_with_override side="${'left' if selected_arm_config == 'left' else 'right'}" gripper_type="${selected_gripper_type}" gripper_pad="${selected_gripper_pad}"
 																   load_mass="${'$(arg left_load_mass)' if selected_arm_config == 'left' else '$(arg right_load_mass)'}"
@@ -251,6 +279,9 @@
 					</xacro:if>
 				</hardware>
 				<xacro:ar5_interfaces name=""/>
+				<xacro:if value="${(left_hand_type if selected_arm_config == 'left' else right_hand_type) == 'linkerhand_l6'}">
+					<xacro:linkerhand_o6_interfaces name="${'left_hand' if selected_arm_config == 'left' else 'right_hand'}"/>
+				</xacro:if>
 
 				<xacro:if value="${selected_gripper_type != ''}">
 					<joint name="gripper_joint">
@@ -284,9 +315,15 @@
 				</xacro:if>
 			</hardware>
 
-			<xacro:if value="${selected_arm_config == 'dual'}">
-				<xacro:ar5_interfaces name="left"/>
-				<xacro:ar5_interfaces name="right"/>
+				<xacro:if value="${selected_arm_config == 'dual'}">
+					<xacro:ar5_interfaces name="left"/>
+					<xacro:ar5_interfaces name="right"/>
+					<xacro:if value="${left_hand_type == 'linkerhand_l6'}">
+						<xacro:linkerhand_o6_interfaces name="left_hand"/>
+					</xacro:if>
+					<xacro:if value="${right_hand_type == 'linkerhand_l6'}">
+						<xacro:linkerhand_o6_interfaces name="right_hand"/>
+					</xacro:if>
 				<xacro:if value="${left_gripper_type != ''}">
 					<joint name="left_gripper_joint">
 						<command_interface name="position"/>
@@ -308,8 +345,11 @@
 					</joint>
 				</xacro:if>
 			</xacro:if>
-			<xacro:unless value="${selected_arm_config == 'dual'}">
-				<xacro:ar5_interfaces name=""/>
+				<xacro:unless value="${selected_arm_config == 'dual'}">
+					<xacro:ar5_interfaces name=""/>
+					<xacro:if value="${(left_hand_type if selected_arm_config == 'left' else right_hand_type) == 'linkerhand_l6'}">
+						<xacro:linkerhand_o6_interfaces name="${'left_hand' if selected_arm_config == 'left' else 'right_hand'}"/>
+					</xacro:if>
 				<xacro:if value="${selected_gripper_type != ''}">
 					<joint name="gripper_joint">
 						<command_interface name="position"/>
