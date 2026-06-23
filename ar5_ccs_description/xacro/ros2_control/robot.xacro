@@ -151,8 +151,8 @@
 							<param name="left_tool_torque">1.0</param>
 							<param name="left_tool_velocity">1.0</param>
 						</xacro:if>
-					<xacro:if value="${left_gripper_type != ''}">
-						<xacro:rokae_tool_load_params_with_override side="left" gripper_type="${left_gripper_type}" gripper_pad="${left_gripper_pad}"
+					<xacro:if value="${left_gripper_type != '' or left_hand_type == 'linkerhand_l6'}">
+						<xacro:rokae_tool_load_params_with_override side="left" gripper_type="${left_gripper_type if left_gripper_type != '' else left_hand_type}" gripper_pad="${left_gripper_pad}"
 																   load_mass="$(arg left_load_mass)" load_cog="$(arg left_load_cog)" load_inertia="$(arg left_load_inertia)"/>
 					</xacro:if>
 				</hardware>
@@ -204,8 +204,8 @@
 							<param name="right_tool_torque">1.0</param>
 							<param name="right_tool_velocity">1.0</param>
 						</xacro:if>
-					<xacro:if value="${right_gripper_type != ''}">
-						<xacro:rokae_tool_load_params_with_override side="right" gripper_type="${right_gripper_type}" gripper_pad="${right_gripper_pad}"
+					<xacro:if value="${right_gripper_type != '' or right_hand_type == 'linkerhand_l6'}">
+						<xacro:rokae_tool_load_params_with_override side="right" gripper_type="${right_gripper_type if right_gripper_type != '' else right_hand_type}" gripper_pad="${right_gripper_pad}"
 																   load_mass="$(arg right_load_mass)" load_cog="$(arg right_load_cog)" load_inertia="$(arg right_load_inertia)"/>
 					</xacro:if>
 				</hardware>
@@ -271,8 +271,8 @@
 							<param name="${'left' if selected_arm_config == 'left' else 'right'}_tool_torque">1.0</param>
 							<param name="${'left' if selected_arm_config == 'left' else 'right'}_tool_velocity">1.0</param>
 						</xacro:if>
-					<xacro:if value="${selected_gripper_type != ''}">
-						<xacro:rokae_tool_load_params_with_override side="${'left' if selected_arm_config == 'left' else 'right'}" gripper_type="${selected_gripper_type}" gripper_pad="${selected_gripper_pad}"
+					<xacro:if value="${selected_gripper_type != '' or (left_hand_type if selected_arm_config == 'left' else right_hand_type) == 'linkerhand_l6'}">
+						<xacro:rokae_tool_load_params_with_override side="${'left' if selected_arm_config == 'left' else 'right'}" gripper_type="${selected_gripper_type if selected_gripper_type != '' else (left_hand_type if selected_arm_config == 'left' else right_hand_type)}" gripper_pad="${selected_gripper_pad}"
 																   load_mass="${'$(arg left_load_mass)' if selected_arm_config == 'left' else '$(arg right_load_mass)'}"
 																   load_cog="${'$(arg left_load_cog)' if selected_arm_config == 'left' else '$(arg right_load_cog)'}"
 																   load_inertia="${'$(arg left_load_inertia)' if selected_arm_config == 'left' else '$(arg right_load_inertia)'}"/>
