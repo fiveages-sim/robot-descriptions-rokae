@@ -1,6 +1,13 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
+<!--
+  Shared AR5/W2R end-effector type resolver.
+  Supported keys:
+    grippers: rg75, rg75_heavy, ag2f90/ag2f90_d, ag2f90_c, ag2f90_c_soft
+    hands: linkerhand_o6, linkerhand_l6, linkerhand_o7
+-->
+
     <!-- Map a type key (rg75, linkerhand_o7, ...) to per-side hand/gripper/pad properties. -->
     <xacro:macro name="set_side_eef_types" params="side type_key">
         <xacro:property name="${side}_hand_type" value="" scope="parent"/>
