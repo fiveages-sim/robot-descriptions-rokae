@@ -76,9 +76,9 @@
 		<link name="base_link"/>
 		<link name="arm_base">
 			<collision>
-				<origin xyz="0.0091 0 -0.086"/>
+				<origin xyz="0.0091 0 -0.096"/>
 				<geometry>
-					<box size="0.2509 0.35 0.5029"/>
+					<box size="0.33 0.30 0.5029"/>
 				</geometry>
 			</collision>
 		</link>
