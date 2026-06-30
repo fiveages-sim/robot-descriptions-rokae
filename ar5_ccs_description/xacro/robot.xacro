@@ -1,77 +1,66 @@
 <?xml version="1.0"?>
 <robot name="AR5_CCS" xmlns:xacro="http://www.ros.org/wiki/xacro">
 	<xacro:arg name="collider" default="convex"/>
+	<xacro:arg name="skin" default="default"/>
+	<xacro:arg name="variant" default=""/>
 	<xacro:arg name="type" default="dual"/>
 	<xacro:arg name="left_type" default=""/>
 	<xacro:arg name="right_type" default=""/>
 	<xacro:arg name="eef_fixed_joints" default="false"/>
-
-	<!-- 拆解 type 参数为三个独立属性 -->
+	<!-- 从 type 参数解析 arm_config / 对称末端 -->
 	<xacro:property name="type_arg" value="$(arg type)"/>
+	<xacro:property name="variant_arg" value="$(arg variant)"/>
 	<xacro:property name="left_type_arg" value="$(arg left_type)"/>
 	<xacro:property name="right_type_arg" value="$(arg right_type)"/>
+	<xacro:property name="effective_left_type" value="${left_type_arg if left_type_arg != '' else type_arg}"/>
+	<xacro:property name="effective_right_type" value="${right_type_arg if right_type_arg != '' else type_arg}"/>
 
 	<!-- 默认值 -->
-	<xacro:property name="selected_arm_config" value="dual"/>    <!-- left, right, dual -->
-	<xacro:property name="selected_gripper_type" value=""/>     <!-- 空字符串, rg75, ag2f90_d -->
+	<xacro:property name="selected_arm_config" value="dual"/>
+	<xacro:property name="selected_gripper_type" value="none"/>
 	<xacro:property name="selected_gripper_pad" value="default"/>
 
-	<!-- 解析 type 参数 - 使用显式匹配 -->
-	<!-- 处理 CCS 类型 -->
+	<!-- 单臂配置 -->
 	<xacro:if value="${type_arg == 'left'}">
 		<xacro:property name="selected_arm_config" value="left"/>
-		<xacro:property name="selected_gripper_type" value=""/>
 	</xacro:if>
 	<xacro:if value="${type_arg == 'right'}">
 		<xacro:property name="selected_arm_config" value="right"/>
-		<xacro:property name="selected_gripper_type" value=""/>
 	</xacro:if>
-	<xacro:if value="${type_arg == 'left_rg75'}">
-		<xacro:property name="selected_arm_config" value="left"/>
-		<xacro:property name="selected_gripper_type" value="rg75"/>
-	</xacro:if>
-	<xacro:if value="${type_arg == 'right_rg75'}">
-		<xacro:property name="selected_arm_config" value="right"/>
-		<xacro:property name="selected_gripper_type" value="rg75"/>
-	</xacro:if>
+
+	<!-- 双臂配置：对称 type → selected_gripper_type / selected_gripper_pad -->
 	<xacro:if value="${type_arg == 'rg75'}">
 		<xacro:property name="selected_gripper_type" value="rg75"/>
 	</xacro:if>
-	<xacro:if value="${type_arg == 'left_ag2f90_d'}">
-		<xacro:property name="selected_arm_config" value="left"/>
+	<xacro:if value="${type_arg == 'rg75_heavy'}">
+		<xacro:property name="selected_gripper_type" value="rg75"/>
+		<xacro:property name="selected_gripper_pad" value="heavy_carry"/>
+	</xacro:if>
+	<xacro:if value="${type_arg == 'ag2f90' or type_arg == 'ag2f90_d'}">
 		<xacro:property name="selected_gripper_type" value="ag2f90_d"/>
 	</xacro:if>
-	<xacro:if value="${type_arg == 'right_ag2f90_d'}">
-		<xacro:property name="selected_arm_config" value="right"/>
-		<xacro:property name="selected_gripper_type" value="ag2f90_d"/>
+	<xacro:if value="${type_arg == 'ag2f90_c'}">
+		<xacro:property name="selected_gripper_type" value="ag2f90_c"/>
 	</xacro:if>
-	<xacro:if value="${type_arg == 'ag2f90_d'}">
-		<xacro:property name="selected_gripper_type" value="ag2f90_d"/>
-	</xacro:if>
-
-	<!-- 双臂末端支持 left_type/right_type；未指定时沿用对称 type。 -->
-	<xacro:property name="effective_left_type" value="${left_type_arg if left_type_arg != '' else type_arg}"/>
-	<xacro:property name="effective_right_type" value="${right_type_arg if right_type_arg != '' else type_arg}"/>
-	<xacro:include filename="$(find ar5_ccs_description)/xacro/eef_type_resolver.xacro"/>
-	<xacro:set_side_eef_types side="left" type_key="${effective_left_type}"/>
-	<xacro:set_side_eef_types side="right" type_key="${effective_right_type}"/>
-	<xacro:if value="${selected_arm_config == 'dual'}">
-		<xacro:property name="selected_gripper_type" value="${left_gripper_type if left_gripper_type == right_gripper_type else ''}"/>
-		<xacro:property name="selected_gripper_pad" value="${left_gripper_pad if left_gripper_pad == right_gripper_pad else 'default'}"/>
+	<xacro:if value="${type_arg == 'ag2f90_c_soft'}">
+		<xacro:property name="selected_gripper_type" value="ag2f90_c"/>
+		<xacro:property name="selected_gripper_pad" value="soft"/>
 	</xacro:if>
 
 	<!-- Include Component Macros -->
 	<xacro:include filename="$(find ar5_ccs_description)/xacro/arm_ccs.xacro"/>
+	<xacro:include filename="$(find ar5_ccs_description)/xacro/arm_mount.xacro"/>
 
-	<xacro:include filename="$(find ar5_ccs_description)/xacro/grippers.xacro"/>
+	<!-- <xacro:include filename="$(find ar5_ccs_description)/xacro/grippers.xacro"/> -->
 
 	<!-- 根据 arm_config 创建机械臂 -->
 	<xacro:if value="${selected_arm_config == 'left'}">
-		<xacro:Arm name="" collider="$(arg collider)" direction="1"/>
+		<xacro:AR5_CCS name="" collider="$(arg collider)" direction="1"/>
 	</xacro:if>
 	<xacro:if value="${selected_arm_config == 'right'}">
-		<xacro:Arm name="" collider="$(arg collider)" direction="-1"/>
+		<xacro:AR5_CCS name="" collider="$(arg collider)" direction="-1"/>
 	</xacro:if>
+
 	<xacro:if value="${selected_arm_config == 'dual'}">
 		<link name="base_link"/>
 		<link name="arm_base">
@@ -88,21 +77,14 @@
 			<child link="arm_base"/>
 		</joint>
 
-		<joint name="left_arm_mount" type="fixed">
-			<parent link="arm_base"/>
-			<child link="left_base_link"/>
-			<origin xyz="0.0 0.062 0" rpy="-1.57 1.57 0"/>
-		</joint>
+		<xacro:DualArmMount parent="arm_base"/>
 
-		<joint name="right_arm_mount" type="fixed">
-			<parent link="arm_base"/>
-			<child link="right_base_link"/>
-			<origin xyz="0.0 -0.062 0" rpy="1.57 1.57 0"/>
-		</joint>
+		<xacro:AR5_CCS name="left" collider="$(arg collider)" direction="1"/>
+		<xacro:AR5_CCS name="right" collider="$(arg collider)" direction="-1"/>
 
-		<xacro:Arm name="left" collider="$(arg collider)" direction="1"/>
-		<xacro:Arm name="right" collider="$(arg collider)" direction="-1"/>
-
+		<xacro:include filename="$(find ar5_ccs_description)/xacro/eef_type_resolver.xacro"/>
+		<xacro:set_side_eef_types side="left" type_key="${effective_left_type}"/>
+		<xacro:set_side_eef_types side="right" type_key="${effective_right_type}"/>
 		<xacro:include filename="$(find ar5_ccs_description)/xacro/eefs.xacro"/>
 		<xacro:EndEffectors
 			eef_fixed_joints="$(arg eef_fixed_joints)"
@@ -114,9 +96,4 @@
 			right_gripper_pad="${right_gripper_pad}"/>
 	</xacro:if>
 
-	<!-- 单臂配置沿用旧夹爪宏（无前缀）。双臂末端由 EndEffectors 按侧生成。 -->
-
-	<xacro:if value="${selected_arm_config != 'dual' and selected_gripper_type != ''}">
-		<xacro:Grippers type="${selected_gripper_type}" arm_config="${selected_arm_config}"/>
-	</xacro:if>
 </robot>

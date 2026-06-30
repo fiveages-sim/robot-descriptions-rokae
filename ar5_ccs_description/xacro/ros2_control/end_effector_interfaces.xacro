@@ -35,7 +35,7 @@
         </xacro:if>
     </xacro:macro>
 
-    <xacro:macro name="side_ee_block" params="side mode hand_type gripper_type">
+    <xacro:macro name="side_arm_ee_block" params="side mode hand_type gripper_type">
         <xacro:ar5_interfaces name="${side}"/>
         <xacro:if value="${mode == 'sim'}">
             <xacro:if value="${gripper_type != ''}">

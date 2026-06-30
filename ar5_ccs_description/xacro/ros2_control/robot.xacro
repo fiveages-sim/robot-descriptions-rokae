@@ -64,7 +64,7 @@
 						load_cog="$(arg left_load_cog)"
 						load_inertia="$(arg left_load_inertia)"/>
 				</hardware>
-				<xacro:side_ee_block side="left" mode="real" hand_type="${left_rokae_hand_type}" gripper_type="${left_gripper_type}"/>
+				<xacro:side_arm_ee_block side="left" mode="real" hand_type="${left_rokae_hand_type}" gripper_type="${left_gripper_type}"/>
 			</ros2_control>
 			<ros2_control name="ar5_right_system" type="system">
 				<hardware>
@@ -85,7 +85,7 @@
 						load_cog="$(arg right_load_cog)"
 						load_inertia="$(arg right_load_inertia)"/>
 				</hardware>
-				<xacro:side_ee_block side="right" mode="real" hand_type="${right_rokae_hand_type}" gripper_type="${right_gripper_type}"/>
+				<xacro:side_arm_ee_block side="right" mode="real" hand_type="${right_rokae_hand_type}" gripper_type="${right_gripper_type}"/>
 			</ros2_control>
 		</xacro:if>
 

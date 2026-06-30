@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="ccs_arm">
 
-	<xacro:macro name="Arm" params="name direction:=1 collider:=convex">
+	<xacro:macro name="AR5_CCS" params="name direction:=1 collider:=convex">
 		<xacro:property name="prefix" value="${name + '_' if name else ''}"/>
 
 		<!-- Base Link -->
