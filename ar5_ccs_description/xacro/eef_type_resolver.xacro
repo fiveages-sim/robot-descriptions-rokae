@@ -4,7 +4,7 @@
 <!--
   Shared AR5/W2R end-effector type resolver.
   Supported keys:
-    grippers: rg75, rg75_heavy, ag2f90/ag2f90_d, ag2f90_c, ag2f90_c_soft
+    grippers: rg75, rg75_heavy, erg32/ERG32, ag2f90/ag2f90_d, ag2f90_c, ag2f90_c_soft, ag2f120s, ag2f120s_d
     hands: linkerhand_o6, linkerhand_l6, linkerhand_o7
 -->
 
@@ -21,6 +21,9 @@
             <xacro:property name="${side}_gripper_type" value="rg75" scope="parent"/>
             <xacro:property name="${side}_gripper_pad" value="heavy_carry" scope="parent"/>
         </xacro:if>
+        <xacro:if value="${type_key == 'erg32' or type_key == 'ERG32'}">
+            <xacro:property name="${side}_gripper_type" value="erg32" scope="parent"/>
+        </xacro:if>
         <xacro:if value="${type_key == 'ag2f90' or type_key == 'ag2f90_d'}">
             <xacro:property name="${side}_gripper_type" value="ag2f90_d" scope="parent"/>
         </xacro:if>
@@ -30,6 +33,12 @@
         <xacro:if value="${type_key == 'ag2f90_c_soft'}">
             <xacro:property name="${side}_gripper_type" value="ag2f90_c" scope="parent"/>
             <xacro:property name="${side}_gripper_pad" value="soft" scope="parent"/>
+        </xacro:if>
+        <xacro:if value="${type_key == 'ag2f120s' or type_key == 'AG2F120S'}">
+            <xacro:property name="${side}_gripper_type" value="ag2f120s" scope="parent"/>
+        </xacro:if>
+        <xacro:if value="${type_key == 'ag2f120s_d' or type_key == 'AG2F120S_D'}">
+            <xacro:property name="${side}_gripper_type" value="ag2f120s_d" scope="parent"/>
         </xacro:if>
         <xacro:if value="${type_key == 'linkerhand_o6'}">
             <xacro:property name="${side}_hand_type" value="linkerhand_o6" scope="parent"/>

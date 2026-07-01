@@ -4,7 +4,9 @@
     <xacro:property name="PI" value="3.1415926535897931"/>
 
     <xacro:include filename="$(find jodell_description)/xacro/RG75-300.xacro"/>
+    <xacro:include filename="$(find jodell_description)/xacro/ERG32.xacro"/>
     <xacro:include filename="$(find changingtek_description)/xacro/AG2F90-C.xacro"/>
+    <xacro:include filename="$(find changingtek_description)/xacro/AG2F120S.xacro"/>
 
     <xacro:macro name="Ocs2SideEefFrame" params="side parent_link">
         <link name="${side}_eef"/>
@@ -92,6 +94,21 @@
                         <child link="${side}_flange"/>
                     </joint>
                 </xacro:if>
+            <xacro:if value="${gripper_type == 'erg32'}">
+                <xacro:ERG32 name="${side}_hand" use_flange="true" kinematic_only="true"/>
+                <joint name="${side}_hand_base_joint" type="fixed">
+                    <parent link="${side}_tcp"/>
+                    <child link="${side}_hand_flange"/>
+                </joint>
+            </xacro:if>
+            <xacro:if value="${gripper_type == 'ag2f120s' or gripper_type == 'ag2f120s_d'}">
+                <xacro:AG2F120S name="${side}" use_flange="true" kinematic_only="true"/>
+                <joint name="${side}_gripper_base_joint" type="fixed">
+                    <origin xyz="0 0 0"/>
+                    <parent link="${side}_tcp"/>
+                    <child link="${side}_flange"/>
+                </joint>
+            </xacro:if>
                 <xacro:if value="${gripper_type == '' and hand_type == ''}">
                     <xacro:Ocs2SideEefFrame side="${side}" parent_link="${side}_tcp"/>
                 </xacro:if>
@@ -115,6 +132,23 @@
             <xacro:if value="${gripper_type == 'ag2f90_c' or gripper_type == 'ag2f90_d'}">
                 <xacro:property name="ag2f90_pad" value="${'none' if gripper_type == 'ag2f90_d' else gripper_pad}"/>
                 <xacro:AG2F90-C name="${side}" use_flange="true" pad="${ag2f90_pad}" kinematic_only="false"/>
+                <joint name="${side}_gripper_base_joint" type="fixed">
+                    <origin xyz="0 0 0"/>
+                    <parent link="${side}_tcp"/>
+                    <child link="${side}_flange"/>
+                </joint>
+            </xacro:if>
+
+            <xacro:if value="${gripper_type == 'erg32'}">
+                <xacro:ERG32 name="${side}_hand" use_flange="true" kinematic_only="false"/>
+                <joint name="${side}_hand_base_joint" type="fixed">
+                    <parent link="${side}_tcp"/>
+                    <child link="${side}_hand_flange"/>
+                </joint>
+            </xacro:if>
+
+            <xacro:if value="${gripper_type == 'ag2f120s' or gripper_type == 'ag2f120s_d'}">
+                <xacro:AG2F120S name="${side}" use_flange="true" kinematic_only="false"/>
                 <joint name="${side}_gripper_base_joint" type="fixed">
                     <origin xyz="0 0 0"/>
                     <parent link="${side}_tcp"/>

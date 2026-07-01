@@ -113,11 +113,34 @@
             <param name="${side}_tool_torque">1.0</param>
             <param name="${side}_tool_velocity">1.0</param>
         </xacro:if>
+        <xacro:if value="${gripper_type == 'erg32'}">
+            <param name="gripper_type">erg32</param>
+            <param name="${side}_tool_torque">1.0</param>
+            <param name="${side}_tool_velocity">1.0</param>
+        </xacro:if>
         <xacro:if value="${gripper_type == 'ag2f90_c' or gripper_type == 'ag2f90_d'}">
             <param name="gripper_type">${gripper_type}</param>
             <param name="gripper_slave_id">1</param>
             <param name="gripper_close_pos">9000</param>
             <param name="gripper_max_opening_distance">1.0</param>
+            <param name="gripper_configure_xpanel">false</param>
+            <param name="${side}_tool_torque">1.0</param>
+            <param name="${side}_tool_velocity">1.0</param>
+        </xacro:if>
+        <xacro:if value="${gripper_type == 'ag2f120s'}">
+            <param name="gripper_type">ag2f120s</param>
+            <param name="gripper_slave_id">1</param>
+            <param name="gripper_close_pos">12000</param>
+            <param name="gripper_max_opening_distance">0.12</param>
+            <param name="gripper_configure_xpanel">false</param>
+            <param name="${side}_tool_torque">1.0</param>
+            <param name="${side}_tool_velocity">1.0</param>
+        </xacro:if>
+        <xacro:if value="${gripper_type == 'ag2f120s_d'}">
+            <param name="gripper_type">ag2f120s_d</param>
+            <param name="gripper_slave_id">1</param>
+            <param name="gripper_close_pos">1000</param>
+            <param name="gripper_max_opening_distance">0.10</param>
             <param name="gripper_configure_xpanel">false</param>
             <param name="${side}_tool_torque">1.0</param>
             <param name="${side}_tool_velocity">1.0</param>
