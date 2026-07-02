@@ -100,6 +100,7 @@
                     <parent link="${side}_tcp"/>
                     <child link="${side}_hand_flange"/>
                 </joint>
+                <xacro:Ocs2SideEefFrame side="${side}" parent_link="${side}_hand_eef"/>
             </xacro:if>
             <xacro:if value="${gripper_type == 'ag2f120s' or gripper_type == 'ag2f120s_d'}">
                 <xacro:AG2F120S name="${side}" use_flange="true" kinematic_only="true"/>
@@ -145,6 +146,7 @@
                     <parent link="${side}_tcp"/>
                     <child link="${side}_hand_flange"/>
                 </joint>
+                <xacro:Ocs2SideEefFrame side="${side}" parent_link="${side}_hand_eef"/>
             </xacro:if>
 
             <xacro:if value="${gripper_type == 'ag2f120s' or gripper_type == 'ag2f120s_d'}">
