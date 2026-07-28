@@ -1,6 +1,9 @@
 # Rokae AR5-CCS Description
 
-This package contains the description files for the Rokae AR5 manipulator in CCS configuration.
+This package contains both Rokae AR5 CCS generations:
+
+- `arm:=ar5_ccs`: original CCS
+- `arm:=ar5_ccs_v2`: second-generation CCS
 
 Supported `type` values (see `xacro/robot.xacro`): `left`, `right`, `left_rg75`, `right_rg75`, `rg75`. Omit `type` for dual arms without end effector; use `rg75` for dual arms with RG75 grippers.
 
@@ -10,6 +13,9 @@ Supported `type` values (see `xacro/robot.xacro`): `left`, `right`, `left_rg75`,
 cd ~/ros2_ws
 colcon build --packages-up-to ar5_ccs_description --symlink-install
 ```
+
+Pass `arm:=ar5_ccs_v2` to any command below to select CCS V2. Omitting
+`arm` selects the original `ar5_ccs`.
 
 ## 2. Visualize the robot
 
