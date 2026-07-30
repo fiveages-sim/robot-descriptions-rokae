@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="ccs_arm">
+
+	<xacro:macro name="AR5_CCS_V2" params="name direction:=1 collider:=convex">
+		<xacro:property name="prefix" value="${name + '_' if name else ''}"/>
+
+		<!-- Base Link -->
+		<link name="${prefix}base_link">
+			<visual>
+				<geometry>
+					<mesh filename="file://$(find ar5_ccs_description)/meshes/ccs_v2/base.glb" scale="1 ${direction} 1"/>
+				</geometry>
+			</visual>
+			<xacro:if value="${collider == 'convex'}">
+				<collision>
+					<geometry>
+						<mesh filename="file://$(find ar5_ccs_description)/meshes/ccs_v2/base.glb" scale="1 ${direction} 1"/>
+					</geometry>
+				</collision>
+			</xacro:if>
+			<xacro:if value="${collider == 'simple'}">
+				<collision>
+					<origin xyz="0 0 0.05025"/>
+					<geometry>
+						<cylinder length="0.105" radius="0.045"/>
+					</geometry>
+				</collision>
+			</xacro:if>
+		</link>
+
+		<!-- Joint 1 -->
+		<joint name="${prefix}joint1" type="revolute">
+			<parent link="${prefix}base_link"/>
+			<child link="${prefix}link1"/>
+			<limit effort="108" lower="-3.1067" upper="3.1067" velocity="3.0543261909900763"/>
+			<axis xyz="0 0 1"/>
+		</joint>
+
+		<!-- Link 1 -->
+		<link name="${prefix}link1">
+			<inertial>
+				<mass value="2.166"/>
+				<inertia ixx="0.00332249" ixy="0.00000032" ixz="${direction*-0.00000048}" iyy="0.00260904"
+								 iyz="${direction*-0.00001486}" izz="0.00317691"/>
+				<origin xyz="${direction*-0.000184} ${direction*0.001568} 0.172804"/>
+			</inertial>
+			<visual>
+				<geometry>
+					<mesh filename="file://$(find ar5_ccs_description)/meshes/ccs_v2/link1.glb" scale="1 ${direction} 1"/>
+				</geometry>
+			</visual>
+			<xacro:if value="${collider == 'convex'}">
+				<collision>
+					<geometry>
+						<mesh filename="file://$(find ar5_ccs_description)/meshes/ccs_v2/link1.glb" scale="1 ${direction} 1"/>
+					</geometry>
+				</collision>
+			</xacro:if>
+		</link>
+
+		<!-- Joint 2 -->
+		<joint name="${prefix}joint2" type="revolute">
+			<parent link="${prefix}link1"/>
+			<child link="${prefix}link2"/>
+			<limit effort="108" lower="-2.0944" upper="2.0944" velocity="3.0543261909900763"/>
+			<axis xyz="0 1 0"/>
+			<origin xyz="0.0 0.0 0.1745"/>
+		</joint>
+
+		<!-- Link 2 -->
+		<link name="${prefix}link2">
+			<inertial>
+				<mass value="1.903"/>
+				<inertia ixx="0.00779803" ixy="0.00000248" ixz="${direction*-0.00000226}" iyy="0.00674819"
+								 iyz="${direction*-0.00049283}" izz="0.00305507"/>
+				<origin xyz="${direction*-0.000017} ${direction*0.001795} 0.106689"/>
+			</inertial>
+			<visual>
+				<geometry>
+					<mesh filename="file://$(find ar5_ccs_description)/meshes/ccs_v2/link2.glb" scale="1 ${direction} 1"/>
+				</geometry>
+			</visual>
+			<xacro:if value="${collider == 'convex'}">
+				<collision>
+					<geometry>
+						<mesh filename="file://$(find ar5_ccs_description)/meshes/ccs_v2/link2.glb" scale="1 ${direction} 1"/>
+					</geometry>
+				</collision>
+			</xacro:if>
+			<xacro:if value="${collider == 'simple'}">
+				<collision>
+					<origin rpy="1.5708 0 0"/>
+					<geometry>
+						<cylinder length="0.1354" radius="0.0560"/>
+					</geometry>
+				</collision>
+				<collision>
+					<origin xyz="0 0 0.11600"/>
+					<geometry>
+						<cylinder length="0.12413" radius="0.053"/>
+					</geometry>
+				</collision>
+			</xacro:if>
+		</link>
+
+		<!-- Joint 3 -->
+		<joint name="${prefix}joint3" type="revolute">
+			<parent link="${prefix}link2"/>
+			<child link="${prefix}link3"/>
+			<limit effort="66" lower="-3.1067" upper="3.1067" velocity="4.71238898038469"/>
+			<axis xyz="0 0 1"/>
+			<origin xyz="0.0 0.0 0.332"/>
+		</joint>
+
+		<!-- Link 3 -->
+		<link name="${prefix}link3">
+			<inertial>
+				<mass value="1.845"/>
+				<inertia ixx="0.00641285" ixy="0.00000909" ixz="0.00034765" iyy="0.00591595"
+								 iyz="${direction*-0.00002314}" izz="0.00276583"/>
+				<origin xyz="0.008227 ${direction*-0.001273} -0.020611"/>
+			</inertial>
+			<visual>
+				<geometry>
+					<mesh filename="file://$(find ar5_ccs_description)/meshes/ccs_v2/link3.glb" scale="1 ${direction} 1"/>
+				</geometry>
+			</visual>
+			<xacro:if value="${collider == 'convex'}">
+				<collision>
+					<geometry>
+						<mesh filename="file://$(find ar5_ccs_description)/meshes/ccs_v2/link3.glb" scale="1 ${direction} 1"/>
+					</geometry>
+				</collision>
+			</xacro:if>
+			<xacro:if value="${collider == 'simple'}">
+				<collision>
+					<origin xyz="0 0 -0.0963"/>
+					<geometry>
+						<cylinder length="0.096" radius="0.053"/>
+					</geometry>
+				</collision>
+				<collision>
+					<origin xyz="0.00946 0 0" rpy="1.5708 0 0"/>
+					<geometry>
+						<cylinder length="0.1284" radius="0.0484"/>
+					</geometry>
+				</collision>
+			</xacro:if>
+		</link>
+
+		<!-- Joint 4 -->
+		<joint name="${prefix}joint4" type="revolute">
+			<parent link="${prefix}link3"/>
+			<child link="${prefix}link4"/>
+			<limit effort="66" lower="-1.0472" upper="2.5307" velocity="5.235987755982989"/>
+			<axis xyz="0 1 0"/>
+			<origin xyz="0.0105 0.0 0.0"/>
+		</joint>
+
+		<!-- Link 4 -->
+		<link name="${prefix}link4">
+			<inertial>
+				<mass value="1.037"/>
+				<inertia ixx="0.00294639" ixy="${direction*-0.00002418}" ixz="-0.00012203" iyy="0.00244447"
+								 iyz="${direction*0.00022029}" izz="0.00140961"/>
+				<origin xyz="-0.009242 ${direction*-0.002172} 0.084042"/>
+			</inertial>
+			<visual>
+				<geometry>
+					<mesh filename="file://$(find ar5_ccs_description)/meshes/ccs_v2/link4.glb" scale="1 ${direction} 1"/>
+				</geometry>
+			</visual>
+			<xacro:if value="${collider == 'convex'}">
+				<collision>
+					<geometry>
+						<mesh filename="file://$(find ar5_ccs_description)/meshes/ccs_v2/link4.glb" scale="1 ${direction} 1"/>
+					</geometry>
+				</collision>
+			</xacro:if>
+			<xacro:if value="${collider == 'simple'}">
+				<collision>
+					<origin xyz="-0.01 0 0.10085"/>
+					<geometry>
+						<cylinder length="0.10" radius="0.03789"/>
+					</geometry>
+				</collision>
+			</xacro:if>
+		</link>
+
+		<!-- Joint 5 -->
+		<joint name="${prefix}joint5" type="revolute">
+			<parent link="${prefix}link4"/>
+			<child link="${prefix}link5"/>
+			<limit effort="19" lower="-3.1067" upper="3.1067" velocity="4.1887902047863905"/>
+			<axis xyz="0 0 1"/>
+			<origin xyz="-0.0105 0.0 0.278"/>
+		</joint>
+
+		<!-- Link 5 -->
+		<link name="${prefix}link5">
+			<inertial>
+				<mass value="1.279"/>
+				<inertia ixx="0.00241349" ixy="${direction*-0.00003807}" ixz="-0.00004536" iyy="0.00200246"
+								 iyz="${direction*0.00006623}" izz="0.00158693"/>
+				<origin xyz="-0.000756 ${direction*0.000723} -0.086764"/>
+			</inertial>
+			<visual>
+				<geometry>
+					<mesh filename="file://$(find ar5_ccs_description)/meshes/ccs_v2/link5.glb" scale="1 ${direction} 1"/>
+				</geometry>
+			</visual>
+			<xacro:if value="${collider == 'convex'}">
+				<collision>
+					<geometry>
+						<mesh filename="file://$(find ar5_ccs_description)/meshes/ccs_v2/link5.glb" scale="1 ${direction} 1"/>
+					</geometry>
+				</collision>
+			</xacro:if>
+			<xacro:if value="${collider == 'simple'}">
+				<collision>
+					<origin xyz="0 0 -0.09397" rpy="1.5708 0 0"/>
+					<geometry>
+						<cylinder length="0.11" radius="0.042766"/>
+					</geometry>
+				</collision>
+			</xacro:if>
+		</link>
+
+		<!-- Joint 6 -->
+		<joint name="${prefix}joint6" type="revolute">
+			<parent link="${prefix}link5"/>
+			<child link="${prefix}link6"/>
+			<limit effort="19" lower="-0.96" upper="0.96" velocity="4.1887902047863905"/>
+			<axis xyz="0 1 0"/>
+		</joint>
+
+		<!-- Link 6 -->
+		<link name="${prefix}link6">
+			<inertial>
+				<mass value="0.906"/>
+				<inertia ixx="0.00061429" ixy="${direction*-0.00000088}" ixz="${direction*0.00000104}" iyy="0.00074781"
+								 iyz="-0.00000047" izz="0.00075897"/>
+				<origin xyz="-0.005104 ${direction*0.000251} ${direction*0.000056}"/>
+			</inertial>
+			<visual>
+				<geometry>
+					<mesh filename="file://$(find ar5_ccs_description)/meshes/ccs_v2/link6.glb" scale="1 ${direction} 1"/>
+				</geometry>
+			</visual>
+			<xacro:if value="${collider == 'convex'}">
+				<collision>
+					<geometry>
+						<mesh filename="file://$(find ar5_ccs_description)/meshes/ccs_v2/link6.glb" scale="1 ${direction} 1"/>
+					</geometry>
+				</collision>
+			</xacro:if>
+			<xacro:if value="${collider == 'simple'}">
+				<collision>
+					<origin rpy="0 1.5708 0"/>
+					<geometry>
+						<cylinder length="0.11772" radius="0.044145"/>
+					</geometry>
+				</collision>
+			</xacro:if>
+		</link>
+
+		<!-- Joint 7 -->
+		<joint name="${prefix}joint7" type="revolute">
+			<parent link="${prefix}link6"/>
+			<child link="${prefix}link7"/>
+			<limit effort="19" lower="-0.85" upper="0.85" velocity="4.1887902047863905"/>
+			<axis xyz="1 0 0"/>
+		</joint>
+
+		<!-- Link 7 -->
+		<link name="${prefix}link7">
+			<inertial>
+				<mass value="0.33"/>
+				<inertia ixx="0.00046062" ixy="${direction*0.00000269}" ixz="0.00003859" iyy="0.00068652"
+								 iyz="${direction*-0.00000095}" izz="0.00043943"/>
+				<origin xyz="-0.001562 ${direction*-0.000366} 0.05392"/>
+			</inertial>
+			<visual>
+				<geometry>
+					<mesh filename="file://$(find ar5_ccs_description)/meshes/ccs_v2/link7.glb" scale="1 ${direction} 1"/>
+				</geometry>
+			</visual>
+			<xacro:if value="${collider == 'convex'}">
+				<collision>
+					<geometry>
+						<mesh filename="file://$(find ar5_ccs_description)/meshes/ccs_v2/link7.glb" scale="1 ${direction} 1"/>
+					</geometry>
+				</collision>
+			</xacro:if>
+			<xacro:if value="${collider == 'simple'}">
+				<collision>
+					<origin xyz="0 0 0.070681"/>
+					<geometry>
+						<cylinder length="0.040" radius="0.03559"/>
+					</geometry>
+				</collision>
+			</xacro:if>
+		</link>
+
+		<!-- TCP -->
+		<link name="${prefix}tcp">
+			<inertial>
+				<mass value="0.0"/>
+				<inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6"/>
+			</inertial>
+		</link>
+
+		<joint name="${prefix}tcp_joint" type="fixed">
+			<parent link="${prefix}link7"/>
+			<child link="${prefix}tcp"/>
+			<origin xyz="0.0 0.0 0.09"/>
+		</joint>
+	</xacro:macro>
+</robot>

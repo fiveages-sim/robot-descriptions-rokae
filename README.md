@@ -5,7 +5,7 @@ Rokae manipulator robot description packages. Each package contains its own URDF
 | | |
 |:---:|:---:|
 | <img src=".images/rokae_ar5.png" alt="Rokae AR5 SRS" height="280"> | <img src=".images/ar5_ccs.png" alt="Rokae AR5 CCS" height="280"> |
-| **[AR5 SRS](ar5_srs_description/)** | **[AR5 CCS](ar5_ccs_description/)** |
+| **[AR5 SRS](ar5_srs_description/)** | **[AR5 CCS / CCS V2](ar5_ccs_description/)** |
 
 ## Common Commands
 
@@ -27,8 +27,10 @@ ros2 launch robot_common_launch manipulator.launch.py robot:=<robot> type:=<type
 
 Useful arguments:
 
-- `robot:=<robot>` selects the model: `ar5_srs` or `ar5_ccs`.
-- Omit `type` for dual arms without an end effector on `ar5_ccs` and `ar5_srs`.
+- `robot:=<robot>` selects the model family: `ar5_srs` or `ar5_ccs`.
+- For `robot:=ar5_ccs`, use `variant:=base_ar5_ccs` or
+  `variant:=base_ar5_ccs_v2` to select the generation.
+- Omit `type` for dual arms without an end effector.
 - `type:=left` or `type:=right` for single-arm layouts without an end effector.
 - `type:=rg75` for dual arms with RG75 grippers; `type:=left_rg75` or `type:=right_rg75` for single-arm RG75 setups.
 - `collider:=simple` uses simple primitive collision geometry. The xacro default is `convex`; use `collider:=convex` to match it.

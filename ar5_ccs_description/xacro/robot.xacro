@@ -2,7 +2,7 @@
 <robot name="AR5_CCS" xmlns:xacro="http://www.ros.org/wiki/xacro">
 	<xacro:arg name="collider" default="convex"/>
 	<xacro:arg name="skin" default="default"/>
-	<xacro:arg name="variant" default=""/>
+	<xacro:arg name="variant" default="base_ar5_ccs"/>
 	<xacro:arg name="type" default="dual"/>
 	<xacro:arg name="left_type" default=""/>
 	<xacro:arg name="right_type" default=""/>
@@ -47,25 +47,41 @@
 		<xacro:property name="selected_gripper_pad" value="soft"/>
 	</xacro:if>
 
-	<!-- Include Component Macros -->
-	<xacro:include filename="$(find ar5_ccs_description)/xacro/arm_ccs.xacro"/>
+	<!-- Select the CCS generation while keeping one public description package. -->
+	<xacro:if value="${'$(arg variant)' != 'base_ar5_ccs_v2' and '$(arg variant)' != 'base_ar5_srs'}">
+		<xacro:include filename="$(find ar5_ccs_description)/xacro/arm_ccs.xacro"/>
+	</xacro:if>
+	<xacro:if value="${'$(arg variant)' == 'base_ar5_ccs_v2'}">
+		<xacro:include filename="$(find ar5_ccs_description)/xacro/arm_ccs_v2.xacro"/>
+	</xacro:if>
+
+	<xacro:macro name="SelectedAR5CCS" params="name direction collider">
+		<xacro:if value="${'$(arg variant)' != 'base_ar5_ccs_v2' and '$(arg variant)' != 'base_ar5_srs'}">
+			<xacro:AR5_CCS name="${name}" direction="${direction}" collider="${collider}"/>
+		</xacro:if>
+		<xacro:if value="${'$(arg variant)' == 'base_ar5_ccs_v2'}">
+			<xacro:AR5_CCS_V2 name="${name}" direction="${direction}" collider="${collider}"/>
+		</xacro:if>
+	</xacro:macro>
+
+	<!-- Include shared component macros. -->
 	<xacro:include filename="$(find ar5_ccs_description)/xacro/arm_mount.xacro"/>
 
 	<!-- <xacro:include filename="$(find ar5_ccs_description)/xacro/grippers.xacro"/> -->
 
 	<!-- 根据 arm_config 创建机械臂 -->
 	<xacro:if value="${selected_arm_config == 'left'}">
-		<xacro:AR5_CCS name="" collider="$(arg collider)" direction="1"/>
+		<xacro:SelectedAR5CCS name="" collider="$(arg collider)" direction="1"/>
 	</xacro:if>
 	<xacro:if value="${selected_arm_config == 'right'}">
-		<xacro:AR5_CCS name="" collider="$(arg collider)" direction="-1"/>
+		<xacro:SelectedAR5CCS name="" collider="$(arg collider)" direction="-1"/>
 	</xacro:if>
 
 	<xacro:if value="${selected_arm_config == 'dual'}">
 		<link name="base_link"/>
 		<link name="arm_base">
 			<collision>
-				<origin xyz="0.0091 0 -0.096"/>
+				<origin xyz="0.0091 0 -0.2"/>
 				<geometry>
 					<box size="0.33 0.30 0.5029"/>
 				</geometry>
@@ -79,8 +95,8 @@
 
 		<xacro:DualArmMount parent="arm_base"/>
 
-		<xacro:AR5_CCS name="left" collider="$(arg collider)" direction="1"/>
-		<xacro:AR5_CCS name="right" collider="$(arg collider)" direction="-1"/>
+		<xacro:SelectedAR5CCS name="left" collider="$(arg collider)" direction="1"/>
+		<xacro:SelectedAR5CCS name="right" collider="$(arg collider)" direction="-1"/>
 
 		<xacro:include filename="$(find ar5_ccs_description)/xacro/eef_type_resolver.xacro"/>
 		<xacro:set_side_eef_types side="left" type_key="${effective_left_type}"/>

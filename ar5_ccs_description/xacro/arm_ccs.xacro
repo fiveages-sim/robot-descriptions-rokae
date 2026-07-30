@@ -13,13 +13,13 @@
 			</inertial>
 			<visual>
 				<geometry>
-					<mesh filename="file://$(find ar5_ccs_description)/meshes/base.glb"/>
+					<mesh filename="file://$(find ar5_ccs_description)/meshes/ccs/base.glb"/>
 				</geometry>
 			</visual>
 			<xacro:if value="${collider == 'convex'}">
 				<collision>
 					<geometry>
-						<mesh filename="file://$(find ar5_ccs_description)/meshes/base.glb"/>
+						<mesh filename="file://$(find ar5_ccs_description)/meshes/ccs/base.glb"/>
 					</geometry>
 				</collision>
 			</xacro:if>
@@ -51,13 +51,13 @@
 			</inertial>
 			<visual>
 				<geometry>
-					<mesh filename="file://$(find ar5_ccs_description)/meshes/link1.glb" scale="1 ${direction} 1"/>
+					<mesh filename="file://$(find ar5_ccs_description)/meshes/ccs/link1.glb" scale="1 ${direction} 1"/>
 				</geometry>
 			</visual>
 			<xacro:if value="${collider == 'convex'}">
 				<collision>
 					<geometry>
-						<mesh filename="file://$(find ar5_ccs_description)/meshes/link1.glb" scale="1 ${direction} 1"/>
+						<mesh filename="file://$(find ar5_ccs_description)/meshes/ccs/link1.glb" scale="1 ${direction} 1"/>
 					</geometry>
 				</collision>
 			</xacro:if>
@@ -82,13 +82,13 @@
 			</inertial>
 			<visual>
 				<geometry>
-					<mesh filename="file://$(find ar5_ccs_description)/meshes/link2.glb" scale="1 ${direction} 1"/>
+					<mesh filename="file://$(find ar5_ccs_description)/meshes/ccs/link2.glb" scale="1 ${direction} 1"/>
 				</geometry>
 			</visual>
 			<xacro:if value="${collider == 'convex'}">
 				<collision>
 					<geometry>
-						<mesh filename="file://$(find ar5_ccs_description)/meshes/link2.glb" scale="1 ${direction} 1"/>
+						<mesh filename="file://$(find ar5_ccs_description)/meshes/ccs/link2.glb" scale="1 ${direction} 1"/>
 					</geometry>
 				</collision>
 			</xacro:if>
@@ -127,13 +127,13 @@
 			</inertial>
 			<visual>
 				<geometry>
-					<mesh filename="file://$(find ar5_ccs_description)/meshes/link3.glb" scale="1 ${direction} 1"/>
+					<mesh filename="file://$(find ar5_ccs_description)/meshes/ccs/link3.glb" scale="1 ${direction} 1"/>
 				</geometry>
 			</visual>
 			<xacro:if value="${collider == 'convex'}">
 				<collision>
 					<geometry>
-						<mesh filename="file://$(find ar5_ccs_description)/meshes/link3.glb" scale="1 ${direction} 1"/>
+						<mesh filename="file://$(find ar5_ccs_description)/meshes/ccs/link3.glb" scale="1 ${direction} 1"/>
 					</geometry>
 				</collision>
 			</xacro:if>
@@ -172,13 +172,13 @@
 			</inertial>
 			<visual>
 				<geometry>
-					<mesh filename="file://$(find ar5_ccs_description)/meshes/link4.glb" scale="1 ${direction} 1"/>
+					<mesh filename="file://$(find ar5_ccs_description)/meshes/ccs/link4.glb" scale="1 ${direction} 1"/>
 				</geometry>
 			</visual>
 			<xacro:if value="${collider == 'convex'}">
 				<collision>
 					<geometry>
-						<mesh filename="file://$(find ar5_ccs_description)/meshes/link4.glb" scale="1 ${direction} 1"/>
+						<mesh filename="file://$(find ar5_ccs_description)/meshes/ccs/link4.glb" scale="1 ${direction} 1"/>
 					</geometry>
 				</collision>
 			</xacro:if>
@@ -211,13 +211,13 @@
 			</inertial>
 			<visual>
 				<geometry>
-					<mesh filename="file://$(find ar5_ccs_description)/meshes/link5.glb" scale="1 ${direction} 1"/>
+					<mesh filename="file://$(find ar5_ccs_description)/meshes/ccs/link5.glb" scale="1 ${direction} 1"/>
 				</geometry>
 			</visual>
 			<xacro:if value="${collider == 'convex'}">
 				<collision>
 					<geometry>
-						<mesh filename="file://$(find ar5_ccs_description)/meshes/link5.glb" scale="1 ${direction} 1"/>
+						<mesh filename="file://$(find ar5_ccs_description)/meshes/ccs/link5.glb" scale="1 ${direction} 1"/>
 					</geometry>
 				</collision>
 			</xacro:if>
@@ -235,7 +235,7 @@
 		<joint name="${prefix}joint6" type="revolute">
 			<parent link="${prefix}link5"/>
 			<child link="${prefix}link6"/>
-			<limit effort="19" lower="-1.0472" upper="1.0472" velocity="4.1887902047863905"/>
+			<limit effort="19" lower="-0.96" upper="0.96" velocity="4.1887902047863905"/>
 			<axis xyz="0 1 0"/>
 		</joint>
 
@@ -249,13 +249,13 @@
 			</inertial>
 			<visual>
 				<geometry>
-					<mesh filename="file://$(find ar5_ccs_description)/meshes/link6.glb" scale="1 ${direction} 1"/>
+					<mesh filename="file://$(find ar5_ccs_description)/meshes/ccs/link6.glb" scale="1 ${direction} 1"/>
 				</geometry>
 			</visual>
 			<xacro:if value="${collider == 'convex'}">
 				<collision>
 					<geometry>
-						<mesh filename="file://$(find ar5_ccs_description)/meshes/link6.glb" scale="1 ${direction} 1"/>
+						<mesh filename="file://$(find ar5_ccs_description)/meshes/ccs/link6.glb" scale="1 ${direction} 1"/>
 					</geometry>
 				</collision>
 			</xacro:if>
@@ -273,7 +273,7 @@
 		<joint name="${prefix}joint7" type="revolute">
 			<parent link="${prefix}link6"/>
 			<child link="${prefix}link7"/>
-			<limit effort="19" lower="-1.0472" upper="1.0472" velocity="4.1887902047863905"/>
+			<limit effort="19" lower="-0.96" upper="0.96" velocity="4.1887902047863905"/>
 			<axis xyz="1 0 0"/>
 		</joint>
 
@@ -287,13 +287,13 @@
 			</inertial>
 			<visual>
 				<geometry>
-					<mesh filename="file://$(find ar5_ccs_description)/meshes/link7.glb" scale="${direction} 1 1"/>
+					<mesh filename="file://$(find ar5_ccs_description)/meshes/ccs/link7.glb" scale="${direction} 1 1"/>
 				</geometry>
 			</visual>
 			<xacro:if value="${collider == 'convex'}">
 				<collision>
 					<geometry>
-						<mesh filename="file://$(find ar5_ccs_description)/meshes/link7.glb" scale=" ${direction} 1 1"/>
+						<mesh filename="file://$(find ar5_ccs_description)/meshes/ccs/link7.glb" scale=" ${direction} 1 1"/>
 					</geometry>
 				</collision>
 			</xacro:if>

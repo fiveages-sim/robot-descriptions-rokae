@@ -72,4 +72,3 @@ right_hand_controller:
   ros__parameters:
     joint: right_gripper_joint
     use_effort_interface: false
-
