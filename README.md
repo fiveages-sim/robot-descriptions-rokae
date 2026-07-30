@@ -28,7 +28,8 @@ ros2 launch robot_common_launch manipulator.launch.py robot:=<robot> type:=<type
 Useful arguments:
 
 - `robot:=<robot>` selects the model family: `ar5_srs` or `ar5_ccs`.
-- For `robot:=ar5_ccs`, use `arm:=ar5_ccs` or `arm:=ar5_ccs_v2` to select the generation.
+- For `robot:=ar5_ccs`, use `variant:=base_ar5_ccs` or
+  `variant:=base_ar5_ccs_v2` to select the generation.
 - Omit `type` for dual arms without an end effector.
 - `type:=left` or `type:=right` for single-arm layouts without an end effector.
 - `type:=rg75` for dual arms with RG75 grippers; `type:=left_rg75` or `type:=right_rg75` for single-arm RG75 setups.

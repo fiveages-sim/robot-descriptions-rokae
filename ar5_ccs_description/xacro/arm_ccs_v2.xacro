@@ -134,7 +134,7 @@
 			</xacro:if>
 			<xacro:if value="${collider == 'simple'}">
 				<collision>
-					<origin xyz="0 0 -0.0863"/>
+					<origin xyz="0 0 -0.0963"/>
 					<geometry>
 						<cylinder length="0.096" radius="0.053"/>
 					</geometry>
@@ -268,7 +268,7 @@
 		<joint name="${prefix}joint7" type="revolute">
 			<parent link="${prefix}link6"/>
 			<child link="${prefix}link7"/>
-			<limit effort="19" lower="-0.96" upper="0.96" velocity="4.1887902047863905"/>
+			<limit effort="19" lower="-0.85" upper="0.85" velocity="4.1887902047863905"/>
 			<axis xyz="1 0 0"/>
 		</joint>
 
@@ -294,9 +294,9 @@
 			</xacro:if>
 			<xacro:if value="${collider == 'simple'}">
 				<collision>
-					<origin xyz="0 0 0.077681"/>
+					<origin xyz="0 0 0.070681"/>
 					<geometry>
-						<cylinder length="0.038669" radius="0.03559"/>
+						<cylinder length="0.040" radius="0.03559"/>
 					</geometry>
 				</collision>
 			</xacro:if>
