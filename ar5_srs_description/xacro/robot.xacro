@@ -2,6 +2,10 @@
 <robot name="AR5_SRS" xmlns:xacro="http://www.ros.org/wiki/xacro">
 	<xacro:arg name="collider" default="convex"/>
 	<xacro:arg name="type" default="dual"/>
+	<xacro:arg name="left_tcp_offset_xyz" default="$(optenv FA_W2R_LEFT_TCP_OFFSET_XYZ 0 0 0)"/>
+	<xacro:arg name="left_tcp_offset_rpy" default="$(optenv FA_W2R_LEFT_TCP_OFFSET_RPY 0 0 0)"/>
+	<xacro:arg name="right_tcp_offset_xyz" default="$(optenv FA_W2R_RIGHT_TCP_OFFSET_XYZ 0 0 0)"/>
+	<xacro:arg name="right_tcp_offset_rpy" default="$(optenv FA_W2R_RIGHT_TCP_OFFSET_RPY 0 0 0)"/>
 
 	<!-- 拆解 type 参数为三个独立属性 -->
 	<xacro:property name="type_arg" value="$(arg type)"/>
@@ -83,6 +87,19 @@
 
 		<xacro:Arm name="left" collider="$(arg collider)" direction="1"/>
 		<xacro:Arm name="right" collider="$(arg collider)" direction="-1"/>
+
+		<link name="left_tcp_offset"/>
+		<joint name="left_tcp_offset_joint" type="fixed">
+			<parent link="left_tcp"/>
+			<child link="left_tcp_offset"/>
+			<origin xyz="$(arg left_tcp_offset_xyz)" rpy="$(arg left_tcp_offset_rpy)"/>
+		</joint>
+		<link name="right_tcp_offset"/>
+		<joint name="right_tcp_offset_joint" type="fixed">
+			<parent link="right_tcp"/>
+			<child link="right_tcp_offset"/>
+			<origin xyz="$(arg right_tcp_offset_xyz)" rpy="$(arg right_tcp_offset_rpy)"/>
+		</joint>
 	</xacro:if>
 
 	<!-- 根据 gripper_type 添加夹爪 -->

@@ -7,6 +7,10 @@
 	<xacro:arg name="left_type" default=""/>
 	<xacro:arg name="right_type" default=""/>
 	<xacro:arg name="eef_fixed_joints" default="false"/>
+	<xacro:arg name="left_tcp_offset_xyz" default="$(optenv FA_W2R_LEFT_TCP_OFFSET_XYZ 0 0 0)"/>
+	<xacro:arg name="left_tcp_offset_rpy" default="$(optenv FA_W2R_LEFT_TCP_OFFSET_RPY 0 0 0)"/>
+	<xacro:arg name="right_tcp_offset_xyz" default="$(optenv FA_W2R_RIGHT_TCP_OFFSET_XYZ 0 0 0)"/>
+	<xacro:arg name="right_tcp_offset_rpy" default="$(optenv FA_W2R_RIGHT_TCP_OFFSET_RPY 0 0 0)"/>
 	<!-- 从 type 参数解析 arm_config / 对称末端 -->
 	<xacro:property name="type_arg" value="$(arg type)"/>
 	<xacro:property name="variant_arg" value="$(arg variant)"/>
@@ -97,6 +101,19 @@
 
 		<xacro:SelectedAR5CCS name="left" collider="$(arg collider)" direction="1"/>
 		<xacro:SelectedAR5CCS name="right" collider="$(arg collider)" direction="-1"/>
+
+		<link name="left_tcp_offset"/>
+		<joint name="left_tcp_offset_joint" type="fixed">
+			<parent link="left_tcp"/>
+			<child link="left_tcp_offset"/>
+			<origin xyz="$(arg left_tcp_offset_xyz)" rpy="$(arg left_tcp_offset_rpy)"/>
+		</joint>
+		<link name="right_tcp_offset"/>
+		<joint name="right_tcp_offset_joint" type="fixed">
+			<parent link="right_tcp"/>
+			<child link="right_tcp_offset"/>
+			<origin xyz="$(arg right_tcp_offset_xyz)" rpy="$(arg right_tcp_offset_rpy)"/>
+		</joint>
 
 		<xacro:include filename="$(find ar5_ccs_description)/xacro/eef_type_resolver.xacro"/>
 		<xacro:set_side_eef_types side="left" type_key="${effective_left_type}"/>
