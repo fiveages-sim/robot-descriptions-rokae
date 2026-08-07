@@ -34,6 +34,7 @@ Useful arguments:
 - `type:=left` or `type:=right` for single-arm layouts without an end effector.
 - `type:=rg75` for dual arms with RG75 grippers; `type:=left_rg75` or `type:=right_rg75` for single-arm RG75 setups.
 - `collider:=simple` uses simple primitive collision geometry. The xacro default is `convex`; use `collider:=convex` to match it.
+- Virtual TCP offsets can come from `defaults.tcp_offset` in `robot_profile`, or from `tcp_offset_xyz` / `tcp_offset_rpy` and their `left_` / `right_` launch variants. Values support `${PI/2}`, `pi/2`, and `radians(90)` expressions.
 
 ### Run OCS2 Demos
 
@@ -45,6 +46,8 @@ ros2 launch ocs2_arm_controller demo.launch.py robot:=<robot> type:=<type>
 ```
 
 `manipulator_ocs2.launch.py` is the official mobile manipulator demo. `demo.launch.py` is the arm controller demo. Add `hardware:=gz` for Gazebo simulation or `hardware:=real` for real-robot deployment where supported. Real-hardware builds may also require `rokae_ros2_control`. Model-specific launch examples and gripper variants are documented in each package README.
+
+To control the virtual tips, also set `ocs2_arm_controller.ros__parameters.left_ee_frame: left_tcp_offset` and `right_ee_frame: right_tcp_offset` in `control.patch`; defining the geometry alone does not select it as the controller tip.
 
 ## Packages
 

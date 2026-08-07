@@ -119,6 +119,23 @@ Pass `variant:=base_ar5_ccs_v2` to any command below to select CCS V2. Omitting
 
 ### 3.4 Real robot deploy
 
+An optional machine profile can configure virtual TCP frames for CCS / CCS V2:
+
+```yaml
+defaults:
+  tcp_offset:
+    xyz: "0 0 0.10"
+    rpy: "0 0 0"
+control:
+  patch:
+    ocs2_arm_controller:
+      ros__parameters:
+        left_ee_frame: left_tcp_offset
+        right_ee_frame: right_tcp_offset
+```
+
+Launch overrides follow `CLI > profile > xacro default`, for example `tcp_offset_rpy:='0 0 ${PI/2}'` or `left_tcp_offset_xyz:="0 0 0.08"`.
+
 * Build command
 
 ```bash
