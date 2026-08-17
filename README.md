@@ -1,11 +1,20 @@
 # Rokae Robots
 
-Rokae manipulator robot description packages. Each package contains its own URDF/Xacro, meshes, RViz, and controller configuration for the AR5 arm.
+珞石（Rokae）机械臂描述包：单臂 AR5-SRS、双臂 AR5-CCS（含 CCS V2）。末端由 `ar5_ccs_description` 解析，亦可被其它机型（如 `fiveages_w2r`）复用。
 
 | | |
 |:---:|:---:|
-| <img src=".images/rokae_ar5.png" alt="Rokae AR5 SRS" height="280"> | <img src=".images/ar5_ccs.png" alt="Rokae AR5 CCS" height="280"> |
-| **[AR5 SRS](ar5_srs_description/)** | **[AR5 CCS / CCS V2](ar5_ccs_description/)** |
+| <img src=".images/rokae_ar5.png" alt="Rokae AR5 SRS" height="240"> | <img src=".images/ar5_ccs.png" alt="Rokae AR5 CCS" height="240"> |
+| **[AR5-SRS](ar5_srs_description/)** | **[AR5-CCS / CCS V2](ar5_ccs_description/)** |
+
+## Packages
+
+| Package | Launch `robot` | 形态 | 说明 |
+|---------|----------------|------|------|
+| [ar5_srs_description](ar5_srs_description/) | `ar5_srs` | 单臂 / 双臂 | 左/右臂布局（`type:=left` / `right`） |
+| [ar5_ccs_description](ar5_ccs_description/) | `ar5_ccs` | 双臂平台 | CCS / CCS V2（`variant:=ar5_ccs` / `ar5_ccs_v2`）；丰富末端 |
+
+W2R 整机用同套短键挂臂：`arms:=ar5_ccs` / `ar5_ccs_v2` / `ar5_srs`，见 [fiveages_w2r README](../../humanoid/FiveAges/Gen2/fiveages_w2r_description/README.md)。
 
 ## Common Commands
 
@@ -17,42 +26,41 @@ colcon build --packages-up-to <package> --symlink-install
 source ~/ros2_ws/install/setup.bash
 ```
 
-Replace `<package>` with `ar5_srs_description` or `ar5_ccs_description`.
+将 `<package>` 替换为 `ar5_srs_description` 或 `ar5_ccs_description`。
 
-### Visualize Full Robot
-
-```bash
-ros2 launch robot_common_launch manipulator.launch.py robot:=<robot> type:=<type> collider:=simple
-```
-
-Useful arguments:
-
-- `robot:=<robot>` selects the model family: `ar5_srs` or `ar5_ccs`.
-- For `robot:=ar5_ccs`, use `variant:=base_ar5_ccs` or
-  `variant:=base_ar5_ccs_v2` to select the generation.
-- Omit `type` for dual arms without an end effector.
-- `type:=left` or `type:=right` for single-arm layouts without an end effector.
-- `type:=rg75` for dual arms with RG75 grippers; `type:=left_rg75` or `type:=right_rg75` for single-arm RG75 setups.
-- `collider:=simple` uses simple primitive collision geometry. The xacro default is `convex`; use `collider:=convex` to match it.
-- Virtual TCP offsets can come from `defaults.tcp_offset` in `robot_profile`, or from `tcp_offset_xyz` / `tcp_offset_rpy` and their `left_` / `right_` launch variants. Values support `${PI/2}`, `pi/2`, and `radians(90)` expressions.
-
-### Run OCS2 Demos
-
-The default hardware is `mock_components`.
+### Visualize
 
 ```bash
-ros2 launch robot_common_launch manipulator_ocs2.launch.py robot_name:=<robot> type:=<type>
-ros2 launch ocs2_arm_controller demo.launch.py robot:=<robot> type:=<type>
+ros2 launch robot_common_launch manipulator.launch.py robot:=<robot> collider:=simple
 ```
 
-`manipulator_ocs2.launch.py` is the official mobile manipulator demo. `demo.launch.py` is the arm controller demo. Add `hardware:=gz` for Gazebo simulation or `hardware:=real` for real-robot deployment where supported. Real-hardware builds may also require `rokae_ros2_control`. Model-specific launch examples and gripper variants are documented in each package README.
+常用参数：
 
-To control the virtual tips, also set `ocs2_arm_controller.ros__parameters.left_ee_frame: left_tcp_offset` and `right_ee_frame: right_tcp_offset` in `control.patch`; defining the geometry alone does not select it as the controller tip.
+- `robot:=ar5_srs` / `ar5_ccs`
+- `variant:=ar5_ccs` / `ar5_ccs_v2`：仅 CCS 包选代际，与 `type` 正交
+- `type:=<ee_key>`：对称末端（CCS / SRS 双臂）
+- `type:=left` / `right`：单臂布局（不要同时当末端键用）
+- `left_type:=… right_type:=…`：左右不同末端（**不要**再传 `type:=`）
+- `collider:=simple`：规划用简化碰撞体（xacro 默认多为 `convex`）
 
-## Packages
+末端键表与支持矩阵见 [ar5_ccs_description README §2](ar5_ccs_description/README.md#2-末端执行器)。
+
+### OCS2 / Control
+
+```bash
+ros2 launch robot_common_launch manipulator_ocs2.launch.py robot_name:=<robot>
+ros2 launch ocs2_arm_controller demo.launch.py robot:=<robot>
+```
+
+默认硬件为 `mock_components`；真机加 `hardware:=real` 或 `real_usb`（细节见各包 README）。真机还需编译 `rokae_ros2_control`。
+
+要让控制器跟踪虚拟 TCP，还需在 `control.patch` 里设置 `ocs2_arm_controller.ros__parameters.left_ee_frame: left_tcp_offset`（及 `right_ee_frame`）；只定义几何不会自动改 tip。
+
+## Layout
 
 ```text
 Rokae/
+├── .images/
 ├── ar5_srs_description/
 └── ar5_ccs_description/
 ```
