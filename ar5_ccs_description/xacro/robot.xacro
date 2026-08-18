@@ -64,7 +64,7 @@
 			<xacro:AR5_CCS name="${name}" direction="${direction}" collider="${collider}"/>
 		</xacro:if>
 		<xacro:if value="${'$(arg variant)' == 'ar5_ccs_v2'}">
-			<xacro:AR5_CCS_V2 name="${name}" direction="${direction}" collider="${collider}"/>
+			<xacro:AR5_CCS_V2 name="${name}" direction="${direction}" collider="${collider}" skin="$(arg skin)"/>
 		</xacro:if>
 	</xacro:macro>
 

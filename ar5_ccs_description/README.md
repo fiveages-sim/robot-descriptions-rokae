@@ -107,15 +107,30 @@ Launch 可覆盖（CLI > profile）：`tcp_offset_rpy:="0 0 ${PI/2}"`、`hardwar
 
 要让控制器跟踪虚拟 TCP，还需 `control.patch` 设置 `left_ee_frame` / `right_ee_frame` 为 `left_tcp_offset` / `right_tcp_offset`。
 
-### 3.2 挂到 W2R
+### 3.2 `skin`（臂外观）
 
-人形用 `arms:=` 而不是本包的 `variant:=`：
+`xacro/arm_ccs_v2.xacro` 中 `AR5_CCS_V2` 的 **visual** 由 `skin` 选择；**碰撞** 始终用 `meshes/ccs_v2/link*.glb`。`skin` 与 `variant` 正交，**仅 CCS V2** 有效（v1 无配色网格）。底座 visual 始终 `ccs_v2/base.glb`。
+
+| `skin` | Visual |
+|--------|--------|
+| 默认 | `meshes/ccs_v2/link*.glb` |
+| `fiveages` | `meshes/ccs_v2/fiveages/` |
 
 ```bash
-ros2 launch robot_common_launch humanoid.launch.py robot:=fiveages_w2r arms:=ar5_ccs_v2
+ros2 launch robot_common_launch manipulator.launch.py robot:=ar5_ccs \
+  variant:=ar5_ccs_v2 skin:=fiveages collider:=simple
 ```
 
-详见 [fiveages_w2r README](../../../humanoid/FiveAges/Gen2/fiveages_w2r_description/README.md)。
+### 3.3 挂到 W2R / WCE3
+
+人形用 `arms:=` 而不是本包的 `variant:=`。W2R / WCE3 默认 CCS V2，并写死 `skin:=fiveages`：
+
+```bash
+ros2 launch robot_common_launch humanoid.launch.py robot:=fiveages_w2r
+ros2 launch robot_common_launch humanoid.launch.py robot:=fiveages_wce3
+```
+
+W2R 仍可用 `arms:=ar5_ccs` / `ar5_srs` 换套件（无 FiveAges 配色）。详见 [fiveages_w2r README](../../../humanoid/FiveAges/Gen2/fiveages_w2r_description/README.md)、[fiveages_wce3 README](../../../humanoid/FiveAges/Gen3/fiveages_wce3_description/README.md)。
 
 ## 4. 真机部署
 
