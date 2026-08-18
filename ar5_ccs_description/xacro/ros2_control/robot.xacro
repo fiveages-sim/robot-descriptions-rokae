@@ -20,6 +20,10 @@
 	<xacro:arg name="rokae_command_filter_max_jerk" default="300.0"/>
 	<xacro:arg name="usb_left_port" default="/dev/ttyUSB0"/>
 	<xacro:arg name="usb_right_port" default="/dev/ttyUSB2"/>
+	<xacro:arg name="left_ee_can_interface" default="can0"/>
+	<xacro:arg name="right_ee_can_interface" default="can1"/>
+	<xacro:arg name="left_read_tactile" default="false"/>
+	<xacro:arg name="right_read_tactile" default="false"/>
 	<xacro:arg name="left_ee_drive_type" default=""/>
 	<xacro:arg name="right_ee_drive_type" default=""/>
 	<xacro:property name="is_real_hardware" value="${'$(arg ros2_control_hardware_type)' == 'real' or '$(arg ros2_control_hardware_type)' == 'real_usb'}"/>
@@ -27,8 +31,8 @@
 	<xacro:property name="left_drive_type" value="${'$(arg left_ee_drive_type)' if '$(arg left_ee_drive_type)' != '' else ee_drive_type}"/>
 	<xacro:property name="right_drive_type" value="${'$(arg right_ee_drive_type)' if '$(arg right_ee_drive_type)' != '' else ee_drive_type}"/>
 	<xacro:property name="rokae_ctrl_mode" value="${'JOINT_IMPEDANCE' if '$(arg arm_ctrl_mode)' == 'joint_impedance' else 'POSITION'}"/>
-	<xacro:property name="left_rokae_hand_type" value="${'' if left_drive_type == 'usb' else left_hand_type}"/>
-	<xacro:property name="right_rokae_hand_type" value="${'' if right_drive_type == 'usb' else right_hand_type}"/>
+	<xacro:property name="left_rokae_hand_type" value="${'' if left_drive_type == 'usb' or left_drive_type == 'usb_can' else left_hand_type}"/>
+	<xacro:property name="right_rokae_hand_type" value="${'' if right_drive_type == 'usb' or right_drive_type == 'usb_can' else right_hand_type}"/>
 	<link name="world"/>
 
 	<joint name="world_fixed" type="fixed">
@@ -116,7 +120,11 @@
 
 		<xacro:external_ee_systems
 			usb_left_port="$(arg usb_left_port)"
-			usb_right_port="$(arg usb_right_port)"/>
+			usb_right_port="$(arg usb_right_port)"
+			left_ee_can_interface="$(arg left_ee_can_interface)"
+			right_ee_can_interface="$(arg right_ee_can_interface)"
+			left_read_tactile="$(arg left_read_tactile)"
+			right_read_tactile="$(arg right_read_tactile)"/>
 	</xacro:if>
 
 	<xacro:unless value="${is_real_hardware}">

@@ -53,21 +53,21 @@ ros2 launch robot_common_launch manipulator.launch.py robot:=ar5_ccs \
 
 `type` / `left_type` / `right_type` 与 `xacro/eef_type_resolver.xacro` 一致。列名对应 §2.1（`rokae 485` = 默认空键 / `hardware:=real`，臂体 RS485）。
 
-| Type key | 产品 | `rokae 485` | `usb` |
-|----------|------|:-------:|:-----:|
-| `rg75` | Jodell RG75 | ✅ | — |
-| `rg75_heavy` | Jodell RG75 + heavy pad | ✅ | — |
-| `erg32` | Jodell ERG32（旋转 + 夹爪，2-DOF） | ✅ | — |
-| `ag2f90`, `ag2f90_d` | ChangingTek AG2F90-D | ✅ | — |
-| `ag2f90_c`, `ag2f90_c_soft` | ChangingTek AG2F90-C | ✅ | — |
-| `ag2f120s` | ChangingTek AG2F120S | ✅ | — |
-| `ag2f120s_d` | ChangingTek AG2F120S-D | ✅ | — |
-| `linkerhand_o6` / `l6` / `o7` | LinkerHand | ✅ | ✅ |
+| Type key | 产品 | `rokae 485` | `usb` | `usb_can` |
+|----------|------|:-------:|:-----:|:---------:|
+| `rg75` | Jodell RG75 | ✅ | — | — |
+| `rg75_heavy` | Jodell RG75 + heavy pad | ✅ | — | — |
+| `erg32` | Jodell ERG32（旋转 + 夹爪，2-DOF） | ✅ | — | — |
+| `ag2f90`, `ag2f90_d` | ChangingTek AG2F90-D | ✅ | — | — |
+| `ag2f90_c`, `ag2f90_c_soft` | ChangingTek AG2F90-C | ✅ | — | — |
+| `ag2f120s` | ChangingTek AG2F120S | ✅ | — | — |
+| `ag2f120s_d` | ChangingTek AG2F120S-D | ✅ | — | — |
+| `linkerhand_o6` / `l6` / `o7` | LinkerHand | ✅ | ✅ | ✅ |
 
 要点：
 
 - **夹爪** — 只走臂体 Rokae 插件（`rokae_hardware.xacro` 的 `gripper_type`）。`hardware:=real_usb` 不会给夹爪开 USB 系统。
-- **LinkerHand** — 默认随 Rokae 总线；`hardware:=real_usb` 或 `left_ee_drive_type:=usb` 时改走外接 Modbus（`external_ee_systems.xacro`），Rokae 侧 `hand_type` 置空以免双驱动。
+- **LinkerHand** — 默认随 Rokae 总线；`left_ee_drive_type` / `right_ee_drive_type` 可选 `usb`（外接 Modbus）或 `usb_can`（外接 SocketCAN）。外接驱动启用时 Rokae 侧 `hand_type` 置空，避免双驱动。
 - **`type:=left` / `right`** — 只选单臂拓扑，不是末端键。
 
 仿真 / mock 下上表类型均可展开 URDF；真机列只表示 `hardware:=real` / `real_usb` 的接线。
