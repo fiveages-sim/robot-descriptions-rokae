@@ -58,7 +58,7 @@ ros2 launch robot_common_launch manipulator.launch.py robot:=ar5_ccs \
 | `rg75` | Jodell RG75 | ✅ | — | — |
 | `rg75_heavy` | Jodell RG75 + heavy pad | ✅ | — | — |
 | `erg32` | Jodell ERG32（旋转 + 夹爪，2-DOF） | ✅ | — | — |
-| `ag2f90`, `ag2f90_d` | ChangingTek AG2F90-D | ✅ | — | — |
+| `ag2f90`, `ag2f90_d` | ChangingTek AG2F90-D（`pad:=default`，与 m6_ccs 一致） | ✅ | — | — |
 | `ag2f90_c`, `ag2f90_c_soft` | ChangingTek AG2F90-C | ✅ | — | — |
 | `ag2f120s` | ChangingTek AG2F120S | ✅ | — | — |
 | `ag2f120s_d` | ChangingTek AG2F120S-D | ✅ | — | — |

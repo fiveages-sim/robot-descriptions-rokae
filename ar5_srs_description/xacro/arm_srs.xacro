@@ -14,7 +14,7 @@
 			</inertial>
 			<visual>
 				<geometry>
-					<mesh filename="package://ar5_srs_description/meshes/base.glb" scale="1 ${direction} 1"/>
+					<mesh filename="file://$(find ar5_srs_description)/meshes/base.glb" scale="1 ${direction} 1"/>
 				</geometry>
 			</visual>
 			<xacro:if value="${collider == 'convex'}">
