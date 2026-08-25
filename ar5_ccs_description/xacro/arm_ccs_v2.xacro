@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="ccs_arm">
 
-	<xacro:macro name="AR5_CCS_V2" params="name direction:=1 collider:=convex">
+	<xacro:macro name="AR5_CCS_V2" params="name direction:=1 collider:=convex skin:='default'">
 		<xacro:property name="prefix" value="${name + '_' if name else ''}"/>
+		<!-- Visual skins live under ar5_ccs_description/meshes/ccs_v2/[fiveages]/ -->
+		<xacro:property name="visual_subdir" value="ccs_v2/"/>
+		<xacro:if value="${skin == 'fiveages'}">
+			<xacro:property name="visual_subdir" value="ccs_v2/fiveages/"/>
+		</xacro:if>
 
 		<!-- Base Link -->
 		<link name="${prefix}base_link">
@@ -46,7 +51,7 @@
 			</inertial>
 			<visual>
 				<geometry>
-					<mesh filename="file://$(find ar5_ccs_description)/meshes/ccs_v2/link1.glb" scale="1 ${direction} 1"/>
+					<mesh filename="file://$(find ar5_ccs_description)/meshes/${visual_subdir}link1.glb" scale="1 ${direction} 1"/>
 				</geometry>
 			</visual>
 			<xacro:if value="${collider == 'convex'}">
@@ -77,7 +82,7 @@
 			</inertial>
 			<visual>
 				<geometry>
-					<mesh filename="file://$(find ar5_ccs_description)/meshes/ccs_v2/link2.glb" scale="1 ${direction} 1"/>
+					<mesh filename="file://$(find ar5_ccs_description)/meshes/${visual_subdir}link2.glb" scale="1 ${direction} 1"/>
 				</geometry>
 			</visual>
 			<xacro:if value="${collider == 'convex'}">
@@ -122,7 +127,7 @@
 			</inertial>
 			<visual>
 				<geometry>
-					<mesh filename="file://$(find ar5_ccs_description)/meshes/ccs_v2/link3.glb" scale="1 ${direction} 1"/>
+					<mesh filename="file://$(find ar5_ccs_description)/meshes/${visual_subdir}link3.glb" scale="1 ${direction} 1"/>
 				</geometry>
 			</visual>
 			<xacro:if value="${collider == 'convex'}">
@@ -167,7 +172,7 @@
 			</inertial>
 			<visual>
 				<geometry>
-					<mesh filename="file://$(find ar5_ccs_description)/meshes/ccs_v2/link4.glb" scale="1 ${direction} 1"/>
+					<mesh filename="file://$(find ar5_ccs_description)/meshes/${visual_subdir}link4.glb" scale="1 ${direction} 1"/>
 				</geometry>
 			</visual>
 			<xacro:if value="${collider == 'convex'}">
@@ -206,7 +211,7 @@
 			</inertial>
 			<visual>
 				<geometry>
-					<mesh filename="file://$(find ar5_ccs_description)/meshes/ccs_v2/link5.glb" scale="1 ${direction} 1"/>
+					<mesh filename="file://$(find ar5_ccs_description)/meshes/${visual_subdir}link5.glb" scale="1 ${direction} 1"/>
 				</geometry>
 			</visual>
 			<xacro:if value="${collider == 'convex'}">
@@ -244,7 +249,7 @@
 			</inertial>
 			<visual>
 				<geometry>
-					<mesh filename="file://$(find ar5_ccs_description)/meshes/ccs_v2/link6.glb" scale="1 ${direction} 1"/>
+					<mesh filename="file://$(find ar5_ccs_description)/meshes/${visual_subdir}link6.glb" scale="1 ${direction} 1"/>
 				</geometry>
 			</visual>
 			<xacro:if value="${collider == 'convex'}">
@@ -282,7 +287,7 @@
 			</inertial>
 			<visual>
 				<geometry>
-					<mesh filename="file://$(find ar5_ccs_description)/meshes/ccs_v2/link7.glb" scale="1 ${direction} 1"/>
+					<mesh filename="file://$(find ar5_ccs_description)/meshes/${visual_subdir}link7.glb" scale="1 ${direction} 1"/>
 				</geometry>
 			</visual>
 			<xacro:if value="${collider == 'convex'}">

@@ -78,8 +78,7 @@
             </xacro:if>
             <xacro:unless value="${hand_type == 'linkerhand_o6' or hand_type == 'linkerhand_o7' or hand_type == 'linkerhand_l6'}">
                 <xacro:if value="${gripper_type == 'ag2f90_c' or gripper_type == 'ag2f90_d'}">
-                    <xacro:property name="ag2f90_pad" value="${'none' if gripper_type == 'ag2f90_d' else gripper_pad}"/>
-                    <xacro:AG2F90-C name="${side}" use_flange="true" pad="${ag2f90_pad}" kinematic_only="true"/>
+                    <xacro:AG2F90-C name="${side}" use_flange="true" pad="${gripper_pad}" kinematic_only="true"/>
                     <joint name="${side}_gripper_base_joint" type="fixed">
                         <origin xyz="0 0 0"/>
                         <parent link="${side}_tcp"/>
@@ -131,8 +130,7 @@
             </xacro:if>
 
             <xacro:if value="${gripper_type == 'ag2f90_c' or gripper_type == 'ag2f90_d'}">
-                <xacro:property name="ag2f90_pad" value="${'none' if gripper_type == 'ag2f90_d' else gripper_pad}"/>
-                <xacro:AG2F90-C name="${side}" use_flange="true" pad="${ag2f90_pad}" kinematic_only="false"/>
+                <xacro:AG2F90-C name="${side}" use_flange="true" pad="${gripper_pad}" kinematic_only="false"/>
                 <joint name="${side}_gripper_base_joint" type="fixed">
                     <origin xyz="0 0 0"/>
                     <parent link="${side}_tcp"/>
