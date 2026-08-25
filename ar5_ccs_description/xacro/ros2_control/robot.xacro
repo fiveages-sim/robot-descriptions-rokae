@@ -2,6 +2,11 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="AR5_CCS">
 	<xacro:arg name="ros2_control_hardware_type" default="mock_components"/>
 	<xacro:arg name="arm_ctrl_mode" default="position"/>
+	<xacro:arg name="inex_auto_power_on" default="true"/>
+	<xacro:arg name="inex_auto_power_off" default="true"/>
+	<xacro:arg name="inex_state_timeout_ms" default="50"/>
+	<xacro:arg name="inex_command_hold_timeout_ms" default="20"/>
+	<xacro:arg name="inex_command_fault_timeout_ms" default="200"/>
 	<xacro:arg name="left_arm_ip" default="192.168.1.160"/>
 	<xacro:arg name="left_local_ip" default="192.168.1.233"/>
 	<xacro:arg name="right_arm_ip" default="192.168.0.160"/>
@@ -47,45 +52,44 @@
 		<xacro:if value="${selected_arm_config == 'dual'}">
 			<ros2_control name="ar5_left_system" type="system">
 				<hardware>
-					<xacro:rokae_side_hardware_block
-						side="left"
-						arm_ip="$(arg left_arm_ip)"
-						local_ip="$(arg left_local_ip)"
-						cpu_affinity="$(arg left_arm_cpu_affinity)"
-						ctrl_mode="${rokae_ctrl_mode}"
-						command_filter_mode="$(arg rokae_command_filter_mode)"
-						command_filter_max_velocity="$(arg rokae_command_filter_max_velocity)"
-						command_filter_max_acceleration="$(arg rokae_command_filter_max_acceleration)"
-						command_filter_max_jerk="$(arg rokae_command_filter_max_jerk)"
-						gripper_type="${left_gripper_type}"
-						gripper_pad="${left_gripper_pad}"
-						hand_type="${left_rokae_hand_type}"
-						load_mass="$(arg left_load_mass)"
-						load_cog="$(arg left_load_cog)"
-						load_inertia="$(arg left_load_inertia)"/>
+					<plugin>inex_ros2_control/InexSystemHardware</plugin>
+					<param name="side">left</param>
+					<param name="robot_mode">2</param>
+					<param name="ctrl_mode">${rokae_ctrl_mode}</param>
+					<param name="joint_stiffness">100,100,100,100,50,50,50</param>
+					<param name="auto_power_on">$(arg inex_auto_power_on)</param>
+					<param name="auto_power_off">$(arg inex_auto_power_off)</param>
+					<param name="manage_robot_mode">true</param>
+					<param name="state_timeout_ms">$(arg inex_state_timeout_ms)</param>
+					<param name="command_hold_timeout_ms">$(arg inex_command_hold_timeout_ms)</param>
+					<param name="command_fault_timeout_ms">$(arg inex_command_fault_timeout_ms)</param>
+					<param name="rt_cpu_affinity">$(arg left_arm_cpu_affinity)</param>
+					<param name="rt_priority">80</param>
+					<param name="require_realtime">true</param>
+					<param name="lock_memory">true</param>
 				</hardware>
-				<xacro:side_arm_ee_block side="left" mode="real" hand_type="${left_rokae_hand_type}" gripper_type="${left_gripper_type}"/>
+				<!-- iNexus migration phase 1: arm joints only. -->
+				<xacro:ar5_interfaces name="left"/>
 			</ros2_control>
 			<ros2_control name="ar5_right_system" type="system">
 				<hardware>
-					<xacro:rokae_side_hardware_block
-						side="right"
-						arm_ip="$(arg right_arm_ip)"
-						local_ip="$(arg right_local_ip)"
-						cpu_affinity="$(arg right_arm_cpu_affinity)"
-						ctrl_mode="${rokae_ctrl_mode}"
-						command_filter_mode="$(arg rokae_command_filter_mode)"
-						command_filter_max_velocity="$(arg rokae_command_filter_max_velocity)"
-						command_filter_max_acceleration="$(arg rokae_command_filter_max_acceleration)"
-						command_filter_max_jerk="$(arg rokae_command_filter_max_jerk)"
-						gripper_type="${right_gripper_type}"
-						gripper_pad="${right_gripper_pad}"
-						hand_type="${right_rokae_hand_type}"
-						load_mass="$(arg right_load_mass)"
-						load_cog="$(arg right_load_cog)"
-						load_inertia="$(arg right_load_inertia)"/>
+					<plugin>inex_ros2_control/InexSystemHardware</plugin>
+					<param name="side">right</param>
+					<param name="robot_mode">2</param>
+					<param name="ctrl_mode">${rokae_ctrl_mode}</param>
+					<param name="joint_stiffness">100,100,100,100,50,50,50</param>
+					<param name="auto_power_on">$(arg inex_auto_power_on)</param>
+					<param name="auto_power_off">$(arg inex_auto_power_off)</param>
+					<param name="manage_robot_mode">true</param>
+					<param name="state_timeout_ms">$(arg inex_state_timeout_ms)</param>
+					<param name="command_hold_timeout_ms">$(arg inex_command_hold_timeout_ms)</param>
+					<param name="command_fault_timeout_ms">$(arg inex_command_fault_timeout_ms)</param>
+					<param name="rt_cpu_affinity">$(arg right_arm_cpu_affinity)</param>
+					<param name="rt_priority">80</param>
+					<param name="require_realtime">true</param>
+					<param name="lock_memory">true</param>
 				</hardware>
-				<xacro:side_arm_ee_block side="right" mode="real" hand_type="${right_rokae_hand_type}" gripper_type="${right_gripper_type}"/>
+				<xacro:ar5_interfaces name="right"/>
 			</ros2_control>
 		</xacro:if>
 
@@ -93,24 +97,23 @@
 			<xacro:property name="single_side" value="${'left' if selected_arm_config == 'left' else 'right'}"/>
 			<ros2_control name="ar5System" type="system">
 				<hardware>
-					<xacro:rokae_side_hardware_block
-						side="${single_side}"
-						arm_ip="${'$(arg left_arm_ip)' if selected_arm_config == 'left' else '$(arg right_arm_ip)'}"
-						local_ip="${'$(arg left_local_ip)' if selected_arm_config == 'left' else '$(arg right_local_ip)'}"
-						cpu_affinity="${'$(arg left_arm_cpu_affinity)' if selected_arm_config == 'left' else '$(arg right_arm_cpu_affinity)'}"
-						ctrl_mode="${rokae_ctrl_mode}"
-						command_filter_mode="$(arg rokae_command_filter_mode)"
-						command_filter_max_velocity="$(arg rokae_command_filter_max_velocity)"
-						command_filter_max_acceleration="$(arg rokae_command_filter_max_acceleration)"
-						command_filter_max_jerk="$(arg rokae_command_filter_max_jerk)"
-						gripper_type="${selected_gripper_type}"
-						gripper_pad="${selected_gripper_pad}"
-						hand_type=""
-						load_mass="${'$(arg left_load_mass)' if selected_arm_config == 'left' else '$(arg right_load_mass)'}"
-						load_cog="${'$(arg left_load_cog)' if selected_arm_config == 'left' else '$(arg right_load_cog)'}"
-						load_inertia="${'$(arg left_load_inertia)' if selected_arm_config == 'left' else '$(arg right_load_inertia)'}"/>
+					<plugin>inex_ros2_control/InexSystemHardware</plugin>
+					<param name="side">${single_side}</param>
+					<param name="robot_mode">${0 if selected_arm_config == 'left' else 1}</param>
+					<param name="ctrl_mode">${rokae_ctrl_mode}</param>
+					<param name="joint_stiffness">100,100,100,100,50,50,50</param>
+					<param name="auto_power_on">$(arg inex_auto_power_on)</param>
+					<param name="auto_power_off">$(arg inex_auto_power_off)</param>
+					<param name="manage_robot_mode">true</param>
+					<param name="state_timeout_ms">$(arg inex_state_timeout_ms)</param>
+					<param name="command_hold_timeout_ms">$(arg inex_command_hold_timeout_ms)</param>
+					<param name="command_fault_timeout_ms">$(arg inex_command_fault_timeout_ms)</param>
+					<param name="rt_cpu_affinity">${'$(arg left_arm_cpu_affinity)' if selected_arm_config == 'left' else '$(arg right_arm_cpu_affinity)'}</param>
+					<param name="rt_priority">80</param>
+					<param name="require_realtime">true</param>
+					<param name="lock_memory">true</param>
 				</hardware>
-				<xacro:single_arm_ee_block mode="real" gripper_type="${selected_gripper_type}"/>
+				<xacro:ar5_interfaces name="${single_side}"/>
 			</ros2_control>
 		</xacro:unless>
 
