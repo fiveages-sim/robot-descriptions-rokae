@@ -36,8 +36,8 @@
 	<xacro:property name="left_drive_type" value="${'$(arg left_ee_drive_type)' if '$(arg left_ee_drive_type)' != '' else ee_drive_type}"/>
 	<xacro:property name="right_drive_type" value="${'$(arg right_ee_drive_type)' if '$(arg right_ee_drive_type)' != '' else ee_drive_type}"/>
 	<xacro:property name="rokae_ctrl_mode" value="${'JOINT_IMPEDANCE' if '$(arg arm_ctrl_mode)' == 'joint_impedance' else 'POSITION'}"/>
-	<xacro:property name="left_rokae_hand_type" value="${'' if left_drive_type == 'usb' or left_drive_type == 'usb_can' else left_hand_type}"/>
-	<xacro:property name="right_rokae_hand_type" value="${'' if right_drive_type == 'usb' or right_drive_type == 'usb_can' else right_hand_type}"/>
+	<xacro:property name="left_rokae_hand_type" value="${'' if left_drive_type == 'usb' or left_drive_type == 'usb_can' or left_drive_type == 'inex_can' else left_hand_type}"/>
+	<xacro:property name="right_rokae_hand_type" value="${'' if right_drive_type == 'usb' or right_drive_type == 'usb_can' or right_drive_type == 'inex_can' else right_hand_type}"/>
 	<link name="world"/>
 
 	<joint name="world_fixed" type="fixed">
