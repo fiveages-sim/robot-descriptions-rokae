@@ -44,7 +44,7 @@ ros2 launch robot_common_launch manipulator.launch.py robot:=ar5_ccs \
 
 | 驱动键 | 典型 launch | 物理链路 | 说明 |
 |--------|-------------|----------|------|
-| `rokae_rs485` | `hardware:=real arm_hardware_driver:=rokae` | ROKAE 控制柜 RS-485 | 夹爪 / 手与机械臂共用 Rokae hardware system |
+| `rokae_rs485` | `hardware:=real arm_hardware_driver:=rokae` | 机械臂末端 RS-485 | 夹爪 / 手与机械臂共用 Rokae hardware system |
 | `inex_can` | `hardware:=real arm_hardware_driver:=inex` | iNexus CAN | 当前支持 LinkerHand O6/L6/O7 |
 | `inex_rs485` | `hardware:=real arm_hardware_driver:=inex` | iNexus RS-485 | 预留，尚未实现 |
 | `usb_rs485` | `hardware:=real` | 外接 USB-RS485 | 使用 `modbus_ros2_control` |
