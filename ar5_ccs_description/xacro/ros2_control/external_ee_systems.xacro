@@ -72,10 +72,10 @@
         right_ee_can_interface:=can1
         left_read_tactile:=false
         right_read_tactile:=false">
-        <xacro:if value="${left_drive_type == 'inex_can' and (left_hand_type == 'linkerhand_o6' or left_hand_type == 'linkerhand_l6' or left_hand_type == 'linkerhand_o7')}">
+        <xacro:if value="${arm_driver == 'inex' and left_drive_type == 'inex_can' and (left_hand_type == 'linkerhand_o6' or left_hand_type == 'linkerhand_l6' or left_hand_type == 'linkerhand_o7')}">
             <xacro:linkerhand_inex_can_side_system side="left" hand_type="${left_hand_type}"/>
         </xacro:if>
-        <xacro:if value="${right_drive_type == 'inex_can' and (right_hand_type == 'linkerhand_o6' or right_hand_type == 'linkerhand_l6' or right_hand_type == 'linkerhand_o7')}">
+        <xacro:if value="${arm_driver == 'inex' and right_drive_type == 'inex_can' and (right_hand_type == 'linkerhand_o6' or right_hand_type == 'linkerhand_l6' or right_hand_type == 'linkerhand_o7')}">
             <xacro:linkerhand_inex_can_side_system side="right" hand_type="${right_hand_type}"/>
         </xacro:if>
         <xacro:if value="${left_drive_type == 'usb_can' and (left_hand_type == 'linkerhand_o6' or left_hand_type == 'linkerhand_l6' or left_hand_type == 'linkerhand_o7')}">
@@ -84,10 +84,10 @@
         <xacro:if value="${right_drive_type == 'usb_can' and (right_hand_type == 'linkerhand_o6' or right_hand_type == 'linkerhand_l6' or right_hand_type == 'linkerhand_o7')}">
             <xacro:linkerhand_usb_can_side_system side="right" hand_type="${right_hand_type}" can_interface="${right_ee_can_interface}" read_tactile="${right_read_tactile}"/>
         </xacro:if>
-        <xacro:if value="${left_drive_type == 'usb' and (left_hand_type == 'linkerhand_o6' or left_hand_type == 'linkerhand_l6' or left_hand_type == 'linkerhand_o7')}">
+        <xacro:if value="${left_drive_type == 'usb_rs485' and (left_hand_type == 'linkerhand_o6' or left_hand_type == 'linkerhand_l6' or left_hand_type == 'linkerhand_o7')}">
             <xacro:side_usb_hand_system side="left" hand_type="${left_hand_type}" serial_port="${usb_left_port}"/>
         </xacro:if>
-        <xacro:if value="${right_drive_type == 'usb' and (right_hand_type == 'linkerhand_o6' or right_hand_type == 'linkerhand_l6' or right_hand_type == 'linkerhand_o7')}">
+        <xacro:if value="${right_drive_type == 'usb_rs485' and (right_hand_type == 'linkerhand_o6' or right_hand_type == 'linkerhand_l6' or right_hand_type == 'linkerhand_o7')}">
             <xacro:side_usb_hand_system side="right" hand_type="${right_hand_type}" serial_port="${usb_right_port}"/>
         </xacro:if>
     </xacro:macro>

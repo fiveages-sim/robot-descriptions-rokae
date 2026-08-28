@@ -19,7 +19,7 @@ OCS2 规划：`robot_common_launch manipulator_ocs2.launch.py robot_name:=ar5_sr
 | 单臂 | 加 `type:=left` 或 `type:=right` |
 | 末端（对称） | 加 `type:=<key>`（如 `rg75`），见 [CCS §2](../ar5_ccs_description/README.md#2-末端执行器) |
 | 末端（左右不同） | `left_type:=… right_type:=…`，**不要**再传 `type:=` |
-| 真机 | `demo.launch.py … hardware:=real` 或 `real_usb` |
+| 真机 | 不支持；AR5-SRS 仅用于仿真和 mock |
 | Mock 控制 | `demo.launch.py …`（默认 `hardware:=mock_components`） |
 
 ![Rokae AR5 SRS](../.images/rokae_ar5.png)

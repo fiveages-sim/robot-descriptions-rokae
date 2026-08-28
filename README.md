@@ -52,7 +52,7 @@ ros2 launch robot_common_launch manipulator_ocs2.launch.py robot_name:=<robot>
 ros2 launch ocs2_arm_controller demo.launch.py robot:=<robot>
 ```
 
-默认硬件为 `mock_components`；真机加 `hardware:=real` 或 `real_usb`（细节见各包 README）。真机还需编译 `rokae_ros2_control`。
+默认硬件为 `mock_components`；CCS 真机使用 `hardware:=real` 并通过 `arm_hardware_driver:=rokae|inex` 选择驱动。SRS 仅支持仿真。
 
 要让控制器跟踪虚拟 TCP，还需在 `control.patch` 里设置 `ocs2_arm_controller.ros__parameters.left_ee_frame: left_tcp_offset`（及 `right_ee_frame`）；只定义几何不会自动改 tip。
 

@@ -20,7 +20,7 @@ OCS2 规划：`robot_common_launch manipulator_ocs2.launch.py robot_name:=ar5_cc
 | 单臂 | 加 `type:=left` 或 `type:=right` |
 | 末端（对称） | 加 `type:=<key>`（如 `rg75`、`ag2f90`），见 [§2](#2-末端执行器) |
 | 末端（左右不同） | `left_type:=… right_type:=…`，**不要**再传 `type:=` |
-| 真机 | `demo.launch.py … hardware:=real` 或 `real_usb`；见 [§2.1](#21-真机驱动方式) |
+| 真机 | `demo.launch.py … hardware:=real arm_hardware_driver:=rokae|inex`；见 [§2.1](#21-真机驱动方式) |
 | Mock 控制 | `demo.launch.py …`（默认 `hardware:=mock_components`） |
 
 ![Rokae AR5 CCS](../.images/ar5_ccs.png)
@@ -40,12 +40,15 @@ ros2 launch robot_common_launch manipulator.launch.py robot:=ar5_ccs \
 
 ### 2.1 真机驱动方式
 
-臂体走 [`rokae_ros2_control`](https://github.com/fiveages-sim/rokae-ros2-control)。每侧末端可独立配置 `left_ee_drive_type` / `right_ee_drive_type`（launch 或 `robot.local.yaml`）。
+臂体通过 `arm_hardware_driver:=rokae|inex` 选择驱动。每侧末端可独立配置 `left_ee_drive_type` / `right_ee_drive_type`。
 
 | 驱动键 | 典型 launch | 物理链路 | 说明 |
 |--------|-------------|----------|------|
-| （空，默认） | `hardware:=real` | 臂体 Rokae 总线 | 夹爪 / 手随 Rokae 插件 |
-| `usb` | `hardware:=real_usb`（默认） | 外接 **USB 串口** | [`modbus_ros2_control`](https://github.com/fiveages-sim/modbus-ros2-control)；口默认左 `/dev/ttyUSB0`、右 `/dev/ttyUSB2` |
+| `rokae_rs485` | `hardware:=real arm_hardware_driver:=rokae` | ROKAE 控制柜 RS-485 | 夹爪 / 手与机械臂共用 Rokae hardware system |
+| `inex_can` | `hardware:=real arm_hardware_driver:=inex` | iNexus CAN | 当前支持 LinkerHand O6/L6/O7 |
+| `inex_rs485` | `hardware:=real arm_hardware_driver:=inex` | iNexus RS-485 | 预留，尚未实现 |
+| `usb_rs485` | `hardware:=real` | 外接 USB-RS485 | 使用 `modbus_ros2_control` |
+| `usb_can` | `hardware:=real` | 外接 USB-CAN | 使用 `can_ros2_control` |
 
 夹爪**仅** Rokae 总线，没有外接 USB 夹爪路径。
 
@@ -66,11 +69,11 @@ ros2 launch robot_common_launch manipulator.launch.py robot:=ar5_ccs \
 
 要点：
 
-- **夹爪** — 只走臂体 Rokae 插件（`rokae_hardware.xacro` 的 `gripper_type`）。`hardware:=real_usb` 不会给夹爪开 USB 系统。
-- **LinkerHand** — 默认随 Rokae 总线；`left_ee_drive_type` / `right_ee_drive_type` 可选 `usb`（外接 Modbus）或 `usb_can`（外接 SocketCAN）。外接驱动启用时 Rokae 侧 `hand_type` 置空，避免双驱动。
+- **夹爪** — 当前主要使用 `rokae_rs485`；其他链路保留统一分发接口并逐步适配。
+- **LinkerHand** — 可选 `rokae_rs485`、`inex_can`、`usb_rs485` 或 `usb_can`。外接驱动启用时 Rokae 侧 `hand_type` 置空，避免双驱动。
 - **`type:=left` / `right`** — 只选单臂拓扑，不是末端键。
 
-仿真 / mock 下上表类型均可展开 URDF；真机列只表示 `hardware:=real` / `real_usb` 的接线。
+仿真 / mock 下上表类型均可展开 URDF；真机统一使用 `hardware:=real`。
 
 ## 3. 平台与代际
 
@@ -138,9 +141,9 @@ W2R 仍可用 `arms:=ar5_ccs` / `ar5_srs` 换套件（无 FiveAges 配色）。�
 colcon build --packages-up-to rokae_ros2_control --symlink-install
 source install/setup.bash
 
-ros2 launch ocs2_arm_controller demo.launch.py robot:=ar5_ccs hardware:=real
-ros2 launch ocs2_arm_controller demo.launch.py robot:=ar5_ccs hardware:=real variant:=ar5_ccs_v2 type:=rg75
-ros2 launch ocs2_arm_controller demo.launch.py robot:=ar5_ccs hardware:=real_usb type:=linkerhand_o7
+ros2 launch ocs2_arm_controller demo.launch.py robot:=ar5_ccs hardware:=real arm_hardware_driver:=inex
+ros2 launch ocs2_arm_controller demo.launch.py robot:=ar5_ccs hardware:=real arm_hardware_driver:=rokae variant:=ar5_ccs_v2 type:=rg75 left_ee_drive_type:=rokae_rs485 right_ee_drive_type:=rokae_rs485
+ros2 launch ocs2_arm_controller demo.launch.py robot:=ar5_ccs hardware:=real arm_hardware_driver:=inex type:=linkerhand_o7 left_ee_drive_type:=inex_can right_ee_drive_type:=inex_can
 ```
 
 ## 5. ros2_control 共享宏
