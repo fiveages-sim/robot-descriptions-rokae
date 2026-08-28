@@ -16,7 +16,7 @@ OCS2 规划：`robot_common_launch manipulator_ocs2.launch.py robot_name:=ar5_cc
 | 场景 | 示例 |
 |------|------|
 | 双臂 CCS v1（默认） | `… manipulator.launch.py robot:=ar5_ccs collider:=simple` |
-| 双臂 CCS V2 | 加 `variant:=ar5_ccs_v2` |
+| 双臂 CCS V2 | 加 `arms:=ar5_ccs_v2` |
 | 单臂 | 加 `type:=left` 或 `type:=right` |
 | 末端（对称） | 加 `type:=<key>`（如 `rg75`、`ag2f90`），见 [§2](#2-末端执行器) |
 | 末端（左右不同） | `left_type:=… right_type:=…`，**不要**再传 `type:=` |
@@ -29,7 +29,7 @@ OCS2 规划：`robot_common_launch manipulator_ocs2.launch.py robot_name:=ar5_cc
 
 ```bash
 ros2 launch robot_common_launch manipulator.launch.py robot:=ar5_ccs \
-  variant:=ar5_ccs_v2 left_type:=rg75 right_type:=linkerhand_o7 collider:=simple
+  arms:=ar5_ccs_v2 left_type:=rg75 right_type:=linkerhand_o7 collider:=simple
 ```
 
 也可在 `robot_profile` / `robot.local.yaml` 的 `defaults.end_effectors.left` / `.right` 中配置（键名同 §2）。
@@ -77,22 +77,22 @@ ros2 launch robot_common_launch manipulator.launch.py robot:=ar5_ccs \
 
 ## 3. 平台与代际
 
-### 3.1 `variant:=ar5_ccs` / `ar5_ccs_v2`
+### 3.1 `arms:=ar5_ccs` / `ar5_ccs_v2`
 
 同一描述包内切换 CCS 代际，与末端 `type` 正交：
 
 ```bash
 ros2 launch robot_common_launch manipulator.launch.py robot:=ar5_ccs \
-  variant:=ar5_ccs_v2 type:=rg75 collider:=simple
+  arms:=ar5_ccs_v2 type:=rg75 collider:=simple
 ```
 
-包默认 `variant:=ar5_ccs`（v1），避免 `robot:=ar5_ccs` 无参时静默改代。W2R 整机默认 `arms:=ar5_ccs_v2`，键值相同、参数名不同。
+包默认 `arms:=ar5_ccs`（v1），避免 `robot:=ar5_ccs` 无参时静默改代。W2R 整机默认 `arms:=ar5_ccs_v2`。
 
 `robot.local.yaml` 片段：
 
 ```yaml
 platform:
-  variant: ar5_ccs_v2
+  arms: ar5_ccs_v2
 defaults:
   end_effectors:
     type: rg75                 # 或 left/right 分写
@@ -112,7 +112,7 @@ Launch 可覆盖（CLI > profile）：`tcp_offset_rpy:="0 0 ${PI/2}"`、`hardwar
 
 ### 3.2 `skin`（臂外观）
 
-`xacro/arm_ccs_v2.xacro` 中 `AR5_CCS_V2` 的 **visual** 由 `skin` 选择；**碰撞** 始终用 `meshes/ccs_v2/link*.glb`。`skin` 与 `variant` 正交，**仅 CCS V2** 有效（v1 无配色网格）。底座 visual 始终 `ccs_v2/base.glb`。
+`xacro/arm_ccs_v2.xacro` 中 `AR5_CCS_V2` 的 **visual** 由 `skin` 选择；**碰撞** 始终用 `meshes/ccs_v2/link*.glb`。`skin` 与 `arms` 正交，**仅 CCS V2** 有效（v1 无配色网格）。底座 visual 始终 `ccs_v2/base.glb`。
 
 | `skin` | Visual |
 |--------|--------|
@@ -121,12 +121,12 @@ Launch 可覆盖（CLI > profile）：`tcp_offset_rpy:="0 0 ${PI/2}"`、`hardwar
 
 ```bash
 ros2 launch robot_common_launch manipulator.launch.py robot:=ar5_ccs \
-  variant:=ar5_ccs_v2 skin:=fiveages collider:=simple
+  arms:=ar5_ccs_v2 skin:=fiveages collider:=simple
 ```
 
 ### 3.3 挂到 W2R / WCE3
 
-人形用 `arms:=` 而不是本包的 `variant:=`。W2R / WCE3 默认 CCS V2，并写死 `skin:=fiveages`：
+独立双臂与人形统一用 `arms:=` 选择机械臂套件。W2R / WCE3 默认 CCS V2，并写死 `skin:=fiveages`：
 
 ```bash
 ros2 launch robot_common_launch humanoid.launch.py robot:=fiveages_w2r
@@ -142,7 +142,7 @@ colcon build --packages-up-to rokae_ros2_control --symlink-install
 source install/setup.bash
 
 ros2 launch ocs2_arm_controller demo.launch.py robot:=ar5_ccs hardware:=real arm_hardware_driver:=inex
-ros2 launch ocs2_arm_controller demo.launch.py robot:=ar5_ccs hardware:=real arm_hardware_driver:=rokae variant:=ar5_ccs_v2 type:=rg75 left_ee_drive_type:=rokae_rs485 right_ee_drive_type:=rokae_rs485
+ros2 launch ocs2_arm_controller demo.launch.py robot:=ar5_ccs hardware:=real arm_hardware_driver:=rokae arms:=ar5_ccs_v2 type:=rg75 left_ee_drive_type:=rokae_rs485 right_ee_drive_type:=rokae_rs485
 ros2 launch ocs2_arm_controller demo.launch.py robot:=ar5_ccs hardware:=real arm_hardware_driver:=inex type:=linkerhand_o7 left_ee_drive_type:=inex_can right_ee_drive_type:=inex_can
 ```
 

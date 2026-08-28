@@ -12,7 +12,7 @@
 | Package | Launch `robot` | 形态 | 说明 |
 |---------|----------------|------|------|
 | [ar5_srs_description](ar5_srs_description/) | `ar5_srs` | 单臂 / 双臂 | 左/右臂布局（`type:=left` / `right`） |
-| [ar5_ccs_description](ar5_ccs_description/) | `ar5_ccs` | 双臂平台 | CCS / CCS V2（`variant:=ar5_ccs` / `ar5_ccs_v2`）；丰富末端 |
+| [ar5_ccs_description](ar5_ccs_description/) | `ar5_ccs` | 双臂平台 | CCS / CCS V2（`arms:=ar5_ccs` / `ar5_ccs_v2`）；丰富末端 |
 
 W2R 整机用同套短键挂臂：`arms:=ar5_ccs` / `ar5_ccs_v2` / `ar5_srs`，见 [fiveages_w2r README](../../humanoid/FiveAges/Gen2/fiveages_w2r_description/README.md)。
 
@@ -37,7 +37,7 @@ ros2 launch robot_common_launch manipulator.launch.py robot:=<robot> collider:=s
 常用参数：
 
 - `robot:=ar5_srs` / `ar5_ccs`
-- `variant:=ar5_ccs` / `ar5_ccs_v2`：仅 CCS 包选代际，与 `type` 正交
+- `arms:=ar5_ccs` / `ar5_ccs_v2`：CCS 机械臂代际，与 `type` 正交
 - `type:=<ee_key>`：对称末端（CCS / SRS 双臂）
 - `type:=left` / `right`：单臂布局（不要同时当末端键用）
 - `left_type:=… right_type:=…`：左右不同末端（**不要**再传 `type:=`）

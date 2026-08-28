@@ -2,7 +2,7 @@
 <robot name="AR5_CCS" xmlns:xacro="http://www.ros.org/wiki/xacro">
 	<xacro:arg name="collider" default="convex"/>
 	<xacro:arg name="skin" default="default"/>
-	<xacro:arg name="variant" default="ar5_ccs"/>
+	<xacro:arg name="arms" default="ar5_ccs"/>
 	<xacro:arg name="type" default="dual"/>
 	<xacro:arg name="left_type" default=""/>
 	<xacro:arg name="right_type" default=""/>
@@ -13,7 +13,6 @@
 	<xacro:arg name="right_tcp_offset_rpy" default="0 0 0"/>
 	<!-- 从 type 参数解析 arm_config / 对称末端 -->
 	<xacro:property name="type_arg" value="$(arg type)"/>
-	<xacro:property name="variant_arg" value="$(arg variant)"/>
 	<xacro:property name="left_type_arg" value="$(arg left_type)"/>
 	<xacro:property name="right_type_arg" value="$(arg right_type)"/>
 	<xacro:property name="effective_left_type" value="${left_type_arg if left_type_arg != '' else type_arg}"/>
@@ -52,18 +51,18 @@
 	</xacro:if>
 
 	<!-- Select the CCS generation while keeping one public description package. -->
-	<xacro:if value="${'$(arg variant)' == 'ar5_ccs'}">
+	<xacro:if value="${'$(arg arms)' == 'ar5_ccs'}">
 		<xacro:include filename="$(find ar5_ccs_description)/xacro/arm_ccs.xacro"/>
 	</xacro:if>
-	<xacro:if value="${'$(arg variant)' == 'ar5_ccs_v2'}">
+	<xacro:if value="${'$(arg arms)' == 'ar5_ccs_v2'}">
 		<xacro:include filename="$(find ar5_ccs_description)/xacro/arm_ccs_v2.xacro"/>
 	</xacro:if>
 
 	<xacro:macro name="SelectedAR5CCS" params="name direction collider">
-		<xacro:if value="${'$(arg variant)' == 'ar5_ccs'}">
+		<xacro:if value="${'$(arg arms)' == 'ar5_ccs'}">
 			<xacro:AR5_CCS name="${name}" direction="${direction}" collider="${collider}"/>
 		</xacro:if>
-		<xacro:if value="${'$(arg variant)' == 'ar5_ccs_v2'}">
+		<xacro:if value="${'$(arg arms)' == 'ar5_ccs_v2'}">
 			<xacro:AR5_CCS_V2 name="${name}" direction="${direction}" collider="${collider}" skin="$(arg skin)"/>
 		</xacro:if>
 	</xacro:macro>

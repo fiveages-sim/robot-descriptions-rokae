@@ -1,6 +1,6 @@
 # Rokae AR5-SRS Description
 
-珞石 AR5 SRS 机械臂 URDF / ros2_control 描述包。模型在 **`xacro/`**。无 CCS 代际 `variant`（那是 [`ar5_ccs_description`](../ar5_ccs_description/README.md) 的槽）。
+珞石 AR5 SRS 机械臂 URDF / ros2_control 描述包。模型在 **`xacro/`**。CCS 代际由 [`ar5_ccs_description`](../ar5_ccs_description/README.md) 的 `arms` 槽选择。
 
 ```bash
 cd ~/ros2_ws && colcon build --packages-up-to ar5_srs_description --symlink-install
