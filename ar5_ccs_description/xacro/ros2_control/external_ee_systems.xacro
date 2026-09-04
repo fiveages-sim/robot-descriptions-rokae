@@ -62,6 +62,35 @@
         </ros2_control>
     </xacro:macro>
 
+    <xacro:macro name="linkerhand_inex_rs485_side_system" params="side hand_type rs485_channel">
+        <ros2_control name="${hand_type}_${side}_inex_rs485_system" type="system" rw_rate="30">
+            <hardware>
+                <xacro:if value="${hand_type == 'linkerhand_o6'}">
+                    <plugin>inex_ros2_control/O6LinkerHandRs485Hardware</plugin>
+                </xacro:if>
+                <xacro:if value="${hand_type == 'linkerhand_l6'}">
+                    <plugin>inex_ros2_control/L6LinkerHandRs485Hardware</plugin>
+                </xacro:if>
+                <xacro:if value="${hand_type == 'linkerhand_o7'}">
+                    <plugin>inex_ros2_control/O7LinkerHandRs485Hardware</plugin>
+                </xacro:if>
+                <param name="hand_side">${side}</param>
+                <param name="rs485_channel">${rs485_channel}</param>
+                <!-- slave_id intentionally omitted: right=0x27, left=0x28. -->
+                <param name="transaction_interval_ms">10</param>
+                <param name="position_period_ms">33</param>
+                <param name="position_feedback_period_ms">33</param>
+                <param name="position_feedback_timeout_ms">40</param>
+                <param name="command_deadband_raw">0</param>
+                <param name="max_consecutive_failures">5</param>
+                <param name="read_feedback">true</param>
+                <param name="${side}_tool_torque">1.0</param>
+                <param name="${side}_tool_velocity">1.0</param>
+            </hardware>
+            <xacro:side_hand_interfaces side="${side}" hand_type="${hand_type}"/>
+        </ros2_control>
+    </xacro:macro>
+
     <xacro:macro name="linkerhand_usb_can_side_system" params="side hand_type can_interface read_tactile:=false">
         <ros2_control name="${hand_type}_${side}_can_system" type="system" rw_rate="50">
             <hardware>
@@ -101,6 +130,12 @@
         </xacro:if>
         <xacro:if value="${arm_driver == 'inex' and right_drive_type == 'inex_rs485' and right_gripper_type == 'ag2f90_d'}">
             <xacro:ag2f90d_inex_rs485_side_system side="right" rs485_channel="${right_ee_rs485_channel}" slave_id="${right_ee_modbus_slave_id}"/>
+        </xacro:if>
+        <xacro:if value="${arm_driver == 'inex' and left_drive_type == 'inex_rs485' and (left_hand_type == 'linkerhand_o6' or left_hand_type == 'linkerhand_l6' or left_hand_type == 'linkerhand_o7')}">
+            <xacro:linkerhand_inex_rs485_side_system side="left" hand_type="${left_hand_type}" rs485_channel="${left_ee_rs485_channel}"/>
+        </xacro:if>
+        <xacro:if value="${arm_driver == 'inex' and right_drive_type == 'inex_rs485' and (right_hand_type == 'linkerhand_o6' or right_hand_type == 'linkerhand_l6' or right_hand_type == 'linkerhand_o7')}">
+            <xacro:linkerhand_inex_rs485_side_system side="right" hand_type="${right_hand_type}" rs485_channel="${right_ee_rs485_channel}"/>
         </xacro:if>
         <xacro:if value="${arm_driver == 'inex' and left_drive_type == 'inex_can' and (left_hand_type == 'linkerhand_o6' or left_hand_type == 'linkerhand_l6' or left_hand_type == 'linkerhand_o7')}">
             <xacro:linkerhand_inex_can_side_system side="left" hand_type="${left_hand_type}"/>
