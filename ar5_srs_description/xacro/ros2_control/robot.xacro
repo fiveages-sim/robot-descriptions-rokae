@@ -1,6 +1,10 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="AR5">
 	<xacro:arg name="ros2_control_hardware_type" default="mock_components"/>
+	<!-- AR5-SRS deliberately accepts simulation backends only. -->
+	<xacro:property name="validated_hardware_type" value="${1 if '$(arg ros2_control_hardware_type)' in ('mock_components', 'gz', 'isaac') else 0}"/>
+	<xacro:property name="validation_guard" value="${(1,)[0 if validated_hardware_type == 1 else 1]}"/>
+	<xacro:if value="${validation_guard > 0}"/>
 
 	<link name="world"/>
 
@@ -17,7 +21,8 @@
 	<!-- selected_arm_config: left, right, dual -->
 	<!-- selected_gripper_type: '' 或 rg75 -->
 
-	<xacro:if value="${'$(arg ros2_control_hardware_type)' == 'real'}">
+	<!-- AR5-SRS has no supported real-hardware backend. -->
+	<xacro:if value="${False}">
 
 		<xacro:if value="${selected_arm_config == 'dual'}">
 			<ros2_control name="ar5_left_system" type="system">
@@ -137,7 +142,7 @@
 		</xacro:unless>
 	</xacro:if>
 
-	<xacro:unless value="${'$(arg ros2_control_hardware_type)' == 'real'}">
+	<xacro:if value="${'$(arg ros2_control_hardware_type)' in ('mock_components', 'gz', 'isaac')}">
 		<ros2_control name="ar5System" type="system">
 			<hardware>
 				<xacro:if value="${'$(arg ros2_control_hardware_type)' == 'gz'}">
@@ -186,7 +191,7 @@
 			</xacro:unless>
 
 		</ros2_control>
-	</xacro:unless>
+	</xacro:if>
 
 	<xacro:arg name="gazebo" default="false"/>
 	<xacro:if value="$(arg gazebo)">

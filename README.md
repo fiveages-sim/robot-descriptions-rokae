@@ -12,7 +12,7 @@
 | Package | Launch `robot` | 形态 | 说明 |
 |---------|----------------|------|------|
 | [ar5_srs_description](ar5_srs_description/) | `ar5_srs` | 单臂 / 双臂 | 左/右臂布局（`type:=left` / `right`） |
-| [ar5_ccs_description](ar5_ccs_description/) | `ar5_ccs` | 双臂平台 | CCS / CCS V2（`variant:=ar5_ccs` / `ar5_ccs_v2`）；丰富末端 |
+| [ar5_ccs_description](ar5_ccs_description/) | `ar5_ccs` | 双臂平台 | CCS / CCS V2（`arms:=ar5_ccs` / `ar5_ccs_v2`）；丰富末端 |
 
 W2R 整机用同套短键挂臂：`arms:=ar5_ccs` / `ar5_ccs_v2` / `ar5_srs`，见 [fiveages_w2r README](../../humanoid/FiveAges/Gen2/fiveages_w2r_description/README.md)。
 
@@ -37,7 +37,7 @@ ros2 launch robot_common_launch manipulator.launch.py robot:=<robot> collider:=s
 常用参数：
 
 - `robot:=ar5_srs` / `ar5_ccs`
-- `variant:=ar5_ccs` / `ar5_ccs_v2`：仅 CCS 包选代际，与 `type` 正交
+- `arms:=ar5_ccs` / `ar5_ccs_v2`：CCS 机械臂代际，与 `type` 正交
 - `type:=<ee_key>`：对称末端（CCS / SRS 双臂）
 - `type:=left` / `right`：单臂布局（不要同时当末端键用）
 - `left_type:=… right_type:=…`：左右不同末端（**不要**再传 `type:=`）
@@ -52,7 +52,7 @@ ros2 launch robot_common_launch manipulator_ocs2.launch.py robot_name:=<robot>
 ros2 launch ocs2_arm_controller demo.launch.py robot:=<robot>
 ```
 
-默认硬件为 `mock_components`；真机加 `hardware:=real` 或 `real_usb`（细节见各包 README）。真机还需编译 `rokae_ros2_control`。
+默认硬件为 `mock_components`；CCS 真机使用 `hardware:=real` 并通过 `arm_hardware_driver:=rokae|inex` 选择驱动。SRS 仅支持仿真。
 
 要让控制器跟踪虚拟 TCP，还需在 `control.patch` 里设置 `ocs2_arm_controller.ros__parameters.left_ee_frame: left_tcp_offset`（及 `right_ee_frame`）；只定义几何不会自动改 tip。
 

@@ -1,6 +1,6 @@
 # Rokae AR5-SRS Description
 
-珞石 AR5 SRS 机械臂 URDF / ros2_control 描述包。模型在 **`xacro/`**。无 CCS 代际 `variant`（那是 [`ar5_ccs_description`](../ar5_ccs_description/README.md) 的槽）。
+珞石 AR5 SRS 机械臂 URDF / ros2_control 描述包。模型在 **`xacro/`**。CCS 代际由 [`ar5_ccs_description`](../ar5_ccs_description/README.md) 的 `arms` 槽选择。
 
 ```bash
 cd ~/ros2_ws && colcon build --packages-up-to ar5_srs_description --symlink-install
@@ -19,7 +19,7 @@ OCS2 规划：`robot_common_launch manipulator_ocs2.launch.py robot_name:=ar5_sr
 | 单臂 | 加 `type:=left` 或 `type:=right` |
 | 末端（对称） | 加 `type:=<key>`（如 `rg75`），见 [CCS §2](../ar5_ccs_description/README.md#2-末端执行器) |
 | 末端（左右不同） | `left_type:=… right_type:=…`，**不要**再传 `type:=` |
-| 真机 | `demo.launch.py … hardware:=real` 或 `real_usb` |
+| 真机 | 不支持；AR5-SRS 仅用于仿真和 mock |
 | Mock 控制 | `demo.launch.py …`（默认 `hardware:=mock_components`） |
 
 ![Rokae AR5 SRS](../.images/rokae_ar5.png)

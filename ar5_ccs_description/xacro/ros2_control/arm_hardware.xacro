@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:include filename="$(find ar5_ccs_description)/xacro/ros2_control/rokae_hardware.xacro"/>
+    <xacro:include filename="$(find ar5_ccs_description)/xacro/ros2_control/inex_hardware.xacro"/>
+
+    <xacro:macro name="arm_side_hardware_block" params="
+        driver side robot_mode arm_ip local_ip cpu_affinity ctrl_mode
+        state_timeout_ms command_hold_timeout_ms command_fault_timeout_ms
+        command_filter_mode command_filter_max_velocity
+        command_filter_max_acceleration command_filter_max_jerk
+        gripper_type gripper_pad hand_type load_mass load_cog load_inertia">
+        <xacro:if value="${driver == 'inex'}">
+            <xacro:inex_side_hardware_block
+                side="${side}" robot_mode="${robot_mode}"
+                cpu_affinity="${cpu_affinity}" ctrl_mode="${ctrl_mode}"
+                state_timeout_ms="${state_timeout_ms}"
+                command_hold_timeout_ms="${command_hold_timeout_ms}"
+                command_fault_timeout_ms="${command_fault_timeout_ms}"/>
+        </xacro:if>
+        <xacro:if value="${driver == 'rokae'}">
+            <xacro:rokae_side_hardware_block
+                side="${side}" arm_ip="${arm_ip}" local_ip="${local_ip}"
+                cpu_affinity="${cpu_affinity}" ctrl_mode="${ctrl_mode}"
+                command_filter_mode="${command_filter_mode}"
+                command_filter_max_velocity="${command_filter_max_velocity}"
+                command_filter_max_acceleration="${command_filter_max_acceleration}"
+                command_filter_max_jerk="${command_filter_max_jerk}"
+                gripper_type="${gripper_type}" gripper_pad="${gripper_pad}"
+                hand_type="${hand_type}" load_mass="${load_mass}"
+                load_cog="${load_cog}" load_inertia="${load_inertia}"/>
+        </xacro:if>
+    </xacro:macro>
+</robot>
