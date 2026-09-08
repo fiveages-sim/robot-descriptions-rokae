@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:include filename="$(find ar5_ccs_description)/xacro/ros2_control/tool_load.xacro"/>
     <xacro:macro name="inex_side_hardware_block" params="
         side
         robot_mode
@@ -7,7 +8,12 @@
         ctrl_mode
         state_timeout_ms
         command_hold_timeout_ms
-        command_fault_timeout_ms">
+        command_fault_timeout_ms
+        gripper_pad
+        payload_end_effector_type
+        load_mass
+        load_cog
+        load_inertia">
         <plugin>inex_ros2_control/InexSystemHardware</plugin>
         <param name="side">${side}</param>
         <param name="robot_mode">${robot_mode}</param>
@@ -21,5 +27,12 @@
         <param name="rt_priority">80</param>
         <param name="require_realtime">true</param>
         <param name="lock_memory">true</param>
+        <xacro:tool_load_params
+            side="${side}"
+            end_effector_type="${payload_end_effector_type}"
+            pad_type="${gripper_pad}"
+            mass="${load_mass}"
+            center_of_mass="${load_cog}"
+            diagonal_inertia="${load_inertia}"/>
     </xacro:macro>
 </robot>

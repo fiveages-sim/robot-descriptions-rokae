@@ -39,10 +39,11 @@
 	<xacro:property name="validated_left_drive" value="${1 if arm_driver + ':' + left_drive_type in ('rokae:none', 'rokae:rokae_rs485', 'rokae:usb_rs485', 'rokae:usb_can', 'inex:none', 'inex:inex_rs485', 'inex:inex_can', 'inex:usb_rs485', 'inex:usb_can') else 0}"/>
 	<xacro:property name="validated_right_drive" value="${1 if arm_driver + ':' + right_drive_type in ('rokae:none', 'rokae:rokae_rs485', 'rokae:usb_rs485', 'rokae:usb_can', 'inex:none', 'inex:inex_rs485', 'inex:inex_can', 'inex:usb_rs485', 'inex:usb_can') else 0}"/>
 	<xacro:property name="rokae_ctrl_mode" value="${'JOINT_IMPEDANCE' if '$(arg arm_ctrl_mode)' == 'joint_impedance' else 'POSITION'}"/>
-	<xacro:property name="left_rokae_hand_type" value="${left_hand_type if arm_driver == 'rokae' and left_drive_type == 'rokae_rs485' else ''}"/>
-	<xacro:property name="right_rokae_hand_type" value="${right_hand_type if arm_driver == 'rokae' and right_drive_type == 'rokae_rs485' else ''}"/>
-	<xacro:property name="left_rokae_gripper_type" value="${left_gripper_type if arm_driver == 'rokae' and left_drive_type == 'rokae_rs485' else ''}"/>
-	<xacro:property name="right_rokae_gripper_type" value="${right_gripper_type if arm_driver == 'rokae' and right_drive_type == 'rokae_rs485' else ''}"/>
+	<!-- INEX needs the selected EEF type for payload lookup even when the EEF uses an external bus. -->
+	<xacro:property name="left_arm_hand_type" value="${left_hand_type if arm_driver == 'inex' or left_drive_type == 'rokae_rs485' else ''}"/>
+	<xacro:property name="right_arm_hand_type" value="${right_hand_type if arm_driver == 'inex' or right_drive_type == 'rokae_rs485' else ''}"/>
+	<xacro:property name="left_arm_gripper_type" value="${left_gripper_type if arm_driver == 'inex' or left_drive_type == 'rokae_rs485' else ''}"/>
+	<xacro:property name="right_arm_gripper_type" value="${right_gripper_type if arm_driver == 'inex' or right_drive_type == 'rokae_rs485' else ''}"/>
 	<link name="world"/>
 
 	<joint name="world_fixed" type="fixed">
@@ -69,10 +70,11 @@
 						state_timeout_ms="$(arg inex_state_timeout_ms)" command_hold_timeout_ms="$(arg inex_command_hold_timeout_ms)" command_fault_timeout_ms="$(arg inex_command_fault_timeout_ms)"
 						command_filter_mode="$(arg rokae_command_filter_mode)" command_filter_max_velocity="$(arg rokae_command_filter_max_velocity)"
 						command_filter_max_acceleration="$(arg rokae_command_filter_max_acceleration)" command_filter_max_jerk="$(arg rokae_command_filter_max_jerk)"
-						gripper_type="${left_rokae_gripper_type}" gripper_pad="${left_gripper_pad}" hand_type="${left_rokae_hand_type}"
+						gripper_type="${left_arm_gripper_type}" gripper_pad="${left_gripper_pad}" hand_type="${left_arm_hand_type}"
+						payload_end_effector_type="${left_gripper_type if left_gripper_type != '' else left_hand_type}"
 						load_mass="$(arg left_load_mass)" load_cog="$(arg left_load_cog)" load_inertia="$(arg left_load_inertia)"/>
 				</hardware>
-				<xacro:if value="${arm_driver == 'rokae' and left_drive_type == 'rokae_rs485'}"><xacro:side_arm_ee_block side="left" mode="real" hand_type="${left_rokae_hand_type}" gripper_type="${left_rokae_gripper_type}"/></xacro:if>
+				<xacro:if value="${arm_driver == 'rokae' and left_drive_type == 'rokae_rs485'}"><xacro:side_arm_ee_block side="left" mode="real" hand_type="${left_arm_hand_type}" gripper_type="${left_arm_gripper_type}"/></xacro:if>
 				<xacro:unless value="${arm_driver == 'rokae' and left_drive_type == 'rokae_rs485'}"><xacro:ar5_interfaces name="left"/></xacro:unless>
 			</ros2_control>
 			<ros2_control name="ar5_right_system" type="system">
@@ -82,10 +84,11 @@
 						state_timeout_ms="$(arg inex_state_timeout_ms)" command_hold_timeout_ms="$(arg inex_command_hold_timeout_ms)" command_fault_timeout_ms="$(arg inex_command_fault_timeout_ms)"
 						command_filter_mode="$(arg rokae_command_filter_mode)" command_filter_max_velocity="$(arg rokae_command_filter_max_velocity)"
 						command_filter_max_acceleration="$(arg rokae_command_filter_max_acceleration)" command_filter_max_jerk="$(arg rokae_command_filter_max_jerk)"
-						gripper_type="${right_rokae_gripper_type}" gripper_pad="${right_gripper_pad}" hand_type="${right_rokae_hand_type}"
+						gripper_type="${right_arm_gripper_type}" gripper_pad="${right_gripper_pad}" hand_type="${right_arm_hand_type}"
+						payload_end_effector_type="${right_gripper_type if right_gripper_type != '' else right_hand_type}"
 						load_mass="$(arg right_load_mass)" load_cog="$(arg right_load_cog)" load_inertia="$(arg right_load_inertia)"/>
 				</hardware>
-				<xacro:if value="${arm_driver == 'rokae' and right_drive_type == 'rokae_rs485'}"><xacro:side_arm_ee_block side="right" mode="real" hand_type="${right_rokae_hand_type}" gripper_type="${right_rokae_gripper_type}"/></xacro:if>
+				<xacro:if value="${arm_driver == 'rokae' and right_drive_type == 'rokae_rs485'}"><xacro:side_arm_ee_block side="right" mode="real" hand_type="${right_arm_hand_type}" gripper_type="${right_arm_gripper_type}"/></xacro:if>
 				<xacro:unless value="${arm_driver == 'rokae' and right_drive_type == 'rokae_rs485'}"><xacro:ar5_interfaces name="right"/></xacro:unless>
 			</ros2_control>
 		</xacro:if>
@@ -100,9 +103,10 @@
 						state_timeout_ms="$(arg inex_state_timeout_ms)" command_hold_timeout_ms="$(arg inex_command_hold_timeout_ms)" command_fault_timeout_ms="$(arg inex_command_fault_timeout_ms)"
 						command_filter_mode="$(arg rokae_command_filter_mode)" command_filter_max_velocity="$(arg rokae_command_filter_max_velocity)"
 						command_filter_max_acceleration="$(arg rokae_command_filter_max_acceleration)" command_filter_max_jerk="$(arg rokae_command_filter_max_jerk)"
-						gripper_type="${left_rokae_gripper_type if selected_arm_config == 'left' else right_rokae_gripper_type}"
+						gripper_type="${left_arm_gripper_type if selected_arm_config == 'left' else right_arm_gripper_type}"
 						gripper_pad="${left_gripper_pad if selected_arm_config == 'left' else right_gripper_pad}"
-						hand_type="${left_rokae_hand_type if selected_arm_config == 'left' else right_rokae_hand_type}"
+						hand_type="${left_arm_hand_type if selected_arm_config == 'left' else right_arm_hand_type}"
+						payload_end_effector_type="${(left_gripper_type if left_gripper_type != '' else left_hand_type) if selected_arm_config == 'left' else (right_gripper_type if right_gripper_type != '' else right_hand_type)}"
 						load_mass="${'$(arg left_load_mass)' if selected_arm_config == 'left' else '$(arg right_load_mass)'}"
 						load_cog="${'$(arg left_load_cog)' if selected_arm_config == 'left' else '$(arg right_load_cog)'}"
 						load_inertia="${'$(arg left_load_inertia)' if selected_arm_config == 'left' else '$(arg right_load_inertia)'}"/>

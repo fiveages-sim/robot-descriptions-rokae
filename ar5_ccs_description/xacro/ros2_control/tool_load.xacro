@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!--
+        Driver-independent tool-load policy.
+
+        Units:
+          mass: kg
+          center_of_mass: [x, y, z] in m
+          diagonal_inertia: [Ixx, Iyy, Izz] in kg*m^2
+
+        Only measured entries are emitted. A complete per-side override takes
+        precedence; an unknown end effector leaves the driver's current/default
+        payload untouched.
+    -->
+    <xacro:macro name="default_tool_load_params" params="side end_effector_type pad_type">
+        <xacro:if value="${end_effector_type == 'rg75' and pad_type != 'heavy_carry'}">
+            <param name="load_mass">1.62</param>
+            <param name="load_cog">[-0.0014285, 0.000579, 0.10439]</param>
+            <param name="load_inertia">[0.04874, 0.001, 0.001936]</param>
+        </xacro:if>
+        <xacro:if value="${side == 'right' and end_effector_type == 'ag2f90_d'}">
+            <param name="load_mass">0.859</param>
+            <param name="load_cog">[0.007246, 0.01, 0.081]</param>
+            <param name="load_inertia">[0.0242, 0.01596, 0.00745]</param>
+        </xacro:if>
+    </xacro:macro>
+
+    <xacro:macro name="tool_load_params" params="side end_effector_type pad_type mass center_of_mass diagonal_inertia">
+        <xacro:property name="has_override" value="${mass != '' and center_of_mass != '' and diagonal_inertia != ''}"/>
+        <xacro:if value="${has_override}">
+            <param name="load_mass">${mass}</param>
+            <param name="load_cog">${center_of_mass}</param>
+            <param name="load_inertia">${diagonal_inertia}</param>
+        </xacro:if>
+        <xacro:unless value="${has_override}">
+            <xacro:default_tool_load_params
+                side="${side}" end_effector_type="${end_effector_type}" pad_type="${pad_type}"/>
+        </xacro:unless>
+    </xacro:macro>
+
+</robot>
