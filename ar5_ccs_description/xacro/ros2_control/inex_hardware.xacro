@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:include filename="$(find ar5_ccs_description)/xacro/ros2_control/tool_load.xacro"/>
     <xacro:macro name="inex_side_hardware_block" params="
         side
         robot_mode
