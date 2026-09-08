@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:macro name="inex_side_hardware_block" params="
+        side
+        robot_mode
+        cpu_affinity
+        ctrl_mode
+        state_timeout_ms
+        command_hold_timeout_ms
+        command_fault_timeout_ms">
+        <plugin>inex_ros2_control/InexSystemHardware</plugin>
+        <param name="side">${side}</param>
+        <param name="robot_mode">${robot_mode}</param>
+        <param name="ctrl_mode">${ctrl_mode}</param>
+        <param name="joint_stiffness">100,100,100,100,50,50,50</param>
+        <param name="manage_robot_mode">true</param>
+        <param name="state_timeout_ms">${state_timeout_ms}</param>
+        <param name="command_hold_timeout_ms">${command_hold_timeout_ms}</param>
+        <param name="command_fault_timeout_ms">${command_fault_timeout_ms}</param>
+        <param name="rt_cpu_affinity">${cpu_affinity}</param>
+        <param name="rt_priority">80</param>
+        <param name="require_realtime">true</param>
+        <param name="lock_memory">true</param>
+    </xacro:macro>
+</robot>
