@@ -7,7 +7,13 @@
         ctrl_mode
         state_timeout_ms
         command_hold_timeout_ms
-        command_fault_timeout_ms">
+        command_fault_timeout_ms
+        gripper_type
+        gripper_pad
+        hand_type
+        load_mass
+        load_cog
+        load_inertia">
         <plugin>inex_ros2_control/InexSystemHardware</plugin>
         <param name="side">${side}</param>
         <param name="robot_mode">${robot_mode}</param>
@@ -21,5 +27,12 @@
         <param name="rt_priority">80</param>
         <param name="require_realtime">true</param>
         <param name="lock_memory">true</param>
+        <xacro:tool_load_params
+            side="${side}"
+            end_effector_type="${gripper_type if gripper_type != '' else hand_type}"
+            pad_type="${gripper_pad}"
+            mass="${load_mass}"
+            center_of_mass="${load_cog}"
+            diagonal_inertia="${load_inertia}"/>
     </xacro:macro>
 </robot>

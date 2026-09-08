@@ -1,86 +1,6 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-    <!--
-        Default Rokae tool load table by gripper/pad.
-        All values are intentionally zero placeholders. Fill the real values here
-        when the measured mass/CoG/inertia for each end effector is available.
-    -->
-    <xacro:macro name="rokae_tool_load_params" params="side gripper_type gripper_pad">
-        <!-- Left RG75, default pad: TODO fill measured load. -->
-        <xacro:if value="${side == 'left' and gripper_type == 'rg75' and gripper_pad != 'heavy_carry'}">
-            <param name="load_mass">1.62</param>
-            <param name="load_cog">[-0.0014285, 0.000579, 0.10439]</param>
-            <param name="load_inertia">[0.04874, 0.001, 0.001936]</param>
-        </xacro:if>
-        <!-- Left RG75, heavy_carry pad: TODO fill measured load. -->
-        <xacro:if value="${side == 'left' and gripper_type == 'rg75' and gripper_pad == 'heavy_carry'}">
-            <param name="load_mass">0.0</param>
-            <param name="load_cog">[0.0, 0.0, 0.0]</param>
-            <param name="load_inertia">[0.0, 0.0, 0.0]</param>
-        </xacro:if>
-        <!-- Left AG2F90-C, default pad: TODO fill measured load. -->
-        <xacro:if value="${side == 'left' and gripper_type == 'ag2f90_c' and gripper_pad != 'soft'}">
-            <param name="load_mass">0.0</param>
-            <param name="load_cog">[0.0, 0.0, 0.0]</param>
-            <param name="load_inertia">[0.0, 0.0, 0.0]</param>
-        </xacro:if>
-        <!-- Left AG2F90-C, soft pad: TODO fill measured load. -->
-        <xacro:if value="${side == 'left' and gripper_type == 'ag2f90_c' and gripper_pad == 'soft'}">
-            <param name="load_mass">0.0</param>
-            <param name="load_cog">[0.0, 0.0, 0.0]</param>
-            <param name="load_inertia">[0.0, 0.0, 0.0]</param>
-        </xacro:if>
-        <!-- Left AG2F90-D, pad is ignored by the model: TODO fill measured load. -->
-        <xacro:if value="${side == 'left' and gripper_type == 'ag2f90_d'}">
-            <param name="load_mass">0.0</param>
-            <param name="load_cog">[0.0, 0.0, 0.0]</param>
-            <param name="load_inertia">[0.0, 0.0, 0.0]</param>
-        </xacro:if>
-        <!-- Right RG75, default pad. -->
-        <xacro:if value="${side == 'right' and gripper_type == 'rg75' and gripper_pad != 'heavy_carry'}">
-            <param name="load_mass">1.62</param>
-            <param name="load_cog">[-0.0014285, 0.000579, 0.10439]</param>
-            <param name="load_inertia">[0.04874, 0.001, 0.001936]</param>
-        </xacro:if>
-        <!-- Right RG75, heavy_carry pad: TODO fill measured load. -->
-        <xacro:if value="${side == 'right' and gripper_type == 'rg75' and gripper_pad == 'heavy_carry'}">
-            <param name="load_mass">0.0</param>
-            <param name="load_cog">[0.0, 0.0, 0.0]</param>
-            <param name="load_inertia">[0.0, 0.0, 0.0]</param>
-        </xacro:if>
-        <!-- Right AG2F90-C, default pad: TODO fill measured load. -->
-        <xacro:if value="${side == 'right' and gripper_type == 'ag2f90_c' and gripper_pad != 'soft'}">
-            <param name="load_mass">0.0</param>
-            <param name="load_cog">[0.0, 0.0, 0.0]</param>
-            <param name="load_inertia">[0.0, 0.0, 0.0]</param>
-        </xacro:if>
-        <!-- Right AG2F90-C, soft pad: TODO fill measured load. -->
-        <xacro:if value="${side == 'right' and gripper_type == 'ag2f90_c' and gripper_pad == 'soft'}">
-            <param name="load_mass">0.0</param>
-            <param name="load_cog">[0.0, 0.0, 0.0]</param>
-            <param name="load_inertia">[0.0, 0.0, 0.0]</param>
-        </xacro:if>
-        <!-- Right AG2F90-D, pad is ignored by the model. -->
-        <xacro:if value="${side == 'right' and gripper_type == 'ag2f90_d'}">
-            <param name="load_mass">0.859</param>
-            <param name="load_cog">[0.007246, 0.01, 0.081]</param>
-            <param name="load_inertia">[0.0242, 0.01596, 0.00745]</param>
-        </xacro:if>
-    </xacro:macro>
-
-    <xacro:macro name="rokae_tool_load_params_with_override" params="side gripper_type gripper_pad load_mass load_cog load_inertia">
-        <xacro:property name="has_tool_load_override" value="${load_mass != '' and load_cog != '' and load_inertia != ''}"/>
-        <xacro:if value="${has_tool_load_override}">
-            <param name="load_mass">${load_mass}</param>
-            <param name="load_cog">${load_cog}</param>
-            <param name="load_inertia">${load_inertia}</param>
-        </xacro:if>
-        <xacro:unless value="${has_tool_load_override}">
-            <xacro:rokae_tool_load_params side="${side}" gripper_type="${gripper_type}" gripper_pad="${gripper_pad}"/>
-        </xacro:unless>
-    </xacro:macro>
-
     <xacro:macro name="rokae_side_hardware_block" params="
         side
         arm_ip
@@ -152,15 +72,13 @@
             <param name="${side}_tool_torque">1.0</param>
             <param name="${side}_tool_velocity">1.0</param>
         </xacro:if>
-        <xacro:if value="${gripper_type != '' or hand_type != ''}">
-            <xacro:rokae_tool_load_params_with_override
-                side="${side}"
-                gripper_type="${gripper_type if gripper_type != '' else hand_type}"
-                gripper_pad="${gripper_pad}"
-                load_mass="${load_mass}"
-                load_cog="${load_cog}"
-                load_inertia="${load_inertia}"/>
-        </xacro:if>
+        <xacro:tool_load_params
+            side="${side}"
+            end_effector_type="${gripper_type if gripper_type != '' else hand_type}"
+            pad_type="${gripper_pad}"
+            mass="${load_mass}"
+            center_of_mass="${load_cog}"
+            diagonal_inertia="${load_inertia}"/>
     </xacro:macro>
 
 </robot>

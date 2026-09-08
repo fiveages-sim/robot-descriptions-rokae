@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:include filename="$(find ar5_ccs_description)/xacro/ros2_control/tool_load.xacro"/>
     <xacro:include filename="$(find ar5_ccs_description)/xacro/ros2_control/rokae_hardware.xacro"/>
     <xacro:include filename="$(find ar5_ccs_description)/xacro/ros2_control/inex_hardware.xacro"/>
 
@@ -15,7 +16,10 @@
                 cpu_affinity="${cpu_affinity}" ctrl_mode="${ctrl_mode}"
                 state_timeout_ms="${state_timeout_ms}"
                 command_hold_timeout_ms="${command_hold_timeout_ms}"
-                command_fault_timeout_ms="${command_fault_timeout_ms}"/>
+                command_fault_timeout_ms="${command_fault_timeout_ms}"
+                gripper_type="${gripper_type}" gripper_pad="${gripper_pad}"
+                hand_type="${hand_type}" load_mass="${load_mass}"
+                load_cog="${load_cog}" load_inertia="${load_inertia}"/>
         </xacro:if>
         <xacro:if value="${driver == 'rokae'}">
             <xacro:rokae_side_hardware_block
