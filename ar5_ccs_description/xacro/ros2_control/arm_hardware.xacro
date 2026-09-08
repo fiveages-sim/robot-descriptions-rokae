@@ -8,7 +8,8 @@
         state_timeout_ms command_hold_timeout_ms command_fault_timeout_ms
         command_filter_mode command_filter_max_velocity
         command_filter_max_acceleration command_filter_max_jerk
-        gripper_type gripper_pad hand_type load_mass load_cog load_inertia">
+        gripper_type gripper_pad hand_type payload_end_effector_type
+        load_mass load_cog load_inertia">
         <xacro:if value="${driver == 'inex'}">
             <xacro:inex_side_hardware_block
                 side="${side}" robot_mode="${robot_mode}"
@@ -16,8 +17,9 @@
                 state_timeout_ms="${state_timeout_ms}"
                 command_hold_timeout_ms="${command_hold_timeout_ms}"
                 command_fault_timeout_ms="${command_fault_timeout_ms}"
-                gripper_type="${gripper_type}" gripper_pad="${gripper_pad}"
-                hand_type="${hand_type}" load_mass="${load_mass}"
+                gripper_pad="${gripper_pad}"
+                payload_end_effector_type="${payload_end_effector_type}"
+                load_mass="${load_mass}"
                 load_cog="${load_cog}" load_inertia="${load_inertia}"/>
         </xacro:if>
         <xacro:if value="${driver == 'rokae'}">
@@ -29,7 +31,8 @@
                 command_filter_max_acceleration="${command_filter_max_acceleration}"
                 command_filter_max_jerk="${command_filter_max_jerk}"
                 gripper_type="${gripper_type}" gripper_pad="${gripper_pad}"
-                hand_type="${hand_type}" load_mass="${load_mass}"
+                hand_type="${hand_type}" payload_end_effector_type="${payload_end_effector_type}"
+                load_mass="${load_mass}"
                 load_cog="${load_cog}" load_inertia="${load_inertia}"/>
         </xacro:if>
     </xacro:macro>

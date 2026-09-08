@@ -15,6 +15,7 @@
         gripper_type
         gripper_pad
         hand_type
+        payload_end_effector_type
         load_mass
         load_cog
         load_inertia">
@@ -75,7 +76,7 @@
         </xacro:if>
         <xacro:tool_load_params
             side="${side}"
-            end_effector_type="${gripper_type if gripper_type != '' else hand_type}"
+            end_effector_type="${payload_end_effector_type}"
             pad_type="${gripper_pad}"
             mass="${load_mass}"
             center_of_mass="${load_cog}"
