@@ -1,6 +1,6 @@
 # Rokae Robots
 
-珞石（Rokae）机械臂描述包：单臂 AR5-SRS、双臂 AR5-CCS（含 CCS V2）。末端由 `ar5_ccs_description` 解析，亦可被其它机型（如 `fiveages_w2r`）复用。
+珞石（Rokae）机械臂描述包：单臂 AR5-SRS、双臂 AR5-CCS（含 CCS V2）。末端由 `ar5_ccs_description` 解析，亦可被其它机型（如 `fiveages_w2r_description`、`rokae_inex_description`）复用。
 
 | | |
 |:---:|:---:|
@@ -64,3 +64,5 @@ Rokae/
 ├── ar5_srs_description/
 └── ar5_ccs_description/
 ```
+
+整机 INEX 见 ROS 包 `rokae_inex_description`。
