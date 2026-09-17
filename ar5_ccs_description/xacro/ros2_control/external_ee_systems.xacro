@@ -85,9 +85,9 @@
                 <param name="rs485_channel">${rs485_channel}</param>
                 <!-- slave_id intentionally omitted: right=0x27, left=0x28. -->
                 <param name="transaction_interval_ms">10</param>
-                <param name="position_period_ms">33</param>
-                <param name="position_feedback_period_ms">33</param>
-                <param name="position_feedback_timeout_ms">40</param>
+                <param name="position_period_ms">20</param>
+                <param name="position_feedback_period_ms">20</param>
+                <param name="position_feedback_timeout_ms">100</param>
                 <param name="command_deadband_raw">0</param>
                 <param name="max_consecutive_failures">5</param>
                 <param name="read_feedback">true</param>
