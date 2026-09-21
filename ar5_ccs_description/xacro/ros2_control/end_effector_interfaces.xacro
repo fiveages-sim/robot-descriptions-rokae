@@ -7,6 +7,7 @@
     <xacro:include filename="$(find changingtek_description)/xacro/ros2_control/AG2F120S.xacro"/>
     <xacro:include filename="$(find linkerhand_description)/xacro/ros2_control/o6.xacro"/>
     <xacro:include filename="$(find linkerhand_description)/xacro/ros2_control/o7.xacro"/>
+    <xacro:include filename="$(find xhand1_description)/xacro/ros2_control/side_systems.xacro"/>
 
     <xacro:macro name="side_gripper_joint" params="side">
         <joint name="${side}_gripper_joint">
@@ -44,6 +45,9 @@
         </xacro:if>
         <xacro:if value="${hand_type == 'linkerhand_o7'}">
             <xacro:linkerhand_o7_interfaces name="${side}_hand"/>
+        </xacro:if>
+        <xacro:if value="${hand_type == 'xhand1'}">
+            <xacro:xhand1_interfaces name="${side}_hand"/>
         </xacro:if>
     </xacro:macro>
 

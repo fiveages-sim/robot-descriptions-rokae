@@ -66,11 +66,13 @@ ros2 launch robot_common_launch manipulator.launch.py robot:=ar5_ccs \
 | `ag2f120s` | ChangingTek AG2F120S | ✅ | — | — |
 | `ag2f120s_d` | ChangingTek AG2F120S-D | ✅ | — | — |
 | `linkerhand_o6` / `l6` / `o7` | LinkerHand | ✅ | ✅ | ✅ |
+| `xhand1` | XHand1 | — | ✅ | — |
 
 要点：
 
 - **夹爪** — 当前主要使用 `rokae_rs485`；其他链路保留统一分发接口并逐步适配。
 - **LinkerHand** — 可选 `rokae_rs485`、`inex_can`、`usb_rs485` 或 `usb_can`。外接驱动启用时 Rokae 侧 `hand_type` 置空，避免双驱动。
+- **XHand1** — 与 LinkerHand L6 共用 ChangingTek AG2F90-C 法兰；仿真可展开，真机走 `usb` / `usb_rs485`。
 - **`type:=left` / `right`** — 只选单臂拓扑，不是末端键。
 
 仿真 / mock 下上表类型均可展开 URDF；真机统一使用 `hardware:=real`。
