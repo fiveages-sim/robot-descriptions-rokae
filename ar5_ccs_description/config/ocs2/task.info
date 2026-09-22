@@ -1,273 +1,256 @@
-; robot model meta-information
-model_information {
-  manipulatorModelType     0      // 0: Default-arm, 1: Wheel-based manipulator, 2: Floating-arm manipulator, 3: Fully actuated floating-arm manipulator
+; Rokae AR5 双臂分体配置：EEF 精定位
+; 参数基准：W2R / WCE3 的 fixed_base.info，仅提取双臂适用项。
+; 状态和输入均为 14 维：[left_joint1~7 | right_joint1~7]。
+; 规划模型由启动入口提供，保留各机型的安装几何。
 
-  ; motion joints in the URDF to consider fixed
-  removeJoints {
-    [0]  "left_gripper_joint"
-    [1]  "right_gripper_joint"
-  }
+model_information
+{
+    manipulatorModelType    0
+    baseFrame               "arm_base"
+    eeFrame                 "left_eef"
+    eeFrame1                "right_eef"
 
-  ; base frame of the robot (from URDF)
-  baseFrame                       "arm_base"
-  ; end-effector frame of the robot (from URDF)
-  eeFrame                         "left_eef"
-  eeFrame1                        "right_eef"
+    ; 夹爪由独立控制器管理；规划 xacro 使用 eef_fixed_joints=true。
+    removeJoints
+    {
+        [0] "left_gripper_joint"
+        [1] "right_gripper_joint"
+    }
 }
 
 model_settings
 {
-  usePreComputation               true
-  recompileLibraries              true
+    ; usePreComputation: true = 提前缓存 Pinocchio 中间量
+    usePreComputation       true
+
+    ; recompileLibraries: true = 每次启动重新生成 CppAD 动态库
+    recompileLibraries      true
 }
 
-; DDP settings
 ddp
 {
-  algorithm                       SLQ
+    algorithm                       SLQ
 
-  nThreads                        3
-  threadPriority                  50
+    nThreads                        3
+    threadPriority                  50
 
-  maxNumIterations                1
-  minRelCost                      0.1
-  constraintTolerance             1e-3
+    maxNumIterations                1
+    minRelCost                      0.1
+    constraintTolerance             1e-3
 
-  displayInfo                     false
-  displayShortSummary             false
-  checkNumericalStability         false
-  debugPrintRollout               false
-  debugCaching                    false
+    displayInfo                     false
+    displayShortSummary             false
+    checkNumericalStability         false
+    debugPrintRollout               false
+    debugCaching                    false
 
-  AbsTolODE                       1e-5
-  RelTolODE                       1e-3
-  maxNumStepsPerSecond            100000
-  timeStep                        1e-3
-  backwardPassIntegratorType      ODE45
+    AbsTolODE                       1e-5
+    RelTolODE                       1e-3
+    maxNumStepsPerSecond            100000
+    timeStep                        1e-3
+    backwardPassIntegratorType      ODE45
 
-  constraintPenaltyInitialValue   20.0
-  constraintPenaltyIncreaseRate   2.0
+    constraintPenaltyInitialValue   20.0
+    constraintPenaltyIncreaseRate   2.0
 
-  preComputeRiccatiTerms          true
+    preComputeRiccatiTerms          true
 
-  useFeedbackPolicy               false
+    useFeedbackPolicy               false
 
-  strategy                        LINE_SEARCH
-  lineSearch
-  {
-    minStepLength                 1e-2
-    maxStepLength                 1.0
-    hessianCorrectionStrategy     DIAGONAL_SHIFT
-    hessianCorrectionMultiple     1e-3
-  }
+    strategy                        LINE_SEARCH
+    lineSearch
+    {
+        minStepLength                   1e-2
+        maxStepLength                   1.0
+        hessianCorrectionStrategy       DIAGONAL_SHIFT
+        hessianCorrectionMultiple       1e-3
+    }
 }
 
-; Rollout settings
-rollout
-{
-  AbsTolODE                       1e-5
-  RelTolODE                       1e-3
-  timeStep                        1e-2
-  integratorType                  ODE45
-  maxNumStepsPerSecond            100000
-  checkNumericalStability         false
-}
-
-; MPC settings
 mpc
 {
-  timeHorizon                     1.0   ; [s]
-  solutionTimeWindow              0.2   ; [s]
-  coldStart                       false
+    timeHorizon                     1.0     ; [s] 保留精定位配置的预测时域
+    solutionTimeWindow              0.2     ; [s]
+    coldStart                       false
 
-  debugPrint                      false
+    debugPrint                      false
 
-  mpcDesiredFrequency             100   ; [Hz]
-  mrtDesiredFrequency             400   ; [Hz]
+    ; 独立 MPC/MRT 节点的期望频率；控制器实际频率由 ROS 参数
+    ; mpc_frequency / update_rate 决定，不能仅依据本节判断实际运行频率。
+    mpcDesiredFrequency             100     ; [Hz]
+    mrtDesiredFrequency             500     ; [Hz]
 }
 
-; initial state
+rollout
+{
+    AbsTolODE                       1e-5
+    RelTolODE                       1e-3
+    timeStep                        1e-2
+    integratorType                  ODE45
+    maxNumStepsPerSecond            100000
+    checkNumericalStability         false
+}
+
+; 模型初始化值；在线控制使用实际关节观测，离线运动验证使用本机 HOME。
 initialState
 {
-  ; initial state for the arm DOFs
-  arm
-  {
-    (0,0)   0.0      ; left_joint1
-    (1,0)   0.0      ; left_joint2
-    (2,0)   0.0      ; left_joint3
-    (3,0)   0.0      ; left_joint4
-    (4,0)   0.0      ; left_joint5
-    (5,0)   0.0      ; left_joint6
-    (6,0)   0.0      ; left_joint7
-    (7,0)   0.0      ; right_joint1
-    (8,0)   0.0      ; right_joint2
-    (9,0)   0.0      ; right_joint3
-    (10,0)  0.0      ; right_joint4
-    (11,0)  0.0      ; right_joint5
-    (12,0)  0.0      ; right_joint6
-    (13,0)  0.0      ; right_joint7
-  }
-}
-
-inputCost
-{
-  ; control weight matrix
-  R
-  {
-    ; input costs for the arm DOFs
     arm
     {
-      scaling 1e-3
-        (0,0)   3.0     ; left_joint1
-        (1,0)   3.0     ; left_joint2
-        (2,0)   3.0     ; left_joint3
-        (3,0)   3.0     ; left_joint4
-        (4,0)   1.0     ; left_joint5
-        (5,0)   1.0     ; left_joint6
-        (6,0)   5.0     ; left_joint7
-        (7,0)   3.0     ; right_joint1
-        (8,0)   3.0     ; right_joint2
-        (9,0)   3.0     ; right_joint3
-        (10,0)  3.0     ; right_joint4
-        (11,0)  1.0     ; right_joint5
-        (12,0)  1.0     ; right_joint6
-        (13,0)  5.0     ; right_joint7
+        (0,0)    0.0     ; left_joint1
+        (1,0)    0.0     ; left_joint2
+        (2,0)    0.0     ; left_joint3
+        (3,0)    0.0     ; left_joint4
+        (4,0)    0.0     ; left_joint5
+        (5,0)    0.0     ; left_joint6
+        (6,0)    0.0     ; left_joint7
+        (7,0)    0.0     ; right_joint1
+        (8,0)    0.0     ; right_joint2
+        (9,0)    0.0     ; right_joint3
+        (10,0)   0.0     ; right_joint4
+        (11,0)   0.0     ; right_joint5
+        (12,0)   0.0     ; right_joint6
+        (13,0)   0.0     ; right_joint7
     }
-  }
 }
 
+; R 为 14x14 正对角矩阵，实际速度偏差权重 = scaling * 对角值。
+; 关节速度上下限另见 jointVelocityLimits。
+inputCost
+{
+    R
+    {
+        arm
+        {
+            scaling 5e-2
+
+            (0,0)    0.5     ; left_joint1
+            (1,1)    0.5     ; left_joint2
+            (2,2)    0.5     ; left_joint3
+            (3,3)    0.5     ; left_joint4
+            (4,4)    0.1     ; left_joint5
+            (5,5)    0.1     ; left_joint6
+            (6,6)    0.1     ; left_joint7
+            (7,7)    0.5     ; right_joint1
+            (8,8)    0.5     ; right_joint2
+            (9,9)    0.5     ; right_joint3
+            (10,10)  0.5     ; right_joint4
+            (11,11)  0.1     ; right_joint5
+            (12,12)  0.1     ; right_joint6
+            (13,13)  0.1     ; right_joint7
+        }
+    }
+}
+
+; 分体控制器使用左右臂各自的末端权重；dualArmMode 表示双臂模型。
 endEffector
 {
-  ; end effector quadratic penalty scaling
-  dualArmMode      true
-  leftArm
+    dualArmMode true
+    leftArm
     {
-      muPosition      10.0
-      muOrientation    5.0
+        muPosition      100.0
+        muOrientation   50.0
     }
-
-    ; 右臂特定配置
-  rightArm
+    rightArm
     {
-      muPosition      10.0
-      muOrientation    5.0
+        muPosition      100.0
+        muOrientation   50.0
     }
 }
 
 finalEndEffector
 {
-  dualArmMode      true
-  leftArm
+    dualArmMode true
+    leftArm
     {
-      muPosition      10.0
-      muOrientation   5.0
+        muPosition      200.0
+        muOrientation   100.0
     }
-
-    ; 右臂特定配置
-  rightArm
+    rightArm
     {
-      muPosition      10.0
-      muOrientation   5.0
+        muPosition      200.0
+        muOrientation   100.0
     }
 }
 
-selfCollision
-{ 
-  ; activate self-collision constraint
-  activate  true
-
-  collisionObjectPairs
-  {
-  }
-
-  collisionLinkPairs
-  {
-    [0] "arm_base, left_link3",
-    [1] "arm_base, left_link4",
-    [2] "arm_base, left_link5",
-    [3] "arm_base, right_link3",
-    [4] "arm_base, right_link4",
-    [5] "arm_base, right_link5",
-  }
-
-  ; minimum distance allowed between the pairs
-  ; 最小允许距离，单位：米
-  ; 参考 unitree G1: 0.01m，可以根据实际需求调整
-  minimumDistance  0.025
-
-  ; relaxed log barrier mu
-  ; 松弛对数障碍参数 mu
-  ; 参考 unitree G1: 1e-3
-  mu      1e-3
-
-  ; relaxed log barrier delta
-  ; 松弛对数障碍参数 delta
-  ; 参考 unitree G1: 1e-4
-  delta   1e-2
-}
-
-; Only applied for arm joints: limits parsed from URDF
+; 关节位置限位从规划 URDF 读取，以 relaxed barrier 软惩罚实现。
 jointPositionLimits
 {
-  ; activate constraint
-  activate  true
-
-  ; relaxed log barrier mu
-  mu      1e-3
-
-  ; relaxed log barrier delta
-  delta   1e-3
+    activate                        true
+    mu                              1e-3
+    delta                           1e-3
 }
 
+; 速度上下限为 14 维列向量 (i,0)，以软惩罚实现，并非硬裁剪。
 jointVelocityLimits
 {
-  ; relaxed log barrier mu
-  mu      0.01
+    mu      1e-2
+    delta   1e-3
 
-  ; relaxed log barrier delta
-  delta   1e-3
-
-  lowerBound
-  {
-    ; velocity limits for the arm DOFs
-    arm
+    lowerBound
     {
-        (0,0)  -1.07        ; left_joint1 [rad/s]
-        (1,0)  -1.07        ; left_joint2 [rad/s]
-        (2,0)  -1.07        ; left_joint3 [rad/s]
-        (3,0)  -1.07        ; left_joint4 [rad/s]
-        (4,0)  -1.07        ; left_joint5 [rad/s]
-        (5,0)  -1.07        ; left_joint6 [rad/s]
-        (6,0)  -1.07        ; left_joint7 [rad/s]
-        (7,0)  -1.07        ; right_joint1 [rad/s]
-        (8,0)  -1.07        ; right_joint2 [rad/s]
-        (9,0)  -1.07        ; right_joint3 [rad/s]
-        (10,0) -1.07        ; right_joint4 [rad/s]
-        (11,0) -1.07        ; right_joint5 [rad/s]
-        (12,0) -1.07        ; right_joint6 [rad/s]
-        (13,0) -1.07        ; right_joint7 [rad/s]
-}
-}
-
-  upperBound
-  {
-    ; velocity limits for the arm DOFs
-    arm
-    {
-        (0,0)  1.07         ; left_joint1 [rad/s]
-        (1,0)  1.07         ; left_joint2 [rad/s]
-        (2,0)  1.07         ; left_joint3 [rad/s]
-        (3,0)  1.07         ; left_joint4 [rad/s]
-        (4,0)  1.07         ; left_joint5 [rad/s]
-        (5,0)  1.07         ; left_joint6 [rad/s]
-        (6,0)  1.07         ; left_joint7 [rad/s]
-        (7,0)  1.07         ; right_joint1 [rad/s]
-        (8,0)  1.07         ; right_joint2 [rad/s]
-        (9,0)  1.07         ; right_joint3 [rad/s]
-        (10,0) 1.07         ; right_joint4 [rad/s]
-        (11,0) 1.07         ; right_joint5 [rad/s]
-        (12,0) 1.07         ; right_joint6 [rad/s]
-        (13,0) 1.07         ; right_joint7 [rad/s]
+        arm
+        {
+            (0,0)    -1.07   ; left_joint1
+            (1,0)    -1.07   ; left_joint2
+            (2,0)    -1.07   ; left_joint3
+            (3,0)    -1.07   ; left_joint4
+            (4,0)    -1.07   ; left_joint5
+            (5,0)    -1.07   ; left_joint6
+            (6,0)    -1.07   ; left_joint7
+            (7,0)    -1.07   ; right_joint1
+            (8,0)    -1.07   ; right_joint2
+            (9,0)    -1.07   ; right_joint3
+            (10,0)   -1.07   ; right_joint4
+            (11,0)   -1.07   ; right_joint5
+            (12,0)   -1.07   ; right_joint6
+            (13,0)   -1.07   ; right_joint7
+        }
     }
-  }
+
+    upperBound
+    {
+        arm
+        {
+            (0,0)    1.07    ; left_joint1
+            (1,0)    1.07    ; left_joint2
+            (2,0)    1.07    ; left_joint3
+            (3,0)    1.07    ; left_joint4
+            (4,0)    1.07    ; left_joint5
+            (5,0)    1.07    ; left_joint6
+            (6,0)    1.07    ; left_joint7
+            (7,0)    1.07    ; right_joint1
+            (8,0)    1.07    ; right_joint2
+            (9,0)    1.07    ; right_joint3
+            (10,0)   1.07    ; right_joint4
+            (11,0)   1.07    ; right_joint5
+            (12,0)   1.07    ; right_joint6
+            (13,0)   1.07    ; right_joint7
+        }
+    }
+}
+
+; 分体模型以 arm_base 表示躯干碰撞几何，只检查下面列出的碰撞对。
+selfCollision
+{
+    activate                        true
+
+    mu                              1e-3
+    delta                           1e-2
+    minimumDistance                 0.01
+
+    collisionObjectPairs
+    {
+    }
+
+    collisionLinkPairs
+    {
+        [0] "arm_base, left_link3",
+        [1] "arm_base, left_link4",
+        [2] "arm_base, left_link5",
+        [3] "arm_base, left_link7",
+        [4] "arm_base, right_link3",
+        [5] "arm_base, right_link4",
+        [6] "arm_base, right_link5",
+        [7] "arm_base, right_link7",
+    }
 }

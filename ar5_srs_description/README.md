@@ -2,6 +2,8 @@
 
 珞石 AR5 SRS 机械臂 URDF / ros2_control 描述包。模型在 **`xacro/`**。CCS 代际由 [`ar5_ccs_description`](../ar5_ccs_description/README.md) 的 `arms` 槽选择。
 
+`config/ocs2/single.info` 以 W2R `fixed_base.info` 的单臂参数为基准，仅保留 7 个关节：预测时域 1.0 s，R scaling 为 0.05，对角值为 `[0.5, 0.5, 0.5, 0.5, 0.1, 0.1, 0.1]`，末端过程/终端权重分别为位置/姿态 `100/50`、`200/100`，软限速 ±1.07 rad/s。保留 `base_link` / `link7` 坐标系和原有的自碰撞关闭状态，不引入 CCS 腕部耦合或全身约束。
+
 ```bash
 cd ~/ros2_ws && colcon build --packages-up-to ar5_srs_description --symlink-install
 source install/setup.bash
