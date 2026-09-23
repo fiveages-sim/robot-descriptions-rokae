@@ -1,9 +1,13 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+	<!-- Shared with parent robot.xacro; enabled by OCS2 planning URDF generation. -->
+	<xacro:arg name="eef_fixed_joints" default="false"/>
 	<xacro:property name="PI" value="3.1415926535897931"/>
 
 	<xacro:macro name="Arm" params="name direction:=1 collider:=convex">
 		<xacro:property name="prefix" value="${name + '_' if name else ''}"/>
+		<!-- Planning keeps positive elbow flexion; visualization / ros2_control retain hardware limits. -->
+		<xacro:property name="joint4_lower" value="${0 if '$(arg eef_fixed_joints)' == 'true' else -1.39}"/>
 
 		<!-- Arm Base Link -->
 		<link name="${prefix}base_link">
@@ -158,7 +162,7 @@
 		<joint name="${prefix}joint4" type="revolute">
 			<parent link="${prefix}link3"/>
 			<child link="${prefix}link4"/>
-			<limit effort="66" lower="-1.39" upper="2.50" velocity="5.235987755982989"/>
+			<limit effort="66" lower="${joint4_lower}" upper="2.50" velocity="5.235987755982989"/>
 			<axis xyz="0 1 0"/>
 			<origin xyz="0.01 0.0 0.0"/>
 		</joint>

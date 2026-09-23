@@ -52,6 +52,8 @@ ros2 launch robot_common_launch manipulator_ocs2.launch.py robot_name:=<robot>
 ros2 launch ocs2_arm_controller demo.launch.py robot:=<robot>
 ```
 
+OCS2 规划模型通过 `eef_fixed_joints:=true` 将 AR5-CCS、CCS V2 和 SRS 的第 4 关节下限收紧到 `0 rad`，上限保持不变（分别为 `2.5307`、`2.5132`、`2.50 rad`）。左右臂及复用这些手臂的整机均适用；普通可视化与 ros2_control 模型默认保留原始限位。
+
 默认硬件为 `mock_components`；CCS 真机使用 `hardware:=real` 并通过 `arm_hardware_driver:=rokae|inex` 选择驱动。SRS 仅支持仿真。
 
 要让控制器跟踪虚拟 TCP，还需在 `control.patch` 里设置 `ocs2_arm_controller.ros__parameters.left_ee_frame: left_tcp_offset`（及 `right_ee_frame`）；只定义几何不会自动改 tip。

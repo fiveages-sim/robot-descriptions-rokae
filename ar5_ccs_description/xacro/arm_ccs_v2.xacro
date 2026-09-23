@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="ccs_arm">
+	<!-- Shared with parent robot.xacro; enabled by OCS2 planning URDF generation. -->
+	<xacro:arg name="eef_fixed_joints" default="false"/>
 
 	<xacro:macro name="AR5_CCS_V2" params="name direction:=1 collider:=convex skin:='default'">
 		<xacro:property name="prefix" value="${name + '_' if name else ''}"/>
+		<!-- Planning keeps positive elbow flexion; visualization / ros2_control retain hardware limits. -->
+		<xacro:property name="joint4_lower" value="${0 if '$(arg eef_fixed_joints)' == 'true' else -1.0297}"/>
 		<!-- Visual skins live under ar5_ccs_description/meshes/ccs_v2/[fiveages]/ -->
 		<xacro:property name="visual_subdir" value="ccs_v2/"/>
 		<xacro:if value="${skin == 'fiveages'}">
@@ -157,7 +161,7 @@
 		<joint name="${prefix}joint4" type="revolute">
 			<parent link="${prefix}link3"/>
 			<child link="${prefix}link4"/>
-			<limit effort="66" lower="-1.0297" upper="2.5132" velocity="5.235987755982989"/>
+			<limit effort="66" lower="${joint4_lower}" upper="2.5132" velocity="5.235987755982989"/>
 			<axis xyz="0 1 0"/>
 			<origin xyz="0.0105 0.0 0.0"/>
 		</joint>
