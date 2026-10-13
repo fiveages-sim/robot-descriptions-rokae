@@ -6,7 +6,7 @@
   Supported keys:
     grippers: rg75, rg75_heavy, leapmotor, erg32/ERG32, ag2f90/ag2f90_d, ag2f90_c/AG2F90-C, ag2f90_c_soft, ag2f120s, ag2f120s_d
     hands: linkerhand_o6, linkerhand_l6, linkerhand_o7, freedom_v1, freedom_v2,
-           inspire_e2, inspire_f2, xhand1, theohand_std16a
+           inspire_e2, inspire_f2, xhand1, theohand_std16a, wuji_hand2
 -->
 
     <!-- Map a type key (rg75, linkerhand_o7, ...) to per-side hand/gripper/pad properties. -->
@@ -54,7 +54,7 @@
         <xacro:if value="${type_key == 'linkerhand_o7'}">
             <xacro:property name="${side}_hand_type" value="linkerhand_o7" scope="parent"/>
         </xacro:if>
-        <xacro:if value="${type_key in ('freedom_v1', 'freedom_v2', 'inspire_e2', 'inspire_f2', 'xhand1', 'theohand_std16a')}">
+        <xacro:if value="${type_key in ('freedom_v1', 'freedom_v2', 'inspire_e2', 'inspire_f2', 'xhand1', 'theohand_std16a', 'wuji_hand2')}">
             <xacro:property name="${side}_hand_type" value="${type_key}" scope="parent"/>
         </xacro:if>
     </xacro:macro>

@@ -21,6 +21,7 @@
     <exec_depend>inspire_description</exec_depend>
     <exec_depend>xhand1_description</exec_depend>
     <exec_depend>theohand_description</exec_depend>
+    <exec_depend>wuji_description</exec_depend>
     <exec_depend>robotiq_description</exec_depend>
     <exec_depend>rokae_ros2_control</exec_depend>
     <exec_depend>inex_ros2_control</exec_depend>

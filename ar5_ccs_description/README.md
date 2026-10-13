@@ -64,6 +64,7 @@ ros2 launch robot_common_launch manipulator.launch.py robot:=ar5_ccs \
 | `inex_rs485` | `hardware:=real arm_hardware_driver:=inex` | iNexus RS-485 | 预留，尚未实现 |
 | `usb_rs485` | `hardware:=real` | 外接 USB-RS485 | 使用 `modbus_ros2_control` |
 | `usb_can` | `hardware:=real` | 外接 USB-CAN | 使用 `can_ros2_control` |
+| `ethernet` | `left_ee_drive_type:=ethernet` 等 | 外接以太网（整机扫描，不写 IP） | `wuji_ros2_control`；仅 `wuji_hand2` |
 
 夹爪**仅** Rokae 总线，没有外接 USB 夹爪路径。
 
@@ -71,23 +72,25 @@ ros2 launch robot_common_launch manipulator.launch.py robot:=ar5_ccs \
 
 `type` / `left_type` / `right_type` 与 `xacro/eef_type_resolver.xacro` 一致。列名对应 §2.1（`rokae 485` = 默认空键 / `hardware:=real`，臂体 RS485）。
 
-| Type key | 产品 | `rokae 485` | `usb` | `usb_can` |
-|----------|------|:-------:|:-----:|:---------:|
-| `rg75` | Jodell RG75 | ✅ | — | — |
-| `rg75_heavy` | Jodell RG75 + heavy pad | ✅ | — | — |
-| `erg32` | Jodell ERG32（旋转 + 夹爪，2-DOF） | ✅ | — | — |
-| `ag2f90`, `ag2f90_d` | ChangingTek AG2F90-D（`pad:=default`，与 m6_ccs 一致） | ✅ | — | — |
-| `ag2f90_c`, `ag2f90_c_soft` | ChangingTek AG2F90-C | ✅ | — | — |
-| `ag2f120s` | ChangingTek AG2F120S | ✅ | — | — |
-| `ag2f120s_d` | ChangingTek AG2F120S-D | ✅ | — | — |
-| `linkerhand_o6` / `l6` / `o7` | LinkerHand | ✅ | ✅ | ✅ |
-| `xhand1` | XHand1 | — | ✅ | — |
+| Type key | 产品 | `rokae 485` | `usb` | `usb_can` | `ethernet` |
+|----------|------|:-------:|:-----:|:---------:|:---------:|
+| `rg75` | Jodell RG75 | ✅ | — | — | — |
+| `rg75_heavy` | Jodell RG75 + heavy pad | ✅ | — | — | — |
+| `erg32` | Jodell ERG32（旋转 + 夹爪，2-DOF） | ✅ | — | — | — |
+| `ag2f90`, `ag2f90_d` | ChangingTek AG2F90-D（`pad:=default`，与 m6_ccs 一致） | ✅ | — | — | — |
+| `ag2f90_c`, `ag2f90_c_soft` | ChangingTek AG2F90-C | ✅ | — | — | — |
+| `ag2f120s` | ChangingTek AG2F120S | ✅ | — | — | — |
+| `ag2f120s_d` | ChangingTek AG2F120S-D | ✅ | — | — | — |
+| `linkerhand_o6` / `l6` / `o7` | LinkerHand | ✅ | ✅ | ✅ | — |
+| `xhand1` | XHand1 | — | ✅ | — | — |
+| `wuji_hand2` | Wuji Hand2（舞肌） | — | — | — | ✅ |
 
 要点：
 
 - **夹爪** — 当前主要使用 `rokae_rs485`；其他链路保留统一分发接口并逐步适配。
 - **LinkerHand** — 可选 `rokae_rs485`、`inex_can`、`usb_rs485` 或 `usb_can`。外接驱动启用时 Rokae 侧 `hand_type` 置空，避免双驱动。
 - **XHand1** — 与 LinkerHand L6 共用 ChangingTek AG2F90-C 法兰；仿真可展开，真机走 `usb` / `usb_rs485`。
+- **`wuji_hand2`** — 官方 mount 直接固定在 TCP 上（`R_x(π)`，手指 +Z 与 TCP +Z 重合）。仅 **`ethernet`**：手包 `side_systems` 按 `hand_side` 扫描，不要在 `robot.local.yaml` 写地址。臂仍 `hardware:=real`，手不走 RS485/USB/CAN。`left_ee_rw_rate` / `right_ee_rw_rate` 可覆盖手侧 `rw_rate`（未写默认 **200**）。仿真直接 `type:=wuji_hand2`。
 - **`type:=left` / `right`** — 只选单臂拓扑，不是末端键。
 
 仿真 / mock 下上表类型均可展开 URDF；真机统一使用 `hardware:=real`。
@@ -101,6 +104,8 @@ ros2 launch robot_common_launch manipulator.launch.py robot:=ar5_ccs \
 ```bash
 ros2 launch robot_common_launch manipulator.launch.py robot:=ar5_ccs \
   arms:=ar5_ccs_v2 type:=rg75 collider:=simple
+ros2 launch robot_common_launch manipulator.launch.py robot:=ar5_ccs \
+  arms:=ar5_ccs_v2 type:=wuji_hand2 collider:=simple
 ```
 
 包默认 `arms:=ar5_ccs`（v1），避免 `robot:=ar5_ccs` 无参时静默改代。W2R 整机默认 `arms:=ar5_ccs_v2`。
@@ -161,6 +166,7 @@ source install/setup.bash
 ros2 launch ocs2_arm_controller demo.launch.py robot:=ar5_ccs hardware:=real arm_hardware_driver:=inex
 ros2 launch ocs2_arm_controller demo.launch.py robot:=ar5_ccs hardware:=real arm_hardware_driver:=rokae arms:=ar5_ccs_v2 type:=rg75 left_ee_drive_type:=rokae_rs485 right_ee_drive_type:=rokae_rs485
 ros2 launch ocs2_arm_controller demo.launch.py robot:=ar5_ccs hardware:=real arm_hardware_driver:=inex type:=linkerhand_o7 left_ee_drive_type:=inex_can right_ee_drive_type:=inex_can
+ros2 launch ocs2_arm_controller demo.launch.py robot:=ar5_ccs hardware:=real arms:=ar5_ccs_v2 type:=wuji_hand2 left_ee_drive_type:=ethernet right_ee_drive_type:=ethernet
 ```
 
 ## 5. ros2_control 共享宏
