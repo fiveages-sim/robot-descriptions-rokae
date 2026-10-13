@@ -2,6 +2,10 @@
 <robot name="AR5_CCS" xmlns:xacro="http://www.ros.org/wiki/xacro">
 	<xacro:arg name="collider" default="convex"/>
 	<xacro:arg name="skin" default="default"/>
+	<xacro:arg name="variant" default=""/>
+	<!-- auto is used by W2R profiles; standalone AR5 retains its default skin. -->
+	<xacro:property name="skin_arg" value="$(arg skin)"/>
+	<xacro:property name="arm_skin" value="${('default' if '$(arg variant)' == 'white' else 'fiveages') if skin_arg in ('', 'auto') else skin_arg}"/>
 	<xacro:arg name="arms" default="ar5_ccs"/>
 	<xacro:arg name="type" default="dual"/>
 	<xacro:arg name="left_type" default=""/>
@@ -63,7 +67,7 @@
 			<xacro:AR5_CCS name="${name}" direction="${direction}" collider="${collider}"/>
 		</xacro:if>
 		<xacro:if value="${'$(arg arms)' == 'ar5_ccs_v2'}">
-			<xacro:AR5_CCS_V2 name="${name}" direction="${direction}" collider="${collider}" skin="$(arg skin)"/>
+			<xacro:AR5_CCS_V2 name="${name}" direction="${direction}" collider="${collider}" skin="${arm_skin}"/>
 		</xacro:if>
 	</xacro:macro>
 
