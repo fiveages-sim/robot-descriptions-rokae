@@ -52,7 +52,7 @@ ocs2_arm_controller:
     movej_duration: 3.0
     movej_interpolation_type: doubles
 
-    hold_position_threshold: 0.01
+    hold_position_threshold: 0.1
     hold_first_check_position_threshold: 0.1
 
     # Control parameters
