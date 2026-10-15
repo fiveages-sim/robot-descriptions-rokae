@@ -22,7 +22,7 @@
         <plugin>rokae_ros2_control/RokaeHardware</plugin>
         <param name="arm_ip">${arm_ip}</param>
         <param name="ctrl_mode">${ctrl_mode}</param>
-        <param name="joint_impedance">200,200,200,200,20,20,20</param>
+        <param name="joint_impedance">200,200,200,200,100,100,100</param>
         <param name="local_ip">${local_ip}</param>
         <param name="cpu_affinity">${cpu_affinity}</param>
         <param name="command_filter_mode">${command_filter_mode}</param>
