@@ -37,8 +37,8 @@
                 <param name="command_deadband_raw">0</param>
                 <param name="max_consecutive_failures">5</param>
                 <param name="read_feedback">true</param>
-                <param name="${side}_tool_velocity">1.0</param>
-                <param name="${side}_tool_torque">1.0</param>
+                <param name="tool_velocity">1.0</param>
+                <param name="tool_torque">1.0</param>
             </hardware>
             <xacro:side_gripper_joint side="${side}"/>
         </ros2_control>
@@ -63,8 +63,8 @@
                 <param name="tx_interval_ms">5</param>
                 <param name="position_feedback_period_ms">20</param>
                 <param name="position_feedback_timeout_ms">40</param>
-                <param name="${side}_tool_torque">1.0</param>
-                <param name="${side}_tool_velocity">1.0</param>
+                <param name="tool_torque">1.0</param>
+                <param name="tool_velocity">1.0</param>
             </hardware>
             <xacro:side_hand_interfaces side="${side}" hand_type="${hand_type}"/>
         </ros2_control>
@@ -92,8 +92,8 @@
                 <param name="command_deadband_raw">0</param>
                 <param name="max_consecutive_failures">5</param>
                 <param name="read_feedback">true</param>
-                <param name="${side}_tool_torque">1.0</param>
-                <param name="${side}_tool_velocity">1.0</param>
+                <param name="tool_torque">1.0</param>
+                <param name="tool_velocity">1.0</param>
             </hardware>
             <xacro:side_hand_interfaces side="${side}" hand_type="${hand_type}"/>
         </ros2_control>
