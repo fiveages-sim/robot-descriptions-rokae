@@ -2,7 +2,7 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="AR5">
 	<xacro:arg name="ros2_control_hardware_type" default="mock_components"/>
 	<!-- AR5-SRS deliberately accepts simulation backends only. -->
-	<xacro:property name="validated_hardware_type" value="${1 if '$(arg ros2_control_hardware_type)' in ('mock_components', 'gz', 'isaac') else 0}"/>
+	<xacro:property name="validated_hardware_type" value="${1 if '$(arg ros2_control_hardware_type)' in ('mock_components', 'gz', 'isaac', 'isaac_sim') else 0}"/>
 	<xacro:property name="validation_guard" value="${(1,)[0 if validated_hardware_type == 1 else 1]}"/>
 	<xacro:if value="${validation_guard > 0}"/>
 
@@ -15,6 +15,7 @@
 	</joint>
 
 	<xacro:include filename="$(find ar5_srs_description)/xacro/robot.xacro"/>
+	<xacro:include filename="$(find robot_common_launch)/xacro/ros2_control/simulation_hardware.xacro"/>
 	<xacro:include filename="$(find ar5_srs_description)/xacro/ros2_control/interfaces.xacro"/>
 
 	<!-- 使用 robot.xacro 中已定义的 property 来判断 -->
@@ -142,22 +143,10 @@
 		</xacro:unless>
 	</xacro:if>
 
-	<xacro:if value="${'$(arg ros2_control_hardware_type)' in ('mock_components', 'gz', 'isaac')}">
+	<xacro:if value="${'$(arg ros2_control_hardware_type)' in ('mock_components', 'gz', 'isaac', 'isaac_sim')}">
 		<ros2_control name="ar5System" type="system">
 			<hardware>
-				<xacro:if value="${'$(arg ros2_control_hardware_type)' == 'gz'}">
-					<plugin>gz_ros2_control/GazeboSimSystem</plugin>
-				</xacro:if>
-				<xacro:if value="${'$(arg ros2_control_hardware_type)' == 'mock_components'}">
-					<plugin>mock_components/GenericSystem</plugin>
-				</xacro:if>
-				<xacro:if value="${'$(arg ros2_control_hardware_type)' == 'isaac'}">
-					<plugin>topic_based_ros2_control/TopicBasedSystem</plugin>
-					<param name="joint_commands_topic">/isaac/joint_command</param>
-					<param name="joint_states_topic">/isaac/joint_states</param>
-					<param name="sum_wrapped_joint_states">false</param>
-					<param name="initialize_commands_from_state">true</param>
-				</xacro:if>
+				<xacro:simulation_hardware_plugin hardware_type="$(arg ros2_control_hardware_type)"/>
 			</hardware>
 
 			<xacro:if value="${selected_arm_config == 'dual'}">
