@@ -83,9 +83,12 @@ ros2 launch robot_common_launch manipulator.launch.py robot:=ar5_ccs \
 | `ag2f120s_d` | ChangingTek AG2F120S-D | ✅ | — | — | — |
 | `linkerhand_o6` / `l6` / `o7` | LinkerHand | ✅ | ✅ | ✅ | — |
 | `xhand1` | XHand1 | — | ✅ | — | — |
+| `dh_3_7` | DH-Robotics DH-3-7 | — | ✅ | — | — |
 | `wuji_hand2` | Wuji Hand2（舞肌） | — | — | — | ✅ |
 
 要点：
+
+- **`dh_3_7`** — USB-RS485（`usb` / `usb_rs485`）；左右手各 7 轴，默认从站号均为 1。
 
 - **夹爪** — 当前主要使用 `rokae_rs485`；其他链路保留统一分发接口并逐步适配。
 - **LinkerHand** — 可选 `rokae_rs485`、`inex_can`、`usb_rs485` 或 `usb_can`。外接驱动启用时 Rokae 侧 `hand_type` 置空，避免双驱动。

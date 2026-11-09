@@ -6,6 +6,7 @@
     <xacro:include filename="$(find freedom_description)/xacro/ros2_control/side_systems.xacro"/>
     <xacro:include filename="$(find inspire_description)/xacro/ros2_control/side_systems.xacro"/>
     <xacro:include filename="$(find theohand_description)/xacro/ros2_control/side_systems.xacro"/>
+    <xacro:include filename="$(find dh_description)/xacro/ros2_control/side_systems.xacro"/>
     <xacro:include filename="$(find xhand1_description)/xacro/ros2_control/side_systems.xacro"/>
     <xacro:include filename="$(find wuji_description)/xacro/ros2_control/side_systems.xacro"/>
 
@@ -136,6 +137,12 @@
         left_ee_rw_rate:=''
         right_ee_rw_rate:=''
         usb_baudrate:=115200">
+        <xacro:if value="${left_hand_type == 'dh_3_7'}">
+            <xacro:dh_3_7_rs485_side_system side="left" serial_port="${usb_left_port}" baudrate="${usb_baudrate}" slave_id="${left_ee_modbus_slave_id}" rw_rate="${left_ee_rw_rate}" drive_type="${left_drive_type}"/>
+        </xacro:if>
+        <xacro:if value="${right_hand_type == 'dh_3_7'}">
+            <xacro:dh_3_7_rs485_side_system side="right" serial_port="${usb_right_port}" baudrate="${usb_baudrate}" slave_id="${right_ee_modbus_slave_id}" rw_rate="${right_ee_rw_rate}" drive_type="${right_drive_type}"/>
+        </xacro:if>
         <xacro:if value="${arm_driver == 'inex' and left_drive_type == 'inex_rs485' and left_gripper_type == 'ag2f90_d'}">
             <xacro:ag2f90d_inex_rs485_side_system side="left" rs485_channel="${left_ee_rs485_channel}" slave_id="${left_ee_modbus_slave_id}"/>
         </xacro:if>
