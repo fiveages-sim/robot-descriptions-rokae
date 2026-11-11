@@ -88,7 +88,7 @@ ros2 launch robot_common_launch manipulator.launch.py robot:=ar5_ccs \
 
 要点：
 
-- **`dh_3_7`** — USB-RS485（`usb` / `usb_rs485`）；左右手各 7 轴，默认从站号均为 1。
+- **`dh_3_7`** — 使用 `type:=dh_3_7`，或分别设置 `left_type` / `right_type`。真机末端仅支持 `usb` / `usb_rs485`；左右手各 7 轴，默认从站号均为 1。串口和从站号配置见 [DH-3-7 配置说明](../../../common/gripper/dh_description/README.md#5-robot-integration)。
 
 - **夹爪** — 当前主要使用 `rokae_rs485`；其他链路保留统一分发接口并逐步适配。
 - **LinkerHand** — 可选 `rokae_rs485`、`inex_can`、`usb_rs485` 或 `usb_can`。外接驱动启用时 Rokae 侧 `hand_type` 置空，避免双驱动。
