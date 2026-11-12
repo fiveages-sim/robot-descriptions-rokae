@@ -20,6 +20,7 @@ hand_controller:
 
 ocs2_arm_controller:
   ros__parameters:
+    mpc_frequency: 100
     # Joint configuration
     info_file_name: single
     update_rate: 500  # Hz
