@@ -14,6 +14,7 @@ controller_manager:
 
 hand_controller:
   ros__parameters:
+    update_rate: 50  # Hz
     joint: gripper_joint
     use_effort_interface: false
 
