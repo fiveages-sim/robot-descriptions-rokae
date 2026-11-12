@@ -46,6 +46,7 @@
 						<param name="gripper_close_pos">9000</param>
 						<param name="gripper_max_opening_distance">1.0</param>
 						<param name="gripper_configure_xpanel">false</param>
+						<param name="gripper_read_interval_ms">50</param>
 						<param name="tool_torque">1.0</param>
 						<param name="tool_velocity">1.0</param>
 					</xacro:if>
@@ -80,6 +81,7 @@
 						<param name="gripper_close_pos">9000</param>
 						<param name="gripper_max_opening_distance">1.0</param>
 						<param name="gripper_configure_xpanel">false</param>
+						<param name="gripper_read_interval_ms">50</param>
 						<param name="tool_torque">1.0</param>
 						<param name="tool_velocity">1.0</param>
 					</xacro:if>
@@ -125,6 +127,7 @@
 						<param name="gripper_close_pos">9000</param>
 						<param name="gripper_max_opening_distance">1.0</param>
 						<param name="gripper_configure_xpanel">false</param>
+						<param name="gripper_read_interval_ms">50</param>
 						<param name="tool_torque">1.0</param>
 						<param name="tool_velocity">1.0</param>
 					</xacro:if>

@@ -1,7 +1,7 @@
 # This config file is used by ros2_control
 controller_manager:
   ros__parameters:
-    update_rate: 100  # Hz
+    update_rate: 500  # Hz
 
     joint_state_broadcaster:
       type: joint_state_broadcaster/JointStateBroadcaster
@@ -21,7 +21,7 @@ ocs2_arm_controller:
   ros__parameters:
     # Joint configuration
     info_file_name: single
-    update_rate: 100  # Hz
+    update_rate: 500  # Hz
     joints:
       - joint1
       - joint2
