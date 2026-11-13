@@ -161,7 +161,7 @@
 		<joint name="${prefix}joint4" type="revolute">
 			<parent link="${prefix}link3"/>
 			<child link="${prefix}link4"/>
-			<limit effort="66" lower="${joint4_lower}" upper="2.5132" velocity="5.235987755982989"/>
+			<limit effort="66" lower="${joint4_lower}" upper="2.4434" velocity="5.235987755982989"/>
 			<axis xyz="0 1 0"/>
 			<origin xyz="0.0105 0.0 0.0"/>
 		</joint>
