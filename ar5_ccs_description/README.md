@@ -2,7 +2,7 @@
 
 珞石 AR5 CCS 双臂 URDF / ros2_control 描述包（同一包覆盖 CCS 与 CCS V2）。模型在 **`xacro/`**。OCS2 规划 URDF 由 `xacro/robot.xacro` 生成。`xacro/eefs.xacro` 亦被 `fiveages_w2r_description` 复用。
 
-AR5 CCS 分体 OCS2 配置集中在本包 `config/ocs2`，W2R 与 WCE3 共用 `task.info`（EEF 精定位）和 `task_tcp.info`（TCP 跟踪）。参数分别取自 W2R / WCE3 的 `fixed_base.info` 和 `fixed_base_tcp.info`，状态与输入仅包含 `[左臂7 | 右臂7]` 共 14 个关节。保留输入代价、双臂末端跟踪、关节位置/速度限位及自碰撞项，不引入全身模式约束。
+AR5 CCS 分体 OCS2 配置集中在本包 `config/ocs2`，W2R 与 WCE3 共用 `task.info`（EEF 精定位）和 `task_tcp.info`（TCP 跟踪）。参数分别取自 W2R / WCE3 的 `fixed_base.info` 和 `fixed_base_tcp.info`，状态与输入仅包含 `[左臂7 | 右臂7]` 共 14 个关节。保留输入代价、双臂末端跟踪、关节位置/速度限位、自碰撞及 `homeJointReference`（默认开启，软拉向 controller `home_1`），不引入全身模式约束。
 
 | 参数 | `task.info` | `task_tcp.info` |
 |------|-------------|-----------------|
@@ -15,7 +15,15 @@ AR5 CCS 分体 OCS2 配置集中在本包 `config/ocs2`，W2R 与 WCE3 共用 `t
 
 WCE3 在构建时把这两份任务配置共享到其安装目录，控制器的 `robot_name` 保持 `fiveages_wce3`；规划 URDF 仍由 `fiveages_wce3_description/xacro/robot.xacro` 的 `topology:=dual` 生成，保留 ±0.068 m 的安装位置和 WCE3 躯干碰撞几何。整机包源码仅维护全身任务配置，无需修改控制器或 launch。
 
-`single.info` 提取 W2R `fixed_base.info` 的单臂 7 维参数，采用上表精定位档的权重、时域和 ±1.07 rad/s 软限速，保留 `base_link` / `link7` 坐标系。自碰撞保持原配置的关闭状态，不引入双臂耦合或全身约束。
+`single.info` 提取 W2R `fixed_base.info` 的单臂 7 维参数，采用上表精定位档的权重、时域和 ±1.07 rad/s 软限速，保留 `base_link` / `link7` 坐标系。自碰撞保持原配置的关闭状态；同样启用 `homeJointReference`。不引入双臂耦合或全身约束。
+
+HOLD 可预置参考，进 OCS2 后生效：
+
+```bash
+ros2 param set /ocs2_arm_controller home_joint_reference_id 1   # 1-based；1 → home_1
+# 或直接设向量：
+# ros2 param set /ocs2_arm_controller home_joint_reference "[...]"
+```
 
 ```bash
 cd ~/ros2_ws && colcon build --packages-up-to ar5_ccs_description --symlink-install

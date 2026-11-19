@@ -24,7 +24,7 @@ model_settings
     usePreComputation       true
 
     ; recompileLibraries: true = 每次启动重新生成 CppAD 动态库
-    recompileLibraries      true
+    recompileLibraries      false
 }
 
 ddp
@@ -121,22 +121,22 @@ inputCost
     {
         arm
         {
-            scaling 5e-2
+            scaling 1e-3
 
-            (0,0)    0.5     ; left_joint1
-            (1,1)    0.5     ; left_joint2
-            (2,2)    0.5     ; left_joint3
-            (3,3)    0.5     ; left_joint4
-            (4,4)    0.1     ; left_joint5
-            (5,5)    0.1     ; left_joint6
-            (6,6)    0.1     ; left_joint7
-            (7,7)    0.5     ; right_joint1
-            (8,8)    0.5     ; right_joint2
-            (9,9)    0.5     ; right_joint3
-            (10,10)  0.5     ; right_joint4
-            (11,11)  0.1     ; right_joint5
-            (12,12)  0.1     ; right_joint6
-            (13,13)  0.1     ; right_joint7
+            (0,0)    0.85     ; left_joint1
+            (1,1)    0.85     ; left_joint2
+            (2,2)    0.85     ; left_joint3
+            (3,3)    0.85     ; left_joint4
+            (4,4)    1.0     ; left_joint5
+            (5,5)    1.0     ; left_joint6
+            (6,6)    1.0     ; left_joint7
+            (7,7)    0.85     ; right_joint1
+            (8,8)    0.85     ; right_joint2
+            (9,9)    0.85     ; right_joint3
+            (10,10)  0.85     ; right_joint4
+            (11,11)  1.0     ; right_joint5
+            (12,12)  1.0     ; right_joint6
+            (13,13)  1.0     ; right_joint7
         }
     }
 }
@@ -147,13 +147,13 @@ endEffector
     dualArmMode true
     leftArm
     {
-        muPosition      100.0
-        muOrientation   50.0
+        muPosition      10.0
+        muOrientation   5.0
     }
     rightArm
     {
-        muPosition      100.0
-        muOrientation   50.0
+        muPosition      10.0
+        muOrientation   5.0
     }
 }
 
@@ -162,13 +162,13 @@ finalEndEffector
     dualArmMode true
     leftArm
     {
-        muPosition      200.0
-        muOrientation   100.0
+        muPosition      20.0
+        muOrientation   5.0
     }
     rightArm
     {
-        muPosition      200.0
-        muOrientation   100.0
+        muPosition      20.0
+        muOrientation   5.0
     }
 }
 
@@ -252,5 +252,18 @@ selfCollision
         [5] "arm_base, right_link4",
         [6] "arm_base, right_link5",
         [7] "arm_base, right_link7",
+    }
+}
+
+; HOME 关节参考：软拉向 controller HOME（home_1，或 home_joint_reference / home_joint_reference_id）。
+; 双臂全部纳入；excludeJointIndices 为 arm 状态索引。
+; fiveages_s2r / WCE3 等分体 ocs2_arm_controller 也加载本文件（robot_name:=ar5_ccs）。
+homeJointReference
+{
+    activate                        true
+    activateDefault                 true
+    mu                              1e-3
+    excludeJointIndices
+    {
     }
 }
