@@ -25,6 +25,17 @@
         </ros2_control>
     </xacro:macro>
 
+    <xacro:macro name="rg75_inex_rs485_side_system" params="side rs485_channel">
+        <ros2_control name="rg75_${side}_inex_rs485_system" type="system" rw_rate="15">
+            <hardware>
+                <plugin>inex_ros2_control/Rg75Hardware</plugin>
+                <param name="hand_side">${side}</param>
+                <param name="rs485_channel">${rs485_channel}</param>
+            </hardware>
+            <xacro:side_gripper_joint side="${side}"/>
+        </ros2_control>
+    </xacro:macro>
+
     <xacro:macro name="ag2f90d_inex_rs485_side_system" params="side rs485_channel slave_id">
         <ros2_control name="ag2f90_d_${side}_inex_rs485_system" type="system" rw_rate="30">
             <hardware>
@@ -143,8 +154,14 @@
         <xacro:if value="${right_hand_type == 'dh_3_7'}">
             <xacro:dh_3_7_rs485_side_system side="right" serial_port="${usb_right_port}" baudrate="${usb_baudrate}" slave_id="${right_ee_modbus_slave_id}" rw_rate="${right_ee_rw_rate}" drive_type="${right_drive_type}"/>
         </xacro:if>
+        <xacro:if value="${arm_driver == 'inex' and left_drive_type == 'inex_rs485' and left_gripper_type == 'rg75'}">
+            <xacro:rg75_inex_rs485_side_system side="left" rs485_channel="${left_ee_rs485_channel}"/>
+        </xacro:if>
         <xacro:if value="${arm_driver == 'inex' and left_drive_type == 'inex_rs485' and left_gripper_type == 'ag2f90_d'}">
             <xacro:ag2f90d_inex_rs485_side_system side="left" rs485_channel="${left_ee_rs485_channel}" slave_id="${left_ee_modbus_slave_id}"/>
+        </xacro:if>
+        <xacro:if value="${arm_driver == 'inex' and right_drive_type == 'inex_rs485' and right_gripper_type == 'rg75'}">
+            <xacro:rg75_inex_rs485_side_system side="right" rs485_channel="${right_ee_rs485_channel}"/>
         </xacro:if>
         <xacro:if value="${arm_driver == 'inex' and right_drive_type == 'inex_rs485' and right_gripper_type == 'ag2f90_d'}">
             <xacro:ag2f90d_inex_rs485_side_system side="right" rs485_channel="${right_ee_rs485_channel}" slave_id="${right_ee_modbus_slave_id}"/>
