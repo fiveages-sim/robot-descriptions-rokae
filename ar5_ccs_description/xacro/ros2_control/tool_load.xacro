@@ -17,13 +17,13 @@
          Replace the zero defaults with measured values for the installed tool. -->
     <xacro:property name="ar5_tool_load_by_side" value="${dict(
         left=dict(
-            rg75=(0.0, [0.0, 0.0, 0.0], [0.0, 0.0, 0.0]),
-            ag2f90_d=(0.0, [0.0, 0.0, 0.0], [0.0, 0.0, 0.0]),
-            xhand1=(0.0, [0.0, 0.0, 0.0], [0.0, 0.0, 0.0])),
+            rg75=(1.3264, [0.01668, 0.04516, 0.10405], [0.0, 0.0, 0.0]),
+            ag2f90_d=(0.9588, [0.00029, -0.00421, 0.06097], [0.0, 0.0, 0.0]),
+            xhand1=(1.42, [-0.01165, 0.01739, 0.09705], [0.0, 0.0, 0.0])),
         right=dict(
-            rg75=(0.0, [0.0, 0.0, 0.0], [0.0, 0.0, 0.0]),
-            ag2f90_d=(0.0, [0.0, 0.0, 0.0], [0.0, 0.0, 0.0]),
-            xhand1=(0.0, [0.0, 0.0, 0.0], [0.0, 0.0, 0.0])))}"/>
+            rg75=(1.3966, [-0.00959, 0.00926, 0.12979], [0.0, 0.0, 0.0]),
+            ag2f90_d=(0.9254, [0.00834, 0.00697, 0.06453], [0.0, 0.0, 0.0]),
+            xhand1=(1.17, [-0.01512, 0.01723, 0.13912], [0.0, 0.0, 0.0])))}"/>
 
     <xacro:macro name="default_tool_load_params" params="side end_effector_type">
         <xacro:property name="side_loads" value="${ar5_tool_load_by_side.get(side, dict())}"/>
