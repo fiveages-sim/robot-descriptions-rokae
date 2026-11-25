@@ -9,9 +9,9 @@
           center_of_mass: [x, y, z] in m
           diagonal_inertia: [Ixx, Iyy, Izz] in kg*m^2
 
-        Only measured entries are emitted. A complete per-side override takes
-        precedence; an unknown end effector leaves the driver's current/default
-        payload untouched.
+        A complete per-side override takes precedence over measured entries.
+        Drivers can opt into an explicit zero load for an empty flange with
+        no override. An unprofiled tool leaves the current/default load intact.
     -->
     <xacro:macro name="default_tool_load_params" params="side end_effector_type pad_type">
         <xacro:if value="${end_effector_type == 'rg75' and pad_type != 'heavy_carry'}">
@@ -26,14 +26,20 @@
         </xacro:if>
     </xacro:macro>
 
-    <xacro:macro name="tool_load_params" params="side end_effector_type pad_type mass center_of_mass diagonal_inertia">
+    <xacro:macro name="tool_load_params" params="side end_effector_type pad_type mass center_of_mass diagonal_inertia zero_empty_flange:=false">
         <xacro:property name="has_override" value="${mass != '' and center_of_mass != '' and diagonal_inertia != ''}"/>
+        <xacro:property name="use_zero_load" value="${zero_empty_flange and end_effector_type in ('', 'none') and mass == '' and center_of_mass == '' and diagonal_inertia == ''}"/>
         <xacro:if value="${has_override}">
             <param name="load_mass">${mass}</param>
             <param name="load_cog">${center_of_mass}</param>
             <param name="load_inertia">${diagonal_inertia}</param>
         </xacro:if>
-        <xacro:unless value="${has_override}">
+        <xacro:if value="${use_zero_load}">
+            <param name="load_mass">0.0</param>
+            <param name="load_cog">[0.0, 0.0, 0.0]</param>
+            <param name="load_inertia">[0.0, 0.0, 0.0]</param>
+        </xacro:if>
+        <xacro:unless value="${has_override or use_zero_load}">
             <xacro:default_tool_load_params
                 side="${side}" end_effector_type="${end_effector_type}" pad_type="${pad_type}"/>
         </xacro:unless>

@@ -33,6 +33,7 @@
             pad_type="${gripper_pad}"
             mass="${load_mass}"
             center_of_mass="${load_cog}"
-            diagonal_inertia="${load_inertia}"/>
+            diagonal_inertia="${load_inertia}"
+            zero_empty_flange="${True}"/>
     </xacro:macro>
 </robot>
